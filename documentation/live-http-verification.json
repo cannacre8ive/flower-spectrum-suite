@@ -1,0 +1,145 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "bytes": 2271,
+    "metadata": {
+      "og:type": true,
+      "og:site_name": true,
+      "og:title": true,
+      "og:description": true,
+      "og:url": true,
+      "og:image:secure_url": true,
+      "og:image:type": true,
+      "og:image:width": true,
+      "og:image:height": true,
+      "og:image:alt": true,
+      "twitter:card": true,
+      "twitter:image:alt": true,
+      "rel=\"canonical\"": true
+    },
+    "noindex": false
+  },
+  {
+    "path": "/social.html",
+    "status": 200,
+    "bytes": 19116
+  },
+  {
+    "path": "/favicon.svg",
+    "status": 200,
+    "bytes": 245
+  },
+  {
+    "path": "/robots.txt",
+    "status": 200,
+    "bytes": 85
+  },
+  {
+    "path": "/sitemap.xml",
+    "status": 200,
+    "bytes": 170
+  },
+  {
+    "path": "/assets/overview-desktop.png",
+    "status": 200,
+    "bytes": 283041,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/flower-spectrum-portfolio-kit.zip",
+    "status": 200,
+    "bytes": 3113530,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/flower-spectrum-case-study.pdf",
+    "status": 200,
+    "bytes": 552652,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/fs-highlight-jb.png",
+    "status": 200,
+    "bytes": 134196,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/fs-spotlight-earthy_dank.png",
+    "status": 200,
+    "bytes": 116150,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/fs-drop-jb.png",
+    "status": 200,
+    "bytes": 173664,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/menu-mobile.png",
+    "status": 200,
+    "bytes": 51923,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/social-preview.png",
+    "status": 200,
+    "bytes": 143534,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/menu-desktop.png",
+    "status": 200,
+    "bytes": 188168,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/education-desktop.png",
+    "status": 200,
+    "bytes": 132214,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/social-desktop.png",
+    "status": 200,
+    "bytes": 133440,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/fs-voice.png",
+    "status": 200,
+    "bytes": 133646,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/portfolio-cover.png",
+    "status": 200,
+    "bytes": 188881,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/fs-fingerprint-jb.png",
+    "status": 200,
+    "bytes": 128780,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/overview-mobile.png",
+    "status": 200,
+    "bytes": 232810,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/fs-compare-jb-sdr.png",
+    "status": 200,
+    "bytes": 158167,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/education-primer.pdf",
+    "status": 200,
+    "bytes": 30673,
+    "matchesLocal": true
+  }
+]

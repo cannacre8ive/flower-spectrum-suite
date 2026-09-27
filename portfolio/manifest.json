@@ -1,0 +1,97 @@
+[
+  {
+    "file": "overview-desktop.png",
+    "bytes": 283041,
+    "sha256": "506720c0574b72c37e3fa19ba9c772160cf79ae3f058b91cb1678f5e7e10edd3"
+  },
+  {
+    "file": "flower-spectrum-case-study.pdf",
+    "bytes": 548283,
+    "sha256": "c0ebc178867f23b03d964cf4f58d205ab90a798332f9072d761ac03b09d40bdb"
+  },
+  {
+    "file": "fs-highlight-jb.png",
+    "bytes": 134196,
+    "sha256": "2da90384b6bf2456ca6f6d3f5c0e2ef5560b5c21b84cb68e6ee95e326c9a8a89"
+  },
+  {
+    "file": "fs-spotlight-earthy_dank.png",
+    "bytes": 116150,
+    "sha256": "34c4ed73949d7199e672c7c142414a257b2da2642547b3956a33e8126c65b886"
+  },
+  {
+    "file": "fs-drop-jb.png",
+    "bytes": 173664,
+    "sha256": "a96bae2423c5f71cb0861ee8782ab1a3d0fe0617b70a906aa054f8d334d94300"
+  },
+  {
+    "file": "menu-mobile.png",
+    "bytes": 51927,
+    "sha256": "bc918478ff51700517bb702272cc4e4c7ba5807fcd5d5a804759ed6b1ef71568"
+  },
+  {
+    "file": "social-preview.png",
+    "bytes": 143534,
+    "sha256": "f5fbc037cbb88fbdebd15d177ffba5f1fca9a8cfd452376b8aa91f2660844183"
+  },
+  {
+    "file": "menu-desktop.png",
+    "bytes": 188242,
+    "sha256": "5f2f4375eb7264fc12f44d9b7f241314e2cbe0851f50b43b0bd5de2b41f80f55"
+  },
+  {
+    "file": "education-desktop.png",
+    "bytes": 132214,
+    "sha256": "3e850ca825714d4862546d8459f6f475c536490b9a570227c63a1703bc77fff4"
+  },
+  {
+    "file": "social-desktop.png",
+    "bytes": 130397,
+    "sha256": "7da6e0dc5a7ad90fc1d4d99020444ca45d2885de6cc1bc002c06632b91e35b7e"
+  },
+  {
+    "file": "fs-voice.png",
+    "bytes": 133646,
+    "sha256": "48f271c739fb7d42313c2c217cfb45f03b6acd7e57204dd5fd78e51c72559c7a"
+  },
+  {
+    "file": "portfolio-cover.png",
+    "bytes": 188881,
+    "sha256": "9893c4553e2b6b1119c47e5c7cc45751ed20186f042eec743a4d7cf036903868"
+  },
+  {
+    "file": "fs-fingerprint-jb.png",
+    "bytes": 128780,
+    "sha256": "f2eba956af947f6c8ebfa7e325326705be9749184be90576b1b18bbbb7d99187"
+  },
+  {
+    "file": "overview-mobile.png",
+    "bytes": 232810,
+    "sha256": "28ab3ff1eac12b08ab8b23752b7fc1fd10406336515449f1368e555e2128782f"
+  },
+  {
+    "file": "fs-compare-jb-sdr.png",
+    "bytes": 158167,
+    "sha256": "b8d56f394a12dde34918bbc97d6a63dd18b9ee2c1b5a6a7345fc1ccbc39e6302"
+  },
+  {
+    "file": "education-primer.pdf",
+    "bytes": 30673,
+    "sha256": "4a239beee0cb5e24d3a045267fc972604f64c7bfaa1b5cad1864abc907e3a539"
+  },
+  {
+    "file": "case-study.html",
+    "bytes": 684257,
+    "sha256": "5311417a07583eb56a7c3656ae461676bd6f6b39e9d8ca82eb2e22b615ede4db"
+  },
+  {
+    "file": "SHARE-COPY.md",
+    "bytes": 1134,
+    "sha256": "e99e1cf545b8ecaf56a1aa67297ddc5bfc212c9a76ea4280688ac1225b36cde0"
+  },
+  {
+    "file": "ASSET-GUIDE.md",
+    "bytes": 1314,
+    "sha256": "834ac245dbe08230c2ca9751793c010ad20d5b9ab83d0b2aabbe2167d36fb41f"
+  }
+]

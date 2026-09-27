@@ -1,0 +1,10 @@
+.git/
+node_modules/
+.env*
+.playwright-cli/
+output/
+documentation/
+portfolio/
+source/
+tests/
+scripts/

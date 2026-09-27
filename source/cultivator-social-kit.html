@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Flower Spectrum · Cultivator Social Kit — v1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   FLOWER SPECTRUM · CULTIVATOR SOCIAL KIT · v1.0 · 07_02_2026
+   Built on the canonical Flower Spectrum product design system.
+   Tokens trace to Brand Guidelines v1.0. Classification is engine-derived
+   from validated Ideal Cannabis COAs (ChemHistory). Aroma-led — no effect claims.
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#0e0e0c; --surface:#181715; --surface-2:#1f1d1a; --border:#2a2824;
+  --fg:#e8e3d9; --fg-dim:#a8a092; --muted:#6e675b;
+  --accent:#6AAFA0; --amber:#C9A84C;
+  --paper:#f4eee3; --paper-ink:#1a1816; --paper-sub:#6b6358; --paper-rule:#d6cdbb;
+  /* ten canonical aroma hues */
+  --gas:#C9A84C; --earth:#6B8E5A; --citrus:#D4A843; --fruit:#B75F4A;
+  --floral:#B98BBE; --dessert:#D6B58A; --spicy:#9E6B4A; --pine:#4F7A5B;
+  --herb:#7FA688; --tropic:#D28B49;
+  --display:"Newsreader",Georgia,serif;
+  --body:"DM Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px);background-size:76px 76px;opacity:.5;}
+a{color:inherit;text-decoration:none;}
+::selection{background:var(--accent);color:var(--bg);}
+
+/* ── page shell ── */
+header.top,main{max-width:1240px;margin:0 auto;position:relative;z-index:1;}
+header.top{padding:40px 26px 0;}
+.kick{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+.kick span{color:var(--muted);}
+h1.mark{font-family:var(--display);font-weight:600;font-size:clamp(40px,8vw,88px);line-height:.94;letter-spacing:-.035em;margin:20px 0 0;}
+h1.mark em{font-style:italic;font-weight:500;}
+.lede{font-family:var(--display);font-weight:400;font-size:clamp(17px,2.2vw,21px);line-height:1.55;color:var(--fg-dim);max-width:60ch;margin:22px 0 0;}
+.lede b{color:var(--fg);font-weight:500;}
+.hero-band{display:flex;height:64px;margin:32px 0 0;border:1px solid var(--border);}
+.hero-band .s{flex:1;position:relative;}
+.hero-band .s b{position:absolute;left:0;right:0;bottom:7px;text-align:center;font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.1em;color:rgba(14,14,12,.6);}
+
+/* ── nav tabs ── */
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(14,14,12,.93);backdrop-filter:blur(12px);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;margin:34px 0 0;}
+nav.tabs button{appearance:none;border:0;border-right:1px solid var(--border);background:transparent;color:var(--fg-dim);padding:15px 22px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:color .2s,background .2s;}
+nav.tabs button:hover{color:var(--fg);}
+nav.tabs button.active{color:var(--accent);background:var(--surface);}
+
+main{padding:36px 26px 90px;}
+.view{display:none;}
+.view.active{display:block;}
+
+/* ── controls bar ── */
+.controls{border:1px solid var(--border);background:var(--surface);display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin-bottom:34px;}
+.ctrl{padding:16px 20px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.ctrl:last-child{border-right:0;}
+.ctrl label{display:block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
+.ctrl select,.ctrl input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--fg);font-family:var(--body);font-size:14px;padding:9px 11px;border-radius:2px;}
+.ctrl select:focus,.ctrl input:focus{outline:none;border-color:var(--accent);}
+.hint{font-family:var(--mono);font-size:9px;letter-spacing:.05em;color:var(--muted);margin-top:8px;line-height:1.6;}
+
+/* ── gallery of social frames ── */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:26px;align-items:start;}
+.asset{border:1px solid var(--border);background:var(--surface);display:flex;flex-direction:column;}
+.asset .bar{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid var(--border);gap:10px;}
+.asset .bar .nm{font-family:var(--display);font-size:17px;font-weight:600;color:var(--fg);line-height:1.1;}
+.asset .bar .fmt{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+.asset .bar .exp{appearance:none;border:1px solid var(--border);background:transparent;color:var(--accent);font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 11px;border-radius:2px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s;}
+.asset .bar .exp:hover{background:var(--accent);color:var(--bg);}
+.asset .bar .exp:disabled{opacity:.4;cursor:wait;}
+.viewport{position:relative;overflow:hidden;width:100%;background:#000;}
+.frame{position:absolute;top:0;left:0;transform-origin:top left;overflow:hidden;}
+
+/* ══════════════════════════════════════════════════════════
+   SOCIAL FRAME INTERIORS — sized in px against a 1080-wide canvas
+   ══════════════════════════════════════════════════════════ */
+.frame{font-family:var(--body);color:var(--fg);}
+.frame .grid-bg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px);background-size:90px 90px;pointer-events:none;}
+.frame.dark{background:var(--bg);}
+.frame .pad{position:absolute;inset:0;padding:70px;display:flex;flex-direction:column;}
+.f-kick{font-family:var(--mono);font-size:19px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);display:flex;gap:16px;align-items:center;}
+.f-kick .dim{color:var(--muted);}
+.f-sig{font-family:var(--mono);font-size:15px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--fg-dim);}
+.f-strain{font-family:var(--display);font-weight:600;letter-spacing:-.03em;line-height:.92;color:var(--fg);}
+.f-blend{font-family:var(--mono);font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+.f-aroma{font-family:var(--display);font-weight:400;color:var(--fg-dim);line-height:1.45;}
+.f-compliance{font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+.f-rule{height:1px;background:var(--border);width:100%;}
+
+/* proportional spectrum strip (the signature) */
+.fs-strip{display:flex;width:100%;overflow:hidden;}
+.fs-strip .seg{display:flex;align-items:flex-end;justify-content:flex-start;position:relative;}
+.fs-strip .seg b{font-family:var(--mono);font-weight:700;letter-spacing:.08em;color:rgba(14,14,12,.72);}
+
+/* meta chips */
+.f-chips{display:flex;flex-wrap:wrap;gap:12px;}
+.f-chip{font-family:var(--mono);font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);color:var(--fg-dim);border-radius:3px;}
+.f-terprow{display:flex;justify-content:space-between;font-family:var(--mono);border-bottom:1px solid var(--border);}
+.f-terprow .nm{color:var(--fg);} .f-terprow .v{color:var(--fg-dim);}
+
+/* ── detailed chemovar cards (canonical restyle) ── */
+.sheet{border:1px solid var(--border);background:var(--surface);margin-bottom:32px;}
+.mast{display:grid;grid-template-columns:1.25fr .75fr;border-bottom:1px solid var(--border);}
+.titleblock{padding:30px 32px;}
+.titleblock h2{font-family:var(--display);font-weight:600;font-size:clamp(38px,6vw,72px);line-height:.92;letter-spacing:-.04em;margin:0;}
+.titleblock .chem{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-dim);margin-top:14px;}
+.labelblock{border-left:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;}
+.labelblock div{padding:18px 20px;border-bottom:1px solid var(--border);}
+.labelblock div:nth-child(even){border-left:1px solid var(--border);}
+.labelblock b{display:block;font-family:var(--mono);color:var(--muted);font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px;}
+.labelblock .blend{font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;}
+.card-band{grid-column:1 / -1;display:flex;height:16px;border-top:1px solid var(--border);}
+.content{display:grid;grid-template-columns:.82fr 1.18fr;}
+.left{border-right:1px solid var(--border);}
+.module{padding:24px 26px;border-bottom:1px solid var(--border);}
+.module:last-child{border-bottom:0;}
+.h{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 16px;}
+.bigline{font-family:var(--display);font-size:27px;line-height:1.2;letter-spacing:-.01em;margin:0;color:var(--fg);}
+.copy p{margin:0 0 14px;color:var(--fg-dim);font-size:15px;line-height:1.65;}
+.copy p:last-child{margin-bottom:0;}
+.fp-wrap{display:flex;align-items:center;gap:18px;}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--border);border-left:1px solid var(--border);}
+.metric{padding:14px 16px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.metric b{display:block;font-family:var(--mono);color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;}
+.metric strong{font-size:23px;font-family:var(--display);font-weight:600;color:var(--fg);}
+.bars{display:grid;gap:10px;}
+.bar{display:grid;grid-template-columns:104px 1fr 40px;gap:12px;align-items:center;font-family:var(--mono);font-size:11px;color:var(--fg-dim);}
+.track{height:9px;background:var(--surface-2);}
+.fill{height:100%;}
+.sensory{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);border-left:1px solid var(--border);}
+.sense{padding:14px 16px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);font-size:13px;color:var(--fg-dim);line-height:1.5;}
+.sense b{display:block;font-family:var(--mono);color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;}
+.tags{display:flex;flex-wrap:wrap;gap:8px;}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-dim);border:1px solid var(--border);border-radius:20px;padding:4px 11px;display:inline-flex;align-items:center;gap:7px;}
+.tag i{width:7px;height:7px;border-radius:50%;display:inline-block;}
+table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;}
+th{color:var(--muted);font-size:9px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;}
+td,th{padding:8px 0;border-bottom:1px solid var(--border);text-align:left;}
+td:nth-child(2),td:nth-child(3),th:nth-child(2),th:nth-child(3){text-align:right;}
+td .n{color:var(--fg);} td .m{color:var(--fg-dim);}
+.note{font-size:13px;color:var(--fg-dim);line-height:1.6;}
+
+/* ── guide section ── */
+.prose{max-width:760px;}
+.prose h3{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:-.01em;margin:36px 0 12px;}
+.prose p{color:var(--fg-dim);margin:0 0 14px;}
+.prose strong{color:var(--fg);font-weight:600;}
+.callout{border:1px solid var(--border);border-left:3px solid var(--amber);background:var(--surface);padding:22px 26px;margin:26px 0;}
+.callout.teal{border-left-color:var(--accent);}
+.callout .ct{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+.callout.teal .ct{color:var(--accent);}
+.callout p{margin:0;font-size:14px;color:var(--fg-dim);}
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin:18px 0;}
+.legend .li{background:var(--surface);padding:14px 16px;}
+.legend .li .sw{height:8px;width:100%;margin-bottom:9px;}
+.legend .li .nm{font-family:var(--display);font-size:16px;font-weight:600;color:var(--fg);}
+.legend .li .tl{font-size:12px;color:var(--fg-dim);margin-top:3px;line-height:1.4;}
+
+/* ── footer ── */
+.foot{max-width:1240px;margin:0 auto;padding:0 26px 60px;position:relative;z-index:1;}
+.specline{display:flex;justify-content:space-between;gap:16px;padding-top:18px;border-top:2px solid var(--fg);font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;flex-wrap:wrap;}
+
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:var(--bg);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;padding:10px 18px;border-radius:3px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:80;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:820px){.mast,.content,.labelblock{grid-template-columns:1fr;}.labelblock{border-left:0;}.labelblock div:nth-child(even){border-left:0;}.left{border-right:0;}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="kick">CannaCre8ive <span>/</span> Flower Spectrum <span>/</span> Cultivator Social Kit <span>·</span> v1.0</div>
+  <h1 class="mark">Design assets, <em>ready to post.</em></h1>
+  <p class="lede">A set of on-brand social templates for craft cultivators — each built on the two devices that make the system recognizable: the proportional <b>Flower&nbsp;Spectrum strip</b> and the ten-sector <b>fingerprint&nbsp;ID</b>. Every classification here is engine-derived from a validated Ideal Cannabis COA. Pick a strain, pick a format, export a PNG.</p>
+  <div class="hero-band" id="heroBand" aria-hidden="true"></div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="active" data-view="social">Social Templates</button>
+  <button data-view="cards">Chemovar Cards</button>
+  <button data-view="guide">How to Use</button>
+</nav>
+
+<main>
+  <!-- ══════ SOCIAL TEMPLATES ══════ -->
+  <section class="view active" id="view-social">
+    <div class="controls">
+      <div class="ctrl">
+        <label>Featured strain</label>
+        <select id="selStrain"></select>
+      </div>
+      <div class="ctrl">
+        <label>Aroma spotlight profile</label>
+        <select id="selProfile"></select>
+      </div>
+      <div class="ctrl">
+        <label>Compare against</label>
+        <select id="selCompare"></select>
+      </div>
+      <div class="ctrl">
+        <label>Farm name</label>
+        <input id="inFarm" type="text" value="Ideal Cannabis" maxlength="28" />
+      </div>
+      <div class="ctrl">
+        <label>Social handle</label>
+        <input id="inHandle" type="text" value="@idealcannabis" maxlength="28" />
+        <div class="hint">Export renders at 2× (crisp for feed & story). Fonts load first — give it a beat on first export.</div>
+      </div>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- ══════ CHEMOVAR CARDS ══════ -->
+  <section class="view" id="view-cards">
+    <div id="cards"></div>
+  </section>
+
+  <!-- ══════ GUIDE ══════ -->
+  <section class="view" id="view-guide">
+    <div class="prose">
+      <h3>The two devices</h3>
+      <p>Everything in this kit is built to be recognized without a logo. Two elements do that work, and they should appear on nearly every asset.</p>
+      <p><strong>The Flower Spectrum strip</strong> is the proportional band. The loudest aroma profile leads, left to right, and each segment&rsquo;s width is its share of the signal. A profile only joins the strip if it scores at least 60% of the leader; three colors is the ceiling. A solid band means one aroma dominates — a split band is an honest blend.</p>
+      <p><strong>The fingerprint ID</strong> is the ten-sector radial. Every profile owns a fixed wedge, so the same shape reads the same way on any flower — a visual signature you can spot across a whole feed. It shows the full ten-profile distribution behind the strip.</p>
+
+      <div class="legend" id="guideLegend"></div>
+
+      <h3>Formats in this kit</h3>
+      <p>Six templates across the three sizes a cultivator actually posts: <strong>1:1</strong> feed, <strong>4:5</strong> portrait (more feed real estate), and <strong>9:16</strong> story/reel.</p>
+      <ul style="color:var(--fg-dim);line-height:1.7;padding-left:20px;">
+        <li><strong>Strain Highlight</strong> — the flagship 1:1. Name, blend, strip, fingerprint, aroma line, top terpenes.</li>
+        <li><strong>New Drop</strong> — a 9:16 story announcing fresh flower, strip full-bleed.</li>
+        <li><strong>Aroma Spotlight</strong> — a 1:1 profile explainer for &ldquo;trust your nose&rdquo; education.</li>
+        <li><strong>Fingerprint ID</strong> — a 4:5 with the radial as hero: &ldquo;every flower has a signature.&rdquo;</li>
+        <li><strong>Same THC, Different Flower</strong> — a 1:1 comparison of two strains, two strips, two fingerprints.</li>
+        <li><strong>Voice Card</strong> — a 1:1 quote card in the brand voice.</li>
+      </ul>
+
+      <div class="callout teal">
+        <div class="ct">Make it yours</div>
+        <p>Set your farm name and handle up top and every template updates live. To feature your own flower, run its COA through the Chemovar Classifier — the strip, fingerprint, blend name, and confidence all come straight from the engine, so nothing here is ever hand-drawn or invented.</p>
+      </div>
+
+      <div class="callout">
+        <div class="ct">Compliance — non-negotiable</div>
+        <p>These are aroma classifications, not effect or medical claims. Aroma leads on every asset; THC % is factual data, not a claim. Keep &ldquo;sedative / energizing / entourage&rdquo; language off anything public. The compliance line rides on every template on purpose — keep it there.</p>
+      </div>
+
+      <h3>A note on these three strains</h3>
+      <p>Run through the canonical engine, the real Ideal Cannabis panels classify by their <em>loudest measured aroma</em>: Jelly Breath reads <strong>Earth-Spicy</strong>, while Sunday Driver and Kush Mints both read <strong>Citrus-Floral</strong>. That&rsquo;s the system being honest — it weights how a terpene actually smells, treats Gas as an emergent balance rather than a single note, and only ever classifies what the COA supports.</p>
+    </div>
+  </section>
+</main>
+
+<div class="foot">
+  <div class="specline">
+    <span>Flower Spectrum · Cultivator Social Kit · v1.0 · 07_02_2026</span>
+    <span>Aroma classification — not effects or medical claims</span>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   CANONICAL ENGINE — math held byte-identical to Classifier v1.3 /
+   Menu-Gen v2.0 (contribOf · emergent gas K=1.5/P=1.5 · 60%-of-leader
+   band · Defined/Leaning/Blend confidence). Compact terpene set covering
+   every analyte present in these COAs.
+   ═══════════════════════════════════════════════════════════════════ */
+const VERSION="v1.0", BUILD="07_02_2026";
+const PROFILES=[
+  {key:"gas_fuel",      label:"Gas / Fuel",      color:"#C9A84C", short:"GAS"},
+  {key:"earthy_dank",   label:"Earthy / Dank",   color:"#6B8E5A", short:"EARTH"},
+  {key:"citrus_bright", label:"Citrus / Bright", color:"#D4A843", short:"CITRUS"},
+  {key:"fruity_sweet",  label:"Fruity / Sweet",  color:"#B75F4A", short:"FRUIT"},
+  {key:"floral_soft",   label:"Floral / Soft",   color:"#B98BBE", short:"FLORAL"},
+  {key:"dessert_creamy",label:"Dessert / Creamy",color:"#D6B58A", short:"DESSERT"},
+  {key:"spicy_warm",    label:"Spicy / Warm",    color:"#9E6B4A", short:"SPICY"},
+  {key:"piney_fresh",   label:"Piney / Fresh",   color:"#4F7A5B", short:"PINE"},
+  {key:"herbal_woody",  label:"Herbal / Woody",  color:"#7FA688", short:"HERB"},
+  {key:"tropical_tangy",label:"Tropical / Tangy",color:"#D28B49", short:"TROPIC"},
+];
+const PBK=Object.fromEntries(PROFILES.map(p=>[p.key,p]));
+const shortOf=k=>PBK[k]?.short||k;
+const TERPENES=[
+  {key:"myrcene",profile:"earthy_dank",also:["gas_fuel","herbal_woody"],tier:"primary"},
+  {key:"limonene",profile:"citrus_bright",also:["fruity_sweet","gas_fuel"],tier:"primary"},
+  {key:"caryophyllene",profile:"spicy_warm",also:["gas_fuel"],potency:1.15,tier:"primary"},
+  {key:"linalool",profile:"floral_soft",also:["dessert_creamy"],potency:1.2,tier:"primary"},
+  {key:"pinene_a",profile:"piney_fresh",also:["herbal_woody"],tier:"primary"},
+  {key:"pinene_b",profile:"piney_fresh",also:["herbal_woody"],tier:"primary"},
+  {key:"terpinolene",profile:"fruity_sweet",also:["tropical_tangy","piney_fresh"],tier:"primary"},
+  {key:"humulene",profile:"herbal_woody",also:["spicy_warm","earthy_dank","gas_fuel"],tier:"primary"},
+  {key:"ocimene",profile:"tropical_tangy",also:["fruity_sweet","floral_soft"],tier:"primary"},
+  {key:"bisabolol",profile:"floral_soft",also:["dessert_creamy"],potency:1.2,tier:"impact"},
+  {key:"valencene",profile:"citrus_bright",also:["tropical_tangy"],potency:1.2,tier:"impact"},
+  {key:"nerolidol",profile:"floral_soft",also:["herbal_woody"],potency:1.15,tier:"impact"},
+  {key:"terpineol",profile:"floral_soft",also:["piney_fresh"],tier:"impact"},
+  {key:"farnesene_b",profile:"fruity_sweet",also:["herbal_woody"],potency:0.3,tier:"impact"},
+  {key:"farnesene_a",profile:"fruity_sweet",also:["herbal_woody"],potency:0.3,tier:"impact"},
+  {key:"camphene",profile:"piney_fresh",also:["herbal_woody"],tier:"impact"},
+  {key:"fenchol",profile:"herbal_woody",also:["piney_fresh"],tier:"impact"},
+  {key:"geranyl_acetate",profile:"floral_soft",also:["fruity_sweet"],tier:"trace"},
+  {key:"phytol",profile:"herbal_woody",tier:"trace"},
+];
+const TBK=Object.fromEntries(TERPENES.map(t=>[t.key,t]));
+const POT_DEF={primary:1.0,impact:1.1,trace:0.7};
+const potOf=t=>(t.potency!=null?t.potency:POT_DEF[t.tier]);
+function contribOf(t){const c={};c[t.profile]=0.7;(t.also||[]).forEach((p,i)=>{c[p]=i===0?0.2:0.1;});const s=Object.values(c).reduce((a,b)=>a+b,0);Object.keys(c).forEach(k=>c[k]=c[k]/s);return c;}
+function classify(values){
+  const scores={};PROFILES.forEach(p=>scores[p.key]=0);
+  TERPENES.forEach(t=>{const v=values[t.key]||0;if(v<=0)return;const w=v*potOf(t),c=contribOf(t);Object.entries(c).forEach(([pk,ww])=>{scores[pk]+=w*ww;});});
+  const car=(values.caryophyllene||0)*potOf(TBK.caryophyllene);
+  const lim=(values.limonene||0)*potOf(TBK.limonene);
+  const mus=(values.myrcene||0)*potOf(TBK.myrcene)+(values.humulene||0)*potOf(TBK.humulene);
+  if(car>0&&lim>0&&mus>0){const mn=Math.min(car,lim,mus),mx=Math.max(car,lim,mus);scores.gas_fuel+=1.5*mn*Math.pow(mn/mx,1.5);}
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);
+  if(total===0)return null;
+  const ranked=PROFILES.map(p=>({...p,pct:Math.round((scores[p.key]/total)*100)})).sort((a,b)=>b.pct-a.pct);
+  const gap=ranked[0].pct-ranked[1].pct;
+  const confidence=gap>=22?"Defined":gap>=10?"Leaning":"Blend";
+  const totalTerp=TERPENES.reduce((s,t)=>s+(values[t.key]||0),0);
+  return {ranked,confidence,gap,totalTerp};
+}
+function bandSegments(c){
+  if(!c)return[];const r=c.ranked.filter(x=>x.pct>0);if(!r.length)return[];
+  const lead=r[0].pct;const segs=r.filter(x=>x.pct>=lead*0.6).slice(0,3);
+  const total=segs.reduce((a,s)=>a+s.pct,0)||1;
+  return segs.map(s=>({key:s.key,color:s.color,label:s.label,short:s.short,frac:s.pct/total,pct:s.pct}));
+}
+function blendName(c){const segs=bandSegments(c);if(segs.length<=1)return caps(shortOf(segs[0]?.key||c.ranked[0].key));return segs.slice(0,2).map(s=>caps(shortOf(s.key))).join("-");}
+function caps(s){return s.charAt(0)+s.slice(1).toLowerCase();}
+
+/* ═══════════════ STRIP + FINGERPRINT (the two devices) ═══════════════ */
+function stripHTML(c,{h=40,labels="short",gap=0}={}){
+  const segs=bandSegments(c);
+  return `<div class="fs-strip" style="height:${h}px;gap:${gap}px">`+segs.map(s=>{
+    const lbl = labels==="none" ? "" :
+      labels==="full" ? `<b style="font-size:${Math.max(9,h*0.28)}px;padding:0 ${h*0.32}px ${h*0.24}px">${s.label} · ${s.pct}%</b>` :
+      `<b style="font-size:${Math.max(8,h*0.30)}px;padding:0 ${h*0.28}px ${h*0.22}px">${s.short} ${s.pct}%</b>`;
+    return `<div class="seg" style="flex:${s.frac};background:${s.color}">${lbl}</div>`;
+  }).join("")+`</div>`;
+}
+function wedge(cx,cy,ir,or_,sa,ea){
+  const f=v=>v.toFixed(2);
+  const x1=cx+ir*Math.cos(sa),y1=cy+ir*Math.sin(sa),x2=cx+or_*Math.cos(sa),y2=cy+or_*Math.sin(sa);
+  const x3=cx+or_*Math.cos(ea),y3=cy+or_*Math.sin(ea),x4=cx+ir*Math.cos(ea),y4=cy+ir*Math.sin(ea);
+  return `M${f(x1)} ${f(y1)} L${f(x2)} ${f(y2)} A${f(or_)} ${f(or_)} 0 0 1 ${f(x3)} ${f(y3)} L${f(x4)} ${f(y4)} A${f(ir)} ${f(ir)} 0 0 0 ${f(x1)} ${f(y1)} Z`;
+}
+function fingerprintSVG(c,{size=200,highlight=null,guide="#2a2824"}={}){
+  if(!c)return `<div style="width:${size}px;height:${size}px"></div>`;
+  const cx=size/2,cy=size/2,maxR=size*0.46,minR=size*0.13;
+  const n=PROFILES.length,slice=2*Math.PI/n,g=0.05;
+  const pctMap=Object.fromEntries(c.ranked.map(r=>[r.key,r.pct]));
+  const maxV=Math.max(...Object.values(pctMap),1);
+  const rings=[0.5,1.0].map(f=>minR+f*(maxR-minR));
+  let s=`<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" style="display:block">`;
+  rings.forEach(r=>{s+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${guide}" stroke-width="${size*0.004}" stroke-dasharray="2 4" opacity="0.6"/>`;});
+  s+=`<circle cx="${cx}" cy="${cy}" r="${maxR}" fill="none" stroke="${guide}" stroke-width="${size*0.005}"/>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="${minR}" fill="none" stroke="${guide}" stroke-width="${size*0.004}"/>`;
+  PROFILES.forEach((p,i)=>{
+    const v=pctMap[p.key]||0,has=v>0.5;
+    const r=has?minR+(v/maxV)*(maxR-minR):minR+size*0.015;
+    const sa=-Math.PI/2+i*slice+g/2,ea=-Math.PI/2+(i+1)*slice-g/2;
+    const dim=highlight&&highlight!==p.key;
+    s+=`<path d="${wedge(cx,cy,minR,r,sa,ea)}" fill="${p.color}" opacity="${has?(dim?0.22:0.92):0.14}"/>`;
+  });
+  s+=`<circle cx="${cx}" cy="${cy}" r="${size*0.028}" fill="${highlight?PBK[highlight].color:"#5e5a50"}"/>`;
+  s+=`</svg>`;return s;
+}
+
+/* ═══════════════ PROFILE CONTENT (Brand Guidelines v1.0) ═══════════════ */
+const PROFILE_CONTENT={
+  gas_fuel:{sensory:"Pungent diesel, solvent, and aggressive skunk. The loudest jar on the shelf — it announces itself before you open it.",drivers:["β-Caryophyllene","D-Limonene","Myrcene","α-Humulene"]},
+  earthy_dank:{sensory:"Wet forest floor, damp soil, fresh-cut mushroom. Grounded and heavy, with an old-school musk that reads as substantial.",drivers:["Myrcene","α-Humulene"]},
+  citrus_bright:{sensory:"Fresh-cut citrus rind, lemon zest, ripe orange. Sharp and uplifting — the brightest, most awake corner of the spectrum.",drivers:["D-Limonene","Valencene"]},
+  fruity_sweet:{sensory:"Berry, stone fruit, candy. The sweetest, juiciest profile — often led by terpinolene's haze-like fruit-fresh character.",drivers:["Terpinolene","β-Ocimene","β-Farnesene"]},
+  floral_soft:{sensory:"Crushed lavender, rose petal, soft perfume. Delicate and aromatic — the calmest corner of the spectrum.",drivers:["Linalool","α-Bisabolol","trans-Nerolidol","α-Terpineol"]},
+  dessert_creamy:{sensory:"Vanilla, cake batter, sweet cream. Smooth and indulgent — it sits on top of other profiles rather than driving them.",drivers:["Linalool + α-Bisabolol over a sweet base"]},
+  spicy_warm:{sensory:"Cracked black pepper, clove, baking spice. Warm and assertive — dominated by a single aromatic heavyweight.",drivers:["β-Caryophyllene","Caryophyllene Oxide","α-Humulene"]},
+  piney_fresh:{sensory:"Pine needle, Douglas fir, crisp mountain air. Sharp and resinous — clean, bracing, often invigorating.",drivers:["α-Pinene","β-Pinene","Camphene","Δ-3-Carene"]},
+  herbal_woody:{sensory:"Loose-leaf tea, sage, dry hop, fresh-sawn wood. Dry and savory — refined and understated, more considered than loud.",drivers:["α-Humulene","Guaiol","Fenchol","Eucalyptol"]},
+  tropical_tangy:{sensory:"Mango, guava, passionfruit. Exotic and tangy — vibrant fruit you'd find in a juice bar, not a pie.",drivers:["β-Ocimene","Terpinolene","Valencene"]},
+};
+
+/* ═══════════════ STRAIN DATA — real Ideal Cannabis COAs (ChemHistory) ═══════════════
+   `values` = engine-keyed terpene panel (drives classification).
+   `panel`  = raw COA terpenes by mass, for display (includes analytes the
+              compact engine doesn't model, e.g. Anisole — shown, not scored). */
+const STRAINS=[
+  { id:"jb", name:"Jelly Breath", cross:"Mendo Breath × Do-Si-Dos",
+    lot:"JB 071823", sample:"2310CH0095.0417", harvest:"07/18/2023",
+    thc:"17.57", cbd:"0.04", cann:"19.86", terps:"2.32",
+    aroma:"Dark, hoppy earth and cracked pepper over a diesel funk, with licorice and soft magnolia resin.",
+    top:"Hops, lemon peel, magnolia, faint green fruit", mid:"Pepper, licorice, resin wood, soft floral", base:"Myrcene earth, hoppy spice, damp herb, dark sweetness",
+    tags:[["earthy_dank","dark earth"],["spicy_warm","cracked pepper"],["gas_fuel","hoppy gas"],["dessert_creamy","licorice"],["floral_soft","magnolia resin"],["citrus_bright","lemon peel"]],
+    copy:[
+      "Jelly Breath leads with a darker kind of weight: dense myrcene earth, cracked pepper, and a hoppy diesel funk, edged with licorice and a soft magnolia resin.",
+      "Myrcene sets the grounded base and caryophyllene builds the spice-and-gas frame; limonene adds a clean lemon cut, while bisabolol, linalool, and the farnesenes turn the finish softer and more perfumed. Gas reads as a supporting note here — an emergent balance, not a single loud terpene.",
+    ],
+    values:{myrcene:0.64,caryophyllene:0.35,limonene:0.23,humulene:0.16,farnesene_b:0.12,pinene_b:0.12,bisabolol:0.10,linalool:0.09,farnesene_a:0.09,phytol:0.06,valencene:0.05,fenchol:0.04},
+    panel:[["β-Myrcene",0.64],["β-Caryophyllene",0.35],["Anisole",0.27],["δ-Limonene",0.23],["α-Humulene",0.16],["cis-β-Farnesene",0.12],["β-Pinene",0.12],["α-Bisabolol",0.10],["Linalool",0.09],["α-Farnesene",0.09],["trans-Phytol",0.06],["Valencene",0.05],["Endo-Fenchyl Alcohol",0.04]] },
+
+  { id:"sdr", name:"Sunday Driver", cross:"Fruity Pebbles OG × Grape Pie",
+    lot:"SDR 071823", sample:"2310CH0095.0413", harvest:"07/18/2023",
+    thc:"23.11", cbd:"0.06", cann:"27.10", terps:"3.28",
+    aroma:"Bright lemon oil folded into lavender and chamomile cream, finishing with soft pepper.",
+    top:"Lemon oil, orange peel, bright citrus vapor", mid:"Lavender, chamomile, floral cream, soft spice", base:"Light herb, warm resin, sweet citrus, gentle pepper",
+    tags:[["citrus_bright","lemon oil"],["floral_soft","lavender"],["floral_soft","chamomile cream"],["citrus_bright","soft citrus"],["spicy_warm","gentle spice"],["dessert_creamy","cream"]],
+    copy:[
+      "Sunday Driver is polished citrus over a soft floral interior: lemon oil first, then lavender, chamomile, and a creamy finish with just a whisper of pepper.",
+      "Limonene leads the nose while linalool and bisabolol supply the lavender-cream softness; caryophyllene keeps a gentle spice spine underneath. It reads as the bright part of a lemon peel folded into a floral cream — refined, and built for a shelf where the nose matters as much as the number.",
+    ],
+    values:{limonene:0.91,linalool:0.49,caryophyllene:0.39,bisabolol:0.17,humulene:0.14,pinene_b:0.14,farnesene_b:0.14,ocimene:0.12,valencene:0.11,fenchol:0.10,terpineol:0.10,myrcene:0.10,farnesene_a:0.06,geranyl_acetate:0.05,phytol:0.04,camphene:0.03},
+    panel:[["δ-Limonene",0.91],["Linalool",0.49],["β-Caryophyllene",0.39],["Anisole",0.19],["α-Bisabolol",0.17],["α-Humulene",0.14],["β-Pinene",0.14],["cis-β-Farnesene",0.14],["Ocimene",0.12],["Valencene",0.11],["Endo-Fenchyl Alcohol",0.10],["α-Terpineol",0.10],["β-Myrcene",0.10],["α-Farnesene",0.06],["Geranyl Acetate",0.05],["trans-Phytol",0.04],["Camphene",0.03]] },
+
+  { id:"km", name:"Kush Mints", cross:"Bubba Kush × Animal Mints",
+    lot:"KM 071823", sample:"2310CH0095.0412", harvest:"07/18/2023",
+    thc:"34.64", cbd:"0.08", cann:"40.39", terps:"3.17",
+    aroma:"Lemon oil and lavender up front, green resin and a cool mint-herb lift over a grounded kush finish.",
+    top:"Lemon oil, green apple resin, mint-herb lift", mid:"Lavender, citrus rind, soft floral, pepper", base:"Kush earth, myrcene body, resin wood, hoppy spice",
+    tags:[["citrus_bright","lemon oil"],["floral_soft","lavender"],["fruity_sweet","green resin"],["herbal_woody","mint-herb"],["earthy_dank","kush earth"],["spicy_warm","soft spice"]],
+    copy:[
+      "Kush Mints comes through sharper than the name suggests: lemon oil first, lavender close behind, then green resin and a quiet mint-herb lift cooling through the finish.",
+      "Limonene drives the brightness and linalool gives the soft lavender center, while myrcene and caryophyllene hold the kush structure underneath and the farnesenes add a fresh green-resin note. Dense and high-definition — citrus on the inhale, floral resin through the middle, a grounded finish with enough lift to stay alive.",
+    ],
+    values:{limonene:0.91,linalool:0.50,myrcene:0.35,caryophyllene:0.28,farnesene_b:0.19,pinene_b:0.14,farnesene_a:0.14,valencene:0.11,fenchol:0.10,terpineol:0.10,humulene:0.09,bisabolol:0.04,nerolidol:0.04,terpinolene:0.03,phytol:0.03,camphene:0.03},
+    panel:[["δ-Limonene",0.91],["Linalool",0.50],["β-Myrcene",0.35],["β-Caryophyllene",0.28],["cis-β-Farnesene",0.19],["β-Pinene",0.14],["α-Farnesene",0.14],["Valencene",0.11],["Endo-Fenchyl Alcohol",0.10],["α-Terpineol",0.10],["α-Humulene",0.09],["Anisole",0.09],["α-Bisabolol",0.04],["trans-Nerolidol",0.04],["Terpinolene",0.03],["trans-Phytol",0.03],["Camphene",0.03]] },
+];
+const SBK=Object.fromEntries(STRAINS.map(s=>[s.id,s]));
+STRAINS.forEach(s=>{ s.c=classify(s.values); s.blend=blendName(s.c); });
+
+/* ═══════════════ SHARED BITS ═══════════════ */
+let FARM="Ideal Cannabis", HANDLE="@idealcannabis";
+const esc=v=>String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+function compliance(){ return `Aroma classification — not effects or medical claims`; }
+function leadColor(s){ return bandSegments(s.c)[0].color; }
+function topPanel(s,n){ return s.panel.slice(0,n); }
+
+/* ═══════════════ SOCIAL TEMPLATES (1080-canvas interiors) ═══════════════ */
+function T_highlight(s){
+  const col=leadColor(s), segs=bandSegments(s.c);
+  return `<div class="frame dark" data-w="1080" data-h="1080">
+    <div class="grid-bg"></div>
+    <div class="pad">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="f-kick">Strain Highlight</div>
+        <div style="text-align:right">
+          <div class="f-sig">Flower Spectrum</div>
+          <div style="font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--muted);margin-top:6px;text-transform:uppercase">${esc(FARM)}</div>
+        </div>
+      </div>
+      <div style="margin-top:44px">
+        <div class="f-strain" style="font-size:112px">${esc(s.name)}</div>
+        <div class="f-blend" style="color:${col};font-size:26px;margin-top:16px">${esc(s.blend)} · ${esc(s.c.confidence)}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:40px;margin-top:40px">
+        <div style="flex:1">${stripHTML(s.c,{h:70,labels:"full"})}</div>
+        <div style="flex-shrink:0">${fingerprintSVG(s.c,{size:220,highlight:segs[0].key})}</div>
+      </div>
+      <div class="f-aroma" style="font-size:31px;margin-top:34px;max-width:26ch">&ldquo;${esc(s.aroma)}&rdquo;</div>
+      <div style="margin-top:auto">
+        <div class="f-rule"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:24px">
+          <div>
+            <div style="font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Loudest terpenes</div>
+            <div class="f-chips">${topPanel(s,3).map(t=>`<span class="f-chip" style="font-size:16px;padding:8px 14px">${esc(t[0])} ${t[1].toFixed(2)}%</span>`).join("")}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:var(--display);font-weight:600;font-size:40px;color:var(--fg)">${s.thc}<span style="font-size:22px;color:var(--fg-dim)">% THC</span></div>
+            <div style="font-family:var(--mono);font-size:14px;letter-spacing:.16em;color:var(--accent);margin-top:6px">${esc(HANDLE)}</div>
+          </div>
+        </div>
+        <div class="f-compliance" style="font-size:12px;margin-top:22px">${compliance()} · Validated COA</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function T_drop(s){
+  const col=leadColor(s), segs=bandSegments(s.c);
+  return `<div class="frame dark" data-w="1080" data-h="1920">
+    <div class="grid-bg"></div>
+    <div class="pad" style="padding:96px 80px">
+      <div class="f-kick" style="justify-content:space-between"><span>Just Dropped</span><span class="dim">${esc(s.harvest)}</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div class="f-sig" style="color:var(--muted)">${esc(FARM)}</div>
+        <div class="f-strain" style="font-size:130px;margin-top:20px">${esc(s.name)}</div>
+        <div class="f-blend" style="color:${col};font-size:30px;margin-top:22px">${esc(s.blend)}</div>
+        <div class="f-aroma" style="font-size:38px;margin-top:40px;max-width:18ch">&ldquo;${esc(s.aroma)}&rdquo;</div>
+        <div style="display:flex;justify-content:center;margin:56px 0">${fingerprintSVG(s.c,{size:360,highlight:segs[0].key})}</div>
+      </div>
+      <div>
+        ${stripHTML(s.c,{h:96,labels:"full"})}
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:30px">
+          <div style="font-family:var(--display);font-weight:600;font-size:44px;color:var(--fg)">${s.thc}<span style="font-size:24px;color:var(--fg-dim)">% THC</span></div>
+          <div style="font-family:var(--mono);font-size:20px;letter-spacing:.18em;color:var(--accent)">${esc(HANDLE)}</div>
+        </div>
+        <div class="f-rule" style="margin-top:26px"></div>
+        <div class="f-compliance" style="font-size:14px;margin-top:20px;text-align:center">${compliance()}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function T_spotlight(pk){
+  const p=PBK[pk], content=PROFILE_CONTENT[pk], no=PROFILES.findIndex(x=>x.key===pk)+1;
+  return `<div class="frame dark" data-w="1080" data-h="1080">
+    <div class="grid-bg"></div>
+    <div class="pad">
+      <div class="f-kick" style="justify-content:space-between"><span>Aroma Spotlight</span><span class="dim">${String(no).padStart(2,"0")} / 10</span></div>
+      <div style="height:14px;background:${p.color};margin-top:40px"></div>
+      <div style="margin-top:34px">
+        <div style="font-family:var(--mono);font-size:20px;font-weight:700;letter-spacing:.24em;color:${p.color};text-transform:uppercase">${p.short}</div>
+        <div class="f-strain" style="font-size:96px;margin-top:14px">${esc(p.label)}</div>
+      </div>
+      <div class="f-aroma" style="font-size:30px;margin-top:32px;max-width:24ch;color:var(--fg)">${esc(content.sensory)}</div>
+      <div style="margin-top:36px">
+        <div style="font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px">Primary drivers</div>
+        <div class="f-chips">${content.drivers.map(d=>`<span class="f-chip" style="font-size:18px;padding:10px 16px;border-color:${p.color}66;color:var(--fg)">${esc(d)}</span>`).join("")}</div>
+      </div>
+      <div style="margin-top:auto">
+        <div class="f-aroma" style="font-family:var(--display);font-style:italic;font-size:27px;color:var(--fg-dim);max-width:22ch">Trust your nose. It&rsquo;s smarter than the number.</div>
+        <div class="f-rule" style="margin-top:26px"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:22px">
+          <div class="f-sig">Flower Spectrum</div>
+          <div style="font-family:var(--mono);font-size:16px;letter-spacing:.16em;color:var(--accent)">${esc(HANDLE)}</div>
+        </div>
+        <div class="f-compliance" style="font-size:12px;margin-top:18px">${compliance()}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function T_fingerprint(s){
+  const segs=bandSegments(s.c);
+  return `<div class="frame dark" data-w="1080" data-h="1350">
+    <div class="grid-bg"></div>
+    <div class="pad" style="padding:80px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="f-kick">Fingerprint ID</div>
+        <div class="f-sig" style="color:var(--muted)">${esc(FARM)}</div>
+      </div>
+      <div class="f-aroma" style="font-family:var(--display);font-size:40px;color:var(--fg);margin-top:30px;max-width:20ch">Every flower has a signature.</div>
+      <div style="display:flex;justify-content:center;margin:20px 0 10px">${fingerprintSVG(s.c,{size:520,highlight:segs[0].key})}</div>
+      <div style="text-align:center">
+        <div class="f-strain" style="font-size:72px">${esc(s.name)}</div>
+        <div class="f-blend" style="color:${leadColor(s)};font-size:24px;margin-top:12px">${esc(s.blend)} · ${esc(s.c.confidence)}</div>
+      </div>
+      <div style="margin-top:40px">${stripHTML(s.c,{h:58,labels:"full"})}</div>
+      <div style="margin-top:auto">
+        <div class="f-rule"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:22px">
+          <div class="f-compliance" style="font-size:13px">The ten-sector map behind the strip · ${compliance()}</div>
+          <div style="font-family:var(--mono);font-size:16px;letter-spacing:.16em;color:var(--accent)">${esc(HANDLE)}</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function T_compare(a,b){
+  const side=s=>`
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      ${fingerprintSVG(s.c,{size:230,highlight:bandSegments(s.c)[0].key})}
+      <div class="f-strain" style="font-size:52px;margin-top:20px">${esc(s.name)}</div>
+      <div class="f-blend" style="color:${leadColor(s)};font-size:19px;margin-top:10px">${esc(s.blend)}</div>
+      <div style="width:100%;margin-top:22px">${stripHTML(s.c,{h:46,labels:"short"})}</div>
+      <div class="f-aroma" style="font-size:21px;margin-top:20px;max-width:22ch">${esc(s.aroma)}</div>
+    </div>`;
+  return `<div class="frame dark" data-w="1080" data-h="1080">
+    <div class="grid-bg"></div>
+    <div class="pad">
+      <div style="text-align:center">
+        <div class="f-kick" style="justify-content:center">Same THC · Different Flower</div>
+        <div class="f-aroma" style="font-family:var(--display);font-size:34px;color:var(--fg);margin-top:20px;max-width:26ch;margin-left:auto;margin-right:auto">Two flowers can share a number and share nothing else. The nose knows the difference.</div>
+      </div>
+      <div style="display:flex;gap:56px;align-items:flex-start;margin-top:48px">
+        ${side(a)}
+        <div style="width:1px;align-self:stretch;background:var(--border)"></div>
+        ${side(b)}
+      </div>
+      <div style="margin-top:auto">
+        <div class="f-rule"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:22px">
+          <div class="f-sig">Flower Spectrum · ${esc(FARM)}</div>
+          <div style="font-family:var(--mono);font-size:15px;letter-spacing:.16em;color:var(--accent)">${esc(HANDLE)}</div>
+        </div>
+        <div class="f-compliance" style="font-size:12px;margin-top:16px">${compliance()}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function T_voice(){
+  return `<div class="frame dark" data-w="1080" data-h="1080">
+    <div class="grid-bg"></div>
+    <div class="pad">
+      <div class="f-kick">Trust Your Nose</div>
+      <div style="flex:1;display:flex;align-items:center">
+        <div class="f-aroma" style="font-family:var(--display);font-weight:500;font-size:76px;line-height:1.14;color:var(--fg);max-width:15ch">Two flowers at the same THC can be completely <span style="font-style:italic;color:var(--accent)">different</span>.</div>
+      </div>
+      <div class="f-aroma" style="font-size:30px;color:var(--fg-dim);max-width:30ch">The number on the jar was never the answer. Aroma is measurable, honest, and already understood by every nose that opens a jar.</div>
+      <div style="margin-top:44px">${stripHTML(classify(SBK.jb.values),{h:28,labels:"none"})}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:26px">
+        <div class="f-sig">Flower Spectrum · ${esc(FARM)}</div>
+        <div style="font-family:var(--mono);font-size:16px;letter-spacing:.16em;color:var(--accent)">${esc(HANDLE)}</div>
+      </div>
+      <div class="f-compliance" style="font-size:12px;margin-top:18px">${compliance()}</div>
+    </div>
+  </div>`;
+}
+
+/* ═══════════════ ASSET REGISTRY + RENDER ═══════════════ */
+function currentAssets(){
+  const s=SBK[selStrain.value], p=selProfile.value, a=SBK[selStrain.value], b=SBK[selCompare.value];
+  return [
+    {id:"highlight", name:"Strain Highlight", fmt:"1:1 · 1080", file:`fs-highlight-${s.id}`, html:T_highlight(s)},
+    {id:"drop",      name:"New Drop",         fmt:"9:16 · Story", file:`fs-drop-${s.id}`, html:T_drop(s)},
+    {id:"spotlight", name:"Aroma Spotlight",  fmt:"1:1 · Education", file:`fs-spotlight-${p}`, html:T_spotlight(p)},
+    {id:"fingerprint",name:"Fingerprint ID",  fmt:"4:5 · Portrait", file:`fs-fingerprint-${s.id}`, html:T_fingerprint(s)},
+    {id:"compare",   name:"Same THC, Different Flower", fmt:"1:1 · Comparison", file:`fs-compare-${a.id}-${b.id}`, html:T_compare(a,b)},
+    {id:"voice",     name:"Voice Card",        fmt:"1:1 · Quote", file:`fs-voice`, html:T_voice()},
+  ];
+}
+function renderGallery(){
+  const g=document.getElementById("gallery");
+  g.innerHTML=currentAssets().map(a=>`
+    <div class="asset">
+      <div class="bar">
+        <div><div class="nm">${esc(a.name)}</div><div class="fmt">${esc(a.fmt)}</div></div>
+        <button class="exp" data-file="${a.file}">Export PNG</button>
+      </div>
+      <div class="viewport" data-w="${a.html.match(/data-w="(\d+)"/)[1]}" data-h="${a.html.match(/data-h="(\d+)"/)[1]}">${a.html}</div>
+    </div>`).join("");
+  layoutFrames();
+  g.querySelectorAll(".exp").forEach(btn=>btn.addEventListener("click",()=>exportPNG(btn)));
+}
+function layoutFrames(){
+  document.querySelectorAll(".viewport").forEach(vp=>{
+    const w=+vp.dataset.w,h=+vp.dataset.h,cw=vp.clientWidth,scale=cw/w;
+    vp.style.height=(h*scale)+"px";
+    const f=vp.querySelector(".frame"); if(f) f.style.transform=`scale(${scale})`;
+  });
+}
+window.addEventListener("resize",layoutFrames);
+
+/* ═══════════════ PNG EXPORT ═══════════════ */
+let fontsReady=false;
+async function exportPNG(btn){
+  const vp=btn.closest(".asset").querySelector(".viewport");
+  const frame=vp.querySelector(".frame");
+  const w=+frame.dataset.w,h=+frame.dataset.h;
+  if(!window.htmlToImage){ toast("Export library didn't load — screenshot the preview to save."); return; }
+  const label=btn.textContent; btn.disabled=true; btn.textContent="Rendering…";
+  try{
+    if(!fontsReady && document.fonts && document.fonts.ready){ await document.fonts.ready; fontsReady=true; }
+    const opts={pixelRatio:2,width:w,height:h,cacheBust:true,style:{transform:"none",transformOrigin:"top left",margin:"0"}};
+    // warm-up pass stabilizes embedded fonts on first run
+    await window.htmlToImage.toPng(frame,opts);
+    const url=await window.htmlToImage.toPng(frame,opts);
+    const a=document.createElement("a"); a.href=url; a.download=btn.dataset.file+".png";
+    document.body.appendChild(a); a.click(); a.remove();
+    toast("Saved "+btn.dataset.file+".png");
+  }catch(e){ console.error(e); toast("Export failed — try again in a moment."); }
+  finally{ btn.disabled=false; btn.textContent=label; }
+}
+let toastT;
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),1600); }
+
+/* ═══════════════ CHEMOVAR CARDS (canonical restyle) ═══════════════ */
+function scoreBars(c){
+  return c.ranked.filter(r=>r.pct>0).slice(0,6).map(r=>
+    `<div class="bar"><span>${r.label}</span><span class="track"><span class="fill" style="width:${r.pct}%;background:${r.color}"></span></span><span>${r.pct}%</span></div>`).join("");
+}
+function cardHTML(s){
+  const segs=bandSegments(s.c), col=segs[0].color;
+  return `<article class="sheet">
+    <div class="mast">
+      <div class="titleblock"><h2>${esc(s.name)}</h2><div class="chem">${esc(s.cross)}</div></div>
+      <div class="labelblock">
+        <div><b>Flower Spectrum</b><span class="blend" style="color:${col}">${esc(s.blend)}</span></div>
+        <div><b>Confidence</b>${esc(s.c.confidence)}</div>
+        <div><b>Lot / Sample</b>${esc(s.lot)}<br>${esc(s.sample)}</div>
+        <div><b>Farm · Harvest</b>${esc(FARM)}<br>${esc(s.harvest)}</div>
+      </div>
+      <div class="card-band">${bandSegments(s.c).map(x=>`<div style="flex:${x.frac};background:${x.color}"></div>`).join("")}</div>
+    </div>
+    <div class="content">
+      <aside class="left">
+        <div class="module">
+          <p class="h">Fingerprint ID</p>
+          <div class="fp-wrap">
+            ${fingerprintSVG(s.c,{size:120,highlight:segs[0].key})}
+            <div style="font-family:var(--mono);font-size:11px;color:var(--fg-dim);line-height:1.9">${segs.map(x=>`<div><span style="display:inline-block;width:9px;height:9px;background:${x.color};margin-right:8px"></span>${x.short} · ${x.pct}%</div>`).join("")}</div>
+          </div>
+        </div>
+        <div class="module"><p class="h">COA metrics</p><div class="metrics">
+          <div class="metric"><b>THC</b><strong>${s.thc}%</strong></div>
+          <div class="metric"><b>Total cannabinoids</b><strong>${s.cann}%</strong></div>
+          <div class="metric"><b>Total terpenes</b><strong>${s.terps}%</strong></div>
+          <div class="metric"><b>CBD</b><strong>${s.cbd}%</strong></div>
+        </div></div>
+        <div class="module"><p class="h">Spectrum score</p><div class="bars">${scoreBars(s.c)}</div></div>
+        <div class="module"><p class="h">Engine note</p><p class="note">Classified live by the canonical engine from the validated COA panel. Aroma is weighted over mass; Gas is emergent (a balance of caryophyllene, limonene, and myrcene/humulene), never a single terpene.</p></div>
+      </aside>
+      <section>
+        <div class="module"><p class="h">Aroma read</p><p class="bigline">${esc(s.aroma)}</p></div>
+        <div class="module copy">${s.copy.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
+        <div class="module"><p class="h">Sensory architecture</p><div class="sensory">
+          <div class="sense"><b>Top</b>${esc(s.top)}</div><div class="sense"><b>Middle</b>${esc(s.mid)}</div><div class="sense"><b>Base</b>${esc(s.base)}</div>
+        </div></div>
+        <div class="module"><p class="h">Aroma tags</p><div class="tags">${s.tags.map(t=>`<span class="tag"><i style="background:${PBK[t[0]].color}"></i>${esc(t[1])}</span>`).join("")}</div></div>
+        <div class="module"><p class="h">Terpene test results — raw COA</p>
+          <table><thead><tr><th>Terpene</th><th>%</th><th>mg/g</th></tr></thead><tbody>
+          ${s.panel.map(t=>`<tr><td class="n">${esc(t[0])}</td><td class="m">${t[1].toFixed(2)}%</td><td class="m">${(t[1]*10).toFixed(1)}</td></tr>`).join("")}
+          </tbody></table>
+          <p class="note" style="margin-top:14px;font-size:11px">Analytes not modeled by the compact engine (e.g. Anisole) are shown as measured but do not shift the aroma classification.</p>
+        </div>
+      </section>
+    </div>
+  </article>`;
+}
+function renderCards(){ document.getElementById("cards").innerHTML=STRAINS.map(cardHTML).join(""); }
+
+/* ═══════════════ INIT ═══════════════ */
+const selStrain=document.getElementById("selStrain");
+const selProfile=document.getElementById("selProfile");
+const selCompare=document.getElementById("selCompare");
+const inFarm=document.getElementById("inFarm");
+const inHandle=document.getElementById("inHandle");
+
+selStrain.innerHTML=STRAINS.map(s=>`<option value="${s.id}">${esc(s.name)} — ${esc(s.blend)}</option>`).join("");
+selProfile.innerHTML=PROFILES.map(p=>`<option value="${p.key}">${esc(p.label)}</option>`).join("");
+selCompare.innerHTML=STRAINS.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join("");
+selStrain.value="jb"; selProfile.value="earthy_dank"; selCompare.value="sdr";
+
+[selStrain,selProfile,selCompare].forEach(el=>el.addEventListener("change",renderGallery));
+inFarm.addEventListener("input",()=>{ FARM=inFarm.value||"Ideal Cannabis"; renderGallery(); renderCards(); });
+inHandle.addEventListener("input",()=>{ HANDLE=inHandle.value||"@yourfarm"; renderGallery(); });
+
+/* hero band = the full ten-hue palette */
+document.getElementById("heroBand").innerHTML=PROFILES.map(p=>`<div class="s" style="background:${p.color}"><b>${p.short}</b></div>`).join("");
+/* guide legend */
+document.getElementById("guideLegend").innerHTML=PROFILES.map(p=>`<div class="li"><div class="sw" style="background:${p.color}"></div><div class="nm">${esc(p.label)}</div><div class="tl">${esc(PROFILE_CONTENT[p.key].sensory.split(".")[0])}.</div></div>`).join("");
+
+/* tabs */
+document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("nav.tabs button").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+  document.getElementById("view-"+b.dataset.view).classList.add("active");
+  layoutFrames();
+}));
+
+renderGallery();
+renderCards();
+if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(()=>{ fontsReady=true; layoutFrames(); }); }
+</script>
+</body>
+</html>

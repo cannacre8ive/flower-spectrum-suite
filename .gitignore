@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.vercel/
+.env*
+!.env.example
+.DS_Store
+.playwright-cli/
+output/playwright/
+tmp/
+.vercel

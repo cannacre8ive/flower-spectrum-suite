@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Flower Spectrum Suite · Cultivator Social Kit</title>
+
+
+
+
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   FLOWER SPECTRUM · CULTIVATOR SOCIAL KIT · v1.0 · 07_02_2026
+   Built on the canonical Flower Spectrum product design system.
+   Tokens trace to Brand Guidelines v1.0. Classification is engine-derived
+   from validated Ideal Cannabis COAs (ChemHistory). Aroma-led — no effect claims.
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#0e0e0c; --surface:#181715; --surface-2:#1f1d1a; --border:#2a2824;
+  --fg:#e8e3d9; --fg-dim:#a8a092; --muted:#6e675b;
+  --accent:#6AAFA0; --amber:#C9A84C;
+  --paper:#f4eee3; --paper-ink:#1a1816; --paper-sub:#6b6358; --paper-rule:#d6cdbb;
+  /* ten canonical aroma hues */
+  --gas:#C9A84C; --earth:#6B8E5A; --citrus:#D4A843; --fruit:#B75F4A;
+  --floral:#B98BBE; --dessert:#D6B58A; --spicy:#9E6B4A; --pine:#4F7A5B;
+  --herb:#7FA688; --tropic:#D28B49;
+  --display:"Newsreader",Georgia,serif;
+  --body:"DM Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px);background-size:76px 76px;opacity:.5;}
+a{color:inherit;text-decoration:none;}
+::selection{background:var(--accent);color:var(--bg);}
+
+/* ── page shell ── */
+header.top,main{max-width:1240px;margin:0 auto;position:relative;z-index:1;}
+header.top{padding:40px 26px 0;}
+.kick{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+.kick span{color:var(--muted);}
+h1.mark{font-family:var(--display);font-weight:600;font-size:clamp(40px,8vw,88px);line-height:.94;letter-spacing:-.035em;margin:20px 0 0;}
+h1.mark em{font-style:italic;font-weight:500;}
+.lede{font-family:var(--display);font-weight:400;font-size:clamp(17px,2.2vw,21px);line-height:1.55;color:var(--fg-dim);max-width:60ch;margin:22px 0 0;}
+.lede b{color:var(--fg);font-weight:500;}
+.hero-band{display:flex;height:64px;margin:32px 0 0;border:1px solid var(--border);}
+.hero-band .s{flex:1;position:relative;}
+.hero-band .s b{position:absolute;left:0;right:0;bottom:7px;text-align:center;font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.1em;color:rgba(14,14,12,.6);}
+
+/* ── nav tabs ── */
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(14,14,12,.93);backdrop-filter:blur(12px);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;margin:34px 0 0;}
+nav.tabs button{appearance:none;border:0;border-right:1px solid var(--border);background:transparent;color:var(--fg-dim);padding:15px 22px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:color .2s,background .2s;}
+nav.tabs button:hover{color:var(--fg);}
+nav.tabs button.active{color:var(--accent);background:var(--surface);}
+
+main{padding:36px 26px 90px;}
+.view{display:none;}
+.view.active{display:block;}
+
+/* ── controls bar ── */
+.controls{border:1px solid var(--border);background:var(--surface);display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin-bottom:34px;}
+.ctrl{padding:16px 20px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.ctrl:last-child{border-right:0;}
+.ctrl label{display:block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
+.ctrl select,.ctrl input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--fg);font-family:var(--body);font-size:14px;padding:9px 11px;border-radius:2px;}
+.ctrl select:focus,.ctrl input:focus{outline:none;border-color:var(--accent);}
+.hint{font-family:var(--mono);font-size:9px;letter-spacing:.05em;color:var(--muted);margin-top:8px;line-height:1.6;}
+
+/* ── gallery of social frames ── */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:26px;align-items:start;}
+.asset{border:1px solid var(--border);background:var(--surface);display:flex;flex-direction:column;}
+.asset .bar{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid var(--border);gap:10px;}
+.asset .bar .nm{font-family:var(--display);font-size:17px;font-weight:600;color:var(--fg);line-height:1.1;}
+.asset .bar .fmt{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+.asset .bar .exp{appearance:none;border:1px solid var(--border);background:transparent;color:var(--accent);font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 11px;border-radius:2px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s;}
+.asset .bar .exp:hover{background:var(--accent);color:var(--bg);}
+.asset .bar .exp:disabled{opacity:.4;cursor:wait;}
+.viewport{position:relative;overflow:hidden;width:100%;background:#000;}
+.frame{position:absolute;top:0;left:0;transform-origin:top left;overflow:hidden;}
+
+/* ══════════════════════════════════════════════════════════
+   SOCIAL FRAME INTERIORS — sized in px against a 1080-wide canvas
+   ══════════════════════════════════════════════════════════ */
+.frame{font-family:var(--body);color:var(--fg);}
+.frame .grid-bg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px);background-size:90px 90px;pointer-events:none;}
+.frame.dark{background:var(--bg);}
+.frame .pad{position:absolute;inset:0;padding:70px;display:flex;flex-direction:column;}
+.f-kick{font-family:var(--mono);font-size:19px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);display:flex;gap:16px;align-items:center;}
+.f-kick .dim{color:var(--muted);}
+.f-sig{font-family:var(--mono);font-size:15px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--fg-dim);}
+.f-strain{font-family:var(--display);font-weight:600;letter-spacing:-.03em;line-height:.92;color:var(--fg);}
+.f-blend{font-family:var(--mono);font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+.f-aroma{font-family:var(--display);font-weight:400;color:var(--fg-dim);line-height:1.45;}
+.f-compliance{font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+.f-rule{height:1px;background:var(--border);width:100%;}
+
+/* proportional spectrum strip (the signature) */
+.fs-strip{display:flex;width:100%;overflow:hidden;}
+.fs-strip .seg{display:flex;align-items:flex-end;justify-content:flex-start;position:relative;}
+.fs-strip .seg b{font-family:var(--mono);font-weight:700;letter-spacing:.08em;color:rgba(14,14,12,.72);}
+
+/* meta chips */
+.f-chips{display:flex;flex-wrap:wrap;gap:12px;}
+.f-chip{font-family:var(--mono);font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);color:var(--fg-dim);border-radius:3px;}
+.f-terprow{display:flex;justify-content:space-between;font-family:var(--mono);border-bottom:1px solid var(--border);}
+.f-terprow .nm{color:var(--fg);} .f-terprow .v{color:var(--fg-dim);}
+
+/* ── detailed chemovar cards (canonical restyle) ── */
+.sheet{border:1px solid var(--border);background:var(--surface);margin-bottom:32px;}
+.mast{display:grid;grid-template-columns:1.25fr .75fr;border-bottom:1px solid var(--border);}
+.titleblock{padding:30px 32px;}
+.titleblock h2{font-family:var(--display);font-weight:600;font-size:clamp(38px,6vw,72px);line-height:.92;letter-spacing:-.04em;margin:0;}
+.titleblock .chem{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-dim);margin-top:14px;}
+.labelblock{border-left:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;}
+.labelblock div{padding:18px 20px;border-bottom:1px solid var(--border);}
+.labelblock div:nth-child(even){border-left:1px solid var(--border);}
+.labelblock b{display:block;font-family:var(--mono);color:var(--muted);font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px;}
+.labelblock .blend{font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;}
+.card-band{grid-column:1 / -1;display:flex;height:16px;border-top:1px solid var(--border);}
+.content{display:grid;grid-template-columns:.82fr 1.18fr;}
+.left{border-right:1px solid var(--border);}
+.module{padding:24px 26px;border-bottom:1px solid var(--border);}
+.module:last-child{border-bottom:0;}
+.h{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 16px;}
+.bigline{font-family:var(--display);font-size:27px;line-height:1.2;letter-spacing:-.01em;margin:0;color:var(--fg);}
+.copy p{margin:0 0 14px;color:var(--fg-dim);font-size:15px;line-height:1.65;}
+.copy p:last-child{margin-bottom:0;}
+.fp-wrap{display:flex;align-items:center;gap:18px;}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--border);border-left:1px solid var(--border);}
+.metric{padding:14px 16px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.metric b{display:block;font-family:var(--mono);color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;}
+.metric strong{font-size:23px;font-family:var(--display);font-weight:600;color:var(--fg);}
+.bars{display:grid;gap:10px;}
+.bar{display:grid;grid-template-columns:104px 1fr 40px;gap:12px;align-items:center;font-family:var(--mono);font-size:11px;color:var(--fg-dim);}
+.track{height:9px;background:var(--surface-2);}
+.fill{height:100%;}
+.sensory{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);border-left:1px solid var(--border);}
+.sense{padding:14px 16px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);font-size:13px;color:var(--fg-dim);line-height:1.5;}
+.sense b{display:block;font-family:var(--mono);color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;}
+.tags{display:flex;flex-wrap:wrap;gap:8px;}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-dim);border:1px solid var(--border);border-radius:20px;padding:4px 11px;display:inline-flex;align-items:center;gap:7px;}
+.tag i{width:7px;height:7px;border-radius:50%;display:inline-block;}
+table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;}
+th{color:var(--muted);font-size:9px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;}
+td,th{padding:8px 0;border-bottom:1px solid var(--border);text-align:left;}
+td:nth-child(2),td:nth-child(3),th:nth-child(2),th:nth-child(3){text-align:right;}
+td .n{color:var(--fg);} td .m{color:var(--fg-dim);}
+.note{font-size:13px;color:var(--fg-dim);line-height:1.6;}
+
+/* ── guide section ── */
+.prose{max-width:760px;}
+.prose h3{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:-.01em;margin:36px 0 12px;}
+.prose p{color:var(--fg-dim);margin:0 0 14px;}
+.prose strong{color:var(--fg);font-weight:600;}
+.callout{border:1px solid var(--border);border-left:3px solid var(--amber);background:var(--surface);padding:22px 26px;margin:26px 0;}
+.callout.teal{border-left-color:var(--accent);}
+.callout .ct{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+.callout.teal .ct{color:var(--accent);}
+.callout p{margin:0;font-size:14px;color:var(--fg-dim);}
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin:18px 0;}
+.legend .li{background:var(--surface);padding:14px 16px;}
+.legend .li .sw{height:8px;width:100%;margin-bottom:9px;}
+.legend .li .nm{font-family:var(--display);font-size:16px;font-weight:600;color:var(--fg);}
+.legend .li .tl{font-size:12px;color:var(--fg-dim);margin-top:3px;line-height:1.4;}
+
+/* ── footer ── */
+.foot{max-width:1240px;margin:0 auto;padding:0 26px 60px;position:relative;z-index:1;}
+.specline{display:flex;justify-content:space-between;gap:16px;padding-top:18px;border-top:2px solid var(--fg);font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;flex-wrap:wrap;}
+
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:var(--bg);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;padding:10px 18px;border-radius:3px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:80;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:820px){.mast,.content,.labelblock{grid-template-columns:1fr;}.labelblock{border-left:0;}.labelblock div:nth-child(even){border-left:0;}.left{border-right:0;}}
+.source-notice{padding:12px 26px;margin:0;border-bottom:1px solid var(--border);color:var(--fg-dim);font-size:12px;} @media(max-width:600px){nav.tabs{overflow:auto}nav.tabs button{white-space:nowrap;padding:12px}header.top,main{padding-left:16px;padding-right:16px}.gallery{grid-template-columns:1fr!important}.content{grid-template-columns:1fr!important}.mast{flex-direction:column}.hero-band .s b{font-size:6px}.labelblock{flex-wrap:wrap}}
+@media(max-width:600px){.content{grid-template-columns:minmax(0,1fr)!important}.content>*{min-width:0}.module{padding:20px 16px}.fp-wrap{flex-wrap:wrap}.sensory{grid-template-columns:1fr}.sheet table{font-size:11px;table-layout:fixed}.sheet td:first-child{width:55%;overflow-wrap:anywhere}.sheet th:first-child{width:55%}.titleblock{padding:24px 20px}}
+</style>
+</head>
+<body><p class="source-notice">Portfolio demo · historical sample panels supplied with the project; original lab PDFs not included. Aroma models are not predictions of effects.</p>
+<header class="top">
+  <div class="kick">CannaCre8ive <span>/</span> Flower Spectrum <span>/</span> Cultivator Social Kit <span>·</span> v1.0</div>
+  <h1 class="mark">Design assets, <em>ready to post.</em></h1>
+  <p class="lede">A set of on-brand social templates for craft cultivators — each built on the two devices that make the system recognizable: the proportional <b>Flower&nbsp;Spectrum strip</b> and the ten-sector <b>fingerprint&nbsp;ID</b>. Every classification here is derived from the historical sample panels supplied with this project. Pick a strain, pick a format, export a PNG.</p>
+  <div class="hero-band" id="heroBand" aria-hidden="true"></div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="active" data-view="social">Social Templates</button>
+  <button data-view="cards">Chemovar Cards</button>
+  <button data-view="guide">How to Use</button>
+</nav>
+
+<main>
+  <!-- ══════ SOCIAL TEMPLATES ══════ -->
+  <section class="view active" id="view-social">
+    <div class="controls">
+      <div class="ctrl">
+        <label for="selStrain">Featured strain</label>
+        <select id="selStrain"></select>
+      </div>
+      <div class="ctrl">
+        <label for="selProfile">Aroma spotlight profile</label>
+        <select id="selProfile"></select>
+      </div>
+      <div class="ctrl">
+        <label for="selCompare">Compare against</label>
+        <select id="selCompare"></select>
+      </div>
+      <div class="ctrl">
+        <label for="inFarm">Farm name</label>
+        <input id="inFarm" type="text" value="Ideal Cannabis" maxlength="28" />
+      </div>
+      <div class="ctrl">
+        <label for="inHandle">Social handle</label>
+        <input id="inHandle" type="text" value="@idealcannabis" maxlength="28" />
+        <div class="hint">Export renders at the native dimensions shown for each format. Fonts load first — give it a beat on first export.</div>
+      </div>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- ══════ CHEMOVAR CARDS ══════ -->
+  <section class="view" id="view-cards">
+    <div id="cards"></div>
+  </section>
+
+  <!-- ══════ GUIDE ══════ -->
+  <section class="view" id="view-guide">
+    <div class="prose">
+      <h3>The two devices</h3>
+      <p>Everything in this kit is built to be recognized without a logo. Two elements do that work, and they should appear on nearly every asset.</p>
+      <p><strong>The Flower Spectrum strip</strong> is the proportional band. The loudest aroma profile leads, left to right, and each segment&rsquo;s width is its share of the signal. A profile only joins the strip if it scores at least 60% of the leader; three colors is the ceiling. A solid band means one aroma dominates — a split band is an honest blend.</p>
+      <p><strong>The fingerprint ID</strong> is the ten-sector radial. Every profile owns a fixed wedge, so the same shape reads the same way on any flower — a visual signature you can spot across a whole feed. It shows the full ten-profile distribution behind the strip.</p>
+
+      <div class="legend" id="guideLegend"></div>
+
+      <h3>Formats in this kit</h3>
+      <p>Six templates across the three sizes a cultivator actually posts: <strong>1:1</strong> feed, <strong>4:5</strong> portrait (more feed real estate), and <strong>9:16</strong> story/reel.</p>
+      <ul style="color:var(--fg-dim);line-height:1.7;padding-left:20px;">
+        <li><strong>Strain Highlight</strong> — the flagship 1:1. Name, blend, strip, fingerprint, aroma line, top terpenes.</li>
+        <li><strong>New Drop</strong> — a 9:16 story announcing fresh flower, strip full-bleed.</li>
+        <li><strong>Aroma Spotlight</strong> — a 1:1 profile explainer for &ldquo;trust your nose&rdquo; education.</li>
+        <li><strong>Fingerprint ID</strong> — a 4:5 with the radial as hero: &ldquo;every flower has a signature.&rdquo;</li>
+        <li><strong>Same THC, Different Flower</strong> — a 1:1 comparison of two strains, two strips, two fingerprints.</li>
+        <li><strong>Voice Card</strong> — a 1:1 quote card in the brand voice.</li>
+      </ul>
+
+      <div class="callout teal">
+        <div class="ct">Make it yours</div>
+        <p>Set your farm name and handle up top and every template updates live. To feature your own flower, run its COA through the Chemovar Classifier — the strip, fingerprint, blend name, and confidence all come straight from the engine, so nothing here is ever hand-drawn or invented.</p>
+      </div>
+
+      <div class="callout">
+        <div class="ct">Compliance — non-negotiable</div>
+        <p>These are aroma classifications, not effect or medical claims. Aroma leads on every asset; THC % is factual data, not a claim. Keep &ldquo;sedative / energizing / entourage&rdquo; language off anything public. The compliance line rides on every template on purpose — keep it there.</p>
+      </div>
+
+      <h3>A note on these three strains</h3>
+      <p>Run through the canonical engine, the real Ideal Cannabis panels classify by their <em>loudest measured aroma</em>: Jelly Breath reads <strong>Earth-Spicy</strong>, while Sunday Driver and Kush Mints both read <strong>Citrus-Floral</strong>. That&rsquo;s the system being honest — it weights how a terpene actually smells, treats Gas as an emergent balance rather than a single note, and only ever classifies what the COA supports.</p>
+    </div>
+  </section>
+</main>
+
+<div class="foot">
+  <div class="specline">
+    <span>Flower Spectrum · Cultivator Social Kit · v1.0 · 07_02_2026</span>
+    <span>Aroma classification — not effects or medical claims</span>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+
+<script type="module" src="/src/modules/social.js"></script>
+</body></html>
