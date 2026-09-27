@@ -23,7 +23,7 @@
   {
     "path": "/social.html",
     "status": 200,
-    "bytes": 19116
+    "bytes": 19443
   },
   {
     "path": "/favicon.svg",
@@ -49,13 +49,13 @@
   {
     "path": "/assets/flower-spectrum-portfolio-kit.zip",
     "status": 200,
-    "bytes": 3113530,
+    "bytes": 3104951,
     "matchesLocal": true
   },
   {
     "path": "/assets/flower-spectrum-case-study.pdf",
     "status": 200,
-    "bytes": 552652,
+    "bytes": 548283,
     "matchesLocal": true
   },
   {
@@ -79,7 +79,7 @@
   {
     "path": "/assets/menu-mobile.png",
     "status": 200,
-    "bytes": 51923,
+    "bytes": 51927,
     "matchesLocal": true
   },
   {
@@ -91,7 +91,7 @@
   {
     "path": "/assets/menu-desktop.png",
     "status": 200,
-    "bytes": 188168,
+    "bytes": 188242,
     "matchesLocal": true
   },
   {
@@ -103,7 +103,7 @@
   {
     "path": "/assets/social-desktop.png",
     "status": 200,
-    "bytes": 133440,
+    "bytes": 130397,
     "matchesLocal": true
   },
   {

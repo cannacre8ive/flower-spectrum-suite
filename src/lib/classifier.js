@@ -48,4 +48,3 @@ export function bandSegments(c){
 }
 export function blendName(c){const segs=bandSegments(c);if(segs.length<=1)return caps(shortOf(segs[0]?.key||c.ranked[0].key));return segs.slice(0,2).map(s=>caps(shortOf(s.key))).join("-");}
 function caps(s){return s.charAt(0)+s.slice(1).toLowerCase();}
-

@@ -41,4 +41,3 @@ export const STRAINS=[
 ];
 export const SBK=Object.fromEntries(STRAINS.map(s=>[s.id,s]));
 STRAINS.forEach(s=>{ s.c=classify(s.values); s.blend=blendName(s.c); });
-

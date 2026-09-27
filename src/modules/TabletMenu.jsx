@@ -213,7 +213,7 @@ function ProductCard({ p, onInfo, onOpen }) {
           {p.staffPick && <Chip color={T.accent}>★ Pick</Chip>}
           {p.illustrative && <Chip color={T.amber}>Illustrative</Chip>}
           {p.tier && <Chip>{p.tier}</Chip>}
-            
+
         </div>
       </div>
 
@@ -298,7 +298,7 @@ function Hero({ p, onInfo, onOpen, count, index, onDot }) {
         <div style={{ display: "flex", alignItems: "center", gap: 18, marginTop: 4 }}>
           <span><span style={{ fontFamily: "'Newsreader', serif", fontSize: 30, fontWeight: 600 }}>{usd(pi.big)}</span><span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: T.muted }}> {pi.unit}{pi.sub ? " · " + pi.sub : ""}</span></span>
           {p.tier && <Chip>{p.tier}</Chip>}
-            
+
           {p.thc != null && <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: T.fgDim }}>{p.thc}% THC</span>}
         </div>
       </div>
@@ -405,7 +405,7 @@ function ProductDetail({ p, onClose, onInfo }) {
             {p.illustrative && <Chip color={T.amber}>Illustrative</Chip>}
             {p.tier && <Chip>{p.tier}</Chip>}
             {p.sourceId && <a href={`#social?strain=${p.sourceId}`} style={{color:T.accent,fontSize:12}}>Create assets from this sample ↗</a>}
-            
+
           </div>
           <div style={{ fontFamily: "'Newsreader', serif", fontSize: 34, fontWeight: 600, lineHeight: 1.05 }}>{p.name}</div>
           {p.sourceId && <p style={{fontSize:12,color:T.fgDim,lineHeight:1.6}}>Historical 2023 panel transcribed in the supplied prototype. Original lab PDFs not included. No current availability or price.</p>}
@@ -1011,4 +1011,3 @@ select:focus, input:focus, textarea:focus { border-color: #6AAFA0; }
 .fs-info:active { transform: scale(0.9); }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 `;
-
