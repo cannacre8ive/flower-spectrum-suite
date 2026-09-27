@@ -156,8 +156,8 @@
   },
   {
     "file": "profiles/citrus_bright.svg",
-    "bytes": 3316,
-    "sha256": "e6675c90d3872f716649f46aa1b0e7fcc99552ed42249cecd7d818824171444b"
+    "bytes": 3230,
+    "sha256": "6d4822f918a274ce5a1c00bf7b65919d6df6e25fd3e28db2dabde6f37d49bf65"
   },
   {
     "file": "profiles/dessert_creamy.png",
@@ -166,8 +166,8 @@
   },
   {
     "file": "profiles/dessert_creamy.svg",
-    "bytes": 3316,
-    "sha256": "a9e590e59263a7429a58d3e26bdac4b271dbd74af6f61332ebf0fd029ab757f2"
+    "bytes": 3230,
+    "sha256": "30e6b955d865cb768da160a90d810ef5002b53660877dbc99aeb69e50f3893bf"
   },
   {
     "file": "profiles/earthy_dank.png",
@@ -176,8 +176,8 @@
   },
   {
     "file": "profiles/earthy_dank.svg",
-    "bytes": 3317,
-    "sha256": "8e9d8e68b46df97d3f0e7694ca86c0785bbaa24c91fbe95e6b8b6aa96c30b6b2"
+    "bytes": 3231,
+    "sha256": "c819cdef33a843f24230b5099b84622b92c2fbdbd7558ab65bd88acd6d9cbf50"
   },
   {
     "file": "profiles/floral_soft.png",
@@ -186,8 +186,8 @@
   },
   {
     "file": "profiles/floral_soft.svg",
-    "bytes": 3313,
-    "sha256": "1c1559e21d48b83e8901ecff46d5b23e1cba3d4c110ba9e7da0137ec58e6a4d7"
+    "bytes": 3227,
+    "sha256": "1c1509fb1ba7222850cf5349c8b13d1e8ef4a5674e0580e5071db57a00219bd3"
   },
   {
     "file": "profiles/fruity_sweet.png",
@@ -196,8 +196,8 @@
   },
   {
     "file": "profiles/fruity_sweet.svg",
-    "bytes": 3319,
-    "sha256": "ab5139a404a0d7e1971e6ceb3a41fcb373286f04fdccdce7dfc62ae2bb4d1fac"
+    "bytes": 3233,
+    "sha256": "3b9420b4d322e941a3fcd95022bb2366272e5ab69847d9aab1c24cfd9ac1cfda"
   },
   {
     "file": "profiles/gas_fuel.png",
@@ -206,8 +206,8 @@
   },
   {
     "file": "profiles/gas_fuel.svg",
-    "bytes": 3310,
-    "sha256": "927cc769d5ded578dbd4b7d9ae1bba268911654137765a5b85e6143c961381a5"
+    "bytes": 3224,
+    "sha256": "3e18acd2085333d2636986ea5e740f988bf0469a5971b254ce5357c2bf87c7f3"
   },
   {
     "file": "profiles/herbal_woody.png",
@@ -216,8 +216,8 @@
   },
   {
     "file": "profiles/herbal_woody.svg",
-    "bytes": 3318,
-    "sha256": "40d1ea5eb364c4a658c2ac37de655d48588813e503b278c9687be12a412609eb"
+    "bytes": 3232,
+    "sha256": "415bf583e1a4a690e720b8bcf3cc0c2655d979dc5d33150e82ab268d19e8e314"
   },
   {
     "file": "profiles/piney_fresh.png",
@@ -226,8 +226,8 @@
   },
   {
     "file": "profiles/piney_fresh.svg",
-    "bytes": 3317,
-    "sha256": "1607d4806356b631b2fe8d7c54f21fe9d6e3a9393c845da0b0ae9cf02607a571"
+    "bytes": 3231,
+    "sha256": "ad4c0e23ac8a92782be251cfbbeb3278e4e5188a82b6e564e231cd9af89c14ad"
   },
   {
     "file": "profiles/spicy_warm.png",
@@ -236,8 +236,8 @@
   },
   {
     "file": "profiles/spicy_warm.svg",
-    "bytes": 3317,
-    "sha256": "97daed7b6f4f1e4025399a368a891c4f8e61b4cafe62d1eb974eee6f1f4fed8f"
+    "bytes": 3231,
+    "sha256": "843042d82e007d6030ac6c6d5ad1cde3befa1aa7408be1f69b5f4335c769241b"
   },
   {
     "file": "profiles/tropical_tangy.png",
@@ -246,8 +246,8 @@
   },
   {
     "file": "profiles/tropical_tangy.svg",
-    "bytes": 3316,
-    "sha256": "a9cf604b715eca27afbab69f1c7827988f20f44e9c76426a535698592d376bd8"
+    "bytes": 3230,
+    "sha256": "6893b893c5ea516afa20ebfaeef434002f1f2bfb202e21978eeb2f989e65f44c"
   },
   {
     "file": "profiles-desktop.png",

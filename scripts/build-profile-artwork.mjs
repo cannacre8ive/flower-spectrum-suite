@@ -9,7 +9,7 @@ const {default:Icon}=await server.ssrLoadModule('/src/components/Fingerprint.jsx
 await mkdir('public/assets/profiles',{recursive:true});await mkdir('output/playwright/profile-artwork',{recursive:true});
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 for(const [i,p] of PROFILES.entries()){
- const svg=renderToStaticMarkup(React.createElement(Icon,{ranked:referenceRanked(p.key),size:480})).replace('<svg','<svg style="color:#9c9a84" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+p.label+'"');
+ const svg=renderToStaticMarkup(React.createElement(Icon,{ranked:referenceRanked(p.key),size:480})).replace(' role="img"','').replace(/ aria-label="[^"]*"/,'').replace('<svg','<svg style="color:#9c9a84" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+p.label+'"');
  await writeFile(`public/assets/profiles/${p.key}.svg`,svg);
  const html=`<!doctype html><html><head><meta charset="utf-8"><title>${p.label} — Flower Spectrum</title><style>
  @font-face{font-family:Newsreader;src:url('/node_modules/@fontsource/newsreader/files/newsreader-latin-400-normal.woff2')}@font-face{font-family:DM;src:url('/node_modules/@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2')}@font-face{font-family:Mono;src:url('/node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2')}
