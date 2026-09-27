@@ -35,3 +35,5 @@ No retail sign-off, independent review of supplied scientific/educational copy, 
 - Physical label-stock registration and a physical printer were not tested; PDF geometry and browser print output were verified.
 
 Detailed local evidence: `verification-v2.json`. Public release verification is recorded separately after deployment.
+
+Public verification passed: 58 endpoints returned HTTP 200 and every downloadable asset matched the local file byte-for-byte. On the stable live URL, classifier save, digital browsing, print output, label preview, and all nine 320px routes passed without runtime errors. See `live-browser-v2.json` and `live-http-verification.json`.

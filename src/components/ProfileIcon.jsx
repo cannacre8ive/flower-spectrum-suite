@@ -14,4 +14,3 @@ export default function ProfileIcon({ pk, color, size = 44 }) {
   };
   return I[pk] || null;
 }
-

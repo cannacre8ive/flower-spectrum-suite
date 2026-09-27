@@ -2,7 +2,7 @@
   {
     "path": "/",
     "status": 200,
-    "bytes": 2271,
+    "bytes": 2291,
     "metadata": {
       "og:type": true,
       "og:site_name": true,
@@ -23,7 +23,7 @@
   {
     "path": "/social.html",
     "status": 200,
-    "bytes": 19443
+    "bytes": 19504
   },
   {
     "path": "/favicon.svg",
@@ -43,19 +43,37 @@
   {
     "path": "/assets/overview-desktop.png",
     "status": 200,
-    "bytes": 283041,
+    "bytes": 320982,
     "matchesLocal": true
   },
   {
     "path": "/assets/flower-spectrum-portfolio-kit.zip",
     "status": 200,
-    "bytes": 3104951,
+    "bytes": 4773646,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/classifier-mobile.png",
+    "status": 200,
+    "bytes": 50577,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/education-mobile.png",
+    "status": 200,
+    "bytes": 47145,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/label-sheet-sample.pdf",
+    "status": 200,
+    "bytes": 118027,
     "matchesLocal": true
   },
   {
     "path": "/assets/flower-spectrum-case-study.pdf",
     "status": 200,
-    "bytes": 548283,
+    "bytes": 518892,
     "matchesLocal": true
   },
   {
@@ -65,9 +83,21 @@
     "matchesLocal": true
   },
   {
+    "path": "/assets/print-mobile.png",
+    "status": 200,
+    "bytes": 51325,
+    "matchesLocal": true
+  },
+  {
     "path": "/assets/fs-spotlight-earthy_dank.png",
     "status": 200,
     "bytes": 116150,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/social-mobile.png",
+    "status": 200,
+    "bytes": 70953,
     "matchesLocal": true
   },
   {
@@ -83,27 +113,63 @@
     "matchesLocal": true
   },
   {
+    "path": "/assets/classifier-desktop.png",
+    "status": 200,
+    "bytes": 129985,
+    "matchesLocal": true
+  },
+  {
     "path": "/assets/social-preview.png",
     "status": 200,
-    "bytes": 143534,
+    "bytes": 144509,
     "matchesLocal": true
   },
   {
     "path": "/assets/menu-desktop.png",
     "status": 200,
-    "bytes": 188242,
+    "bytes": 189068,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/print-menu-landscape.pdf",
+    "status": 200,
+    "bytes": 39822,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/print-desktop.png",
+    "status": 200,
+    "bytes": 135412,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/aroma-shelf-cards.pdf",
+    "status": 200,
+    "bytes": 155936,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/labels-mobile.png",
+    "status": 200,
+    "bytes": 52485,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/classifier-workspace.png",
+    "status": 200,
+    "bytes": 143710,
     "matchesLocal": true
   },
   {
     "path": "/assets/education-desktop.png",
     "status": 200,
-    "bytes": 132214,
+    "bytes": 133534,
     "matchesLocal": true
   },
   {
     "path": "/assets/social-desktop.png",
     "status": 200,
-    "bytes": 130397,
+    "bytes": 148361,
     "matchesLocal": true
   },
   {
@@ -115,7 +181,13 @@
   {
     "path": "/assets/portfolio-cover.png",
     "status": 200,
-    "bytes": 188881,
+    "bytes": 189879,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles-desktop.png",
+    "status": 200,
+    "bytes": 102456,
     "matchesLocal": true
   },
   {
@@ -125,9 +197,15 @@
     "matchesLocal": true
   },
   {
+    "path": "/assets/flower-spectrum-profile-assets.zip",
+    "status": 200,
+    "bytes": 654183,
+    "matchesLocal": true
+  },
+  {
     "path": "/assets/overview-mobile.png",
     "status": 200,
-    "bytes": 232810,
+    "bytes": 81563,
     "matchesLocal": true
   },
   {
@@ -137,9 +215,147 @@
     "matchesLocal": true
   },
   {
+    "path": "/assets/profiles-mobile.png",
+    "status": 200,
+    "bytes": 42654,
+    "matchesLocal": true
+  },
+  {
     "path": "/assets/education-primer.pdf",
     "status": 200,
     "bytes": 30673,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/print-menu-sample.pdf",
+    "status": 200,
+    "bytes": 47409,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/labels-desktop.png",
+    "status": 200,
+    "bytes": 155656,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/spicy_warm.svg",
+    "status": 200,
+    "bytes": 583,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/earthy_dank.png",
+    "status": 200,
+    "bytes": 67389,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/earthy_dank.svg",
+    "status": 200,
+    "bytes": 603,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/spicy_warm.png",
+    "status": 200,
+    "bytes": 71662,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/floral_soft.svg",
+    "status": 200,
+    "bytes": 1051,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/citrus_bright.svg",
+    "status": 200,
+    "bytes": 1037,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/dessert_creamy.svg",
+    "status": 200,
+    "bytes": 596,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/fruity_sweet.png",
+    "status": 200,
+    "bytes": 78172,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/piney_fresh.png",
+    "status": 200,
+    "bytes": 65868,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/gas_fuel.png",
+    "status": 200,
+    "bytes": 62804,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/tropical_tangy.png",
+    "status": 200,
+    "bytes": 65862,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/herbal_woody.png",
+    "status": 200,
+    "bytes": 68007,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/herbal_woody.svg",
+    "status": 200,
+    "bytes": 530,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/gas_fuel.svg",
+    "status": 200,
+    "bytes": 647,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/tropical_tangy.svg",
+    "status": 200,
+    "bytes": 594,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/piney_fresh.svg",
+    "status": 200,
+    "bytes": 394,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/fruity_sweet.svg",
+    "status": 200,
+    "bytes": 503,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/dessert_creamy.png",
+    "status": 200,
+    "bytes": 69917,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/citrus_bright.png",
+    "status": 200,
+    "bytes": 81507,
+    "matchesLocal": true
+  },
+  {
+    "path": "/assets/profiles/floral_soft.png",
+    "status": 200,
+    "bytes": 71182,
     "matchesLocal": true
   }
 ]

@@ -1,0 +1,74 @@
+{
+  "errors": [],
+  "checks": [
+    {
+      "save": true,
+      "values": 16,
+      "profile": "spicy_warm"
+    },
+    {
+      "comparePanels": 3
+    },
+    {
+      "digital": true
+    },
+    {
+      "print": 1
+    },
+    {
+      "editorInputs": 9
+    },
+    {
+      "label": true
+    },
+    {
+      "mobile": "overview",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "mobile": "classifier",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "mobile": "menu",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "mobile": "print",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "mobile": "labels",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "mobile": "profiles",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "mobile": "education",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "mobile": "social",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "mobile": "portfolio",
+      "width": 320,
+      "scroll": 320
+    }
+  ],
+  "site": "https://flower-spectrum-suite.vercel.app",
+  "http_endpoints": 58,
+  "all_assets_match_local": true,
+  "verified_release": "2.0.0"
+}

@@ -144,4 +144,3 @@ export function contribOf(t) {
   Object.keys(c).forEach(k => c[k] = c[k] / s);
   return c;
 }
-
