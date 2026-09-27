@@ -25,6 +25,8 @@ Use the stable demo URL in posts. Do not describe illustrative prices as current
 
 The wholesale portal attachment is preserved under `source/` as reference. It is not an active order-taking service.
 
-Version 3 replaces the generic profile icon artwork with canonical fingerprint-sector references and a ten-color band. These teaching cards are not measured product fingerprints. The app generates measured-panel assets from reviewed uploads.
+Version 3 replaces the generic profile icon artwork with layered illustrative fingerprints and proportional spectrum bands. These teaching cards are not measured product fingerprints. The app generates measured-panel assets from reviewed uploads.
 
 Farm, buyer, and staff workflows are illustrated in the Workflows view; buyer and upload screenshots are included in the shareable kit.
+
+Version 3.1 adds layered profile blends (shared with Education), a historical Kush Mints walkthrough, and an interactive concentration-to-profile explanation. The ten reference blends are illustrative compositions, not COA measurements or cultivar averages. Their proportions emphasize each teaching profile and its associated supporting notes. See the Profile assets page for the model calculation and the distinction between the full fingerprint and the leading-profile social strip.

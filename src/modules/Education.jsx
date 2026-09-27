@@ -1,4 +1,5 @@
 import { PROFILES } from "../data/profiles.js";
+import {referencePct} from "../lib/profile-reference.js";
 import { TERPENES } from "../data/terpenes.js";
 import { useState, useEffect } from "react";
 
@@ -29,13 +30,8 @@ const POT_DEF = { primary:1.0, impact:1.1, trace:0.7 };
 const potOf = t => (t.potency != null ? t.potency : POT_DEF[t.tier]);
 const TBK = Object.fromEntries(TERPENES.map(t => [t.key, t]));
 
-// idealized spectrum % for a profile — the canonical "pure" shape for teaching
-function idealPct(p) {
-  const o = {}; PROFILES.forEach(x => o[x.key] = 6);
-  o[p.key] = 100;
-  (p.foundWith || []).forEach((k,i) => o[k] = i === 0 ? 40 : 30);
-  return o;
-}
+// Shared illustrative blend, not a measured cultivar average.
+const idealPct = p => referencePct(p.key);
 
 function wedge(cx,cy,ir,or_,sa,ea){
   const f=v=>v.toFixed(2);
@@ -170,7 +166,7 @@ function ProfilesSheet() {
       <Kicker>Flower Spectrum · Reference</Kicker>
       <h1 style={{ fontFamily:D, fontSize:34, fontWeight:700, lineHeight:1.05, margin:"0 0 6px", color:INK }}>The Ten Aroma Profiles</h1>
       <p style={{ fontFamily:B, fontSize:14, color:DIM, margin:"0 0 8px", lineHeight:1.5 }}>Every flower lives somewhere on this spectrum. Find the smell you love; the rest follows.</p>
-      <p style={{ fontFamily:B, fontSize:11, fontStyle:"italic", color:FAINT, margin:"0 0 20px" }}>The "lean" notes are traditional aromatic associations, not medical claims — effects vary by person, dose, and setting.</p>
+      <p style={{ fontFamily:B, fontSize:11, fontStyle:"italic", color:FAINT, margin:"0 0 20px" }}>Fingerprints are illustrative blends, not measured strain averages. The "lean" notes are traditional associations, not medical claims — effects vary by person, dose, and setting.</p>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14 }}>
         {PROFILES.map(p => <ProfileCardEdu key={p.key} p={p}/>)}
       </div>

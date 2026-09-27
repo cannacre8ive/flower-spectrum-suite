@@ -657,7 +657,7 @@ function AromaCards({ list, config, menuText, orientation, cardSet, cardCols }) 
                 <div key={p.key} className="fs-card" style={{ breakInside:"avoid", border:"1px solid #ddd2bf", borderTop:`4px solid ${p.color}`, borderRadius:7, padding:"13px 14px 12px", marginBottom:"0.3in", background:"#fbf7ef" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:6 }}>
                     <div style={{ width:38, height:38, flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", background:`${p.color}1a`, borderRadius:9 }}>
-                      <ReferenceFingerprint ranked={referenceRanked(p.key)} size={48} />
+                      <ReferenceFingerprint ranked={referenceRanked(p.key)} size={48} label={`${p.label}: illustrative profile blend`} />
                     </div>
                     <div style={{ minWidth:0 }}>
                       <div style={{ fontFamily:D, fontSize:17, fontWeight:700, color:"#15130f", lineHeight:1.05 }}>{p.label}</div>

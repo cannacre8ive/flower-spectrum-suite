@@ -14,7 +14,7 @@ A language for what you smell. A connected classifier, digital and print menu st
 - **Classifier:** the full 38-terpene model, flower/live-resin presets, detailed and spectrum fingerprints, four-panel comparison, CSV export, and save/update to the shared catalog.
 - **Print menu:** flower only, staff picks, deals, sorting, editable headers, portrait/landscape pagination, and ten profile plus 38 terpene shelf cards.
 - **Labels:** Avery 6464 PDFs; product selection, copy order, start position, automatic clean canvas preview of the actual PDF, and download.
-- **Profile assets:** ten 1080 × 1080 PNG cards and ten editable SVG fingerprint diagrams.
+- **Profile assets:** ten layered illustrative blends as 1080 × 1080 PNG cards and editable SVG fingerprints; a historical Kush Mints walkthrough and interactive concentration/weighting explanation.
 - **Digital menu:** flower only, aroma filters, sorting, product details, contextual learning, staff picks, demo sales, and local catalog editing.
 - **Education:** nine supplied teaching pieces, individual/full print views, and an interactive preference quiz that links into retail browsing.
 - **Social studio:** six customizable PNG formats, three historical sample panels, detailed chemovar cards, and shared profile colors.
@@ -68,6 +68,8 @@ Classify a product and save it to the catalog. Open **Digital menu** to browse i
 ![Profile library](documentation/assets/profiles-desktop.png)
 
 ## Recent updates
+
+**3.1.0:** layered profile fingerprints and proportional full-spectrum bands, shared with Education and print references; historical Kush Mints example; interactive explanation of why the most abundant terpene need not determine the leading profile. Reference compositions are explicitly illustrative, and model weights are distinguished from measured smell intensity.
 
 **3.0.0:** fingerprint-led reference assets; on-device PDF/CSV/image report import and review; optional flower photos; uploaded-flower social and chemovar exports; flower-only menus and labels; live clean label previews; farm/buyer/staff workflows and buyer shortlist search.
 

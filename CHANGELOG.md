@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.1.0 — layered fingerprints and model walkthrough
+
+- Replace isolated profile spokes with layered illustrative blends, using the same dominant/supporting composition as Education. Keep PNG, SVG, in-app, and print reference artwork consistent.
+- Add full-spectrum proportional bands and leading/supporting profile keys to each reference card; rebuild both asset packs.
+- Explain measured concentration, per-compound weighting, profile allocation, Gas/Fuel combination scoring, and normalized fingerprint shares.
+- Show the supplied historical Kush Mints panel beside its full fingerprint and leading-profile social strip, with a direct Social studio handoff.
+- Add a live three-compound example: myrcene can be the highest measured compound while Floral leads. Include reset and zero-input behavior, and explicitly identify model assumptions and illustrative compositions.
+
+
 ## 3.0.0 — 2026-09-26
 
 - Replaced generic profile icons with the ten-sector fingerprint and spectrum band across the active asset library and downloadable reference cards.

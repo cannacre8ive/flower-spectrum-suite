@@ -55,3 +55,12 @@ Local verification completed on 2026-09-26:
 Known limits: arbitrary lab layouts may require edits; OCR is English-language and requires review. Browser storage is local; no supplier marketplace, ordering, cloud sync, or POS connection exists. JSON review records preserve photos and provenance, while menu CSV does not. Physical printer registration and every browser/assistive technology combination were not tested.
 
 Production verification on the stable alias also exercised CSV, text PDF, image OCR, scanned PDF, custom social PNG download, clean label canvas, buyer filters and shortlist printing, and all ten fingerprint reference cards. No browser page errors or off-origin requests occurred. Sixty published portfolio asset responses matched their local SHA-256 values. A populated-review mobile width issue was found and corrected; the full page now stays within 320px while the table scrolls inside its own region. All ten standalone SVG exports were parsed as XML and their accessibility metadata normalized for external editors. Final automated suite: 26 passing checks plus successful production build.
+
+## 3.1.0 — layered profile assets
+
+- Ten reference cards now use normalized illustrative blends shared with Education and print references. All ten SVGs contain ten active spokes; the dominant sector remains longest. Proportional full-spectrum bands use those same values.
+- The historical Kush Mints example displays the existing classifier's Citrus 24% / Floral 20% result and links to the correct Social studio sample.
+- Browser keyboard checks confirm that the illustrative myrcene/linalool example starts Floral-leading, switches to Earth as linalool is lowered, handles zero concentrations, and resets correctly.
+- Checked 320, 390, 768 and 1440px layouts without document overflow or page errors. Education reference and all 48 print shelf cards render.
+- Ten 1080px PNG cards regenerated and inspected; SVG XML and archive integrity checked. Updated screenshots and the shelf-card PDF are included in the refreshed asset packs.
+- Teaching blend percentages are illustrative; model weighting is explicitly described as a model assumption, not a measured or independently validated smell-intensity scale. No classifier coefficients changed.
