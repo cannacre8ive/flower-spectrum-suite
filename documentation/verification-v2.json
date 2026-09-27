@@ -1,0 +1,176 @@
+{
+  "connected": {
+    "errors": [],
+    "checks": [
+      {
+        "save": true,
+        "values": 16,
+        "profile": "spicy_warm"
+      },
+      {
+        "comparePanels": 3
+      },
+      {
+        "digital": true
+      },
+      {
+        "print": 1
+      },
+      {
+        "editorInputs": 9
+      },
+      {
+        "label": true
+      },
+      {
+        "mobile": "overview",
+        "width": 320,
+        "scroll": 320
+      },
+      {
+        "mobile": "classifier",
+        "width": 320,
+        "scroll": 320
+      },
+      {
+        "mobile": "menu",
+        "width": 320,
+        "scroll": 320
+      },
+      {
+        "mobile": "print",
+        "width": 320,
+        "scroll": 320
+      },
+      {
+        "mobile": "labels",
+        "width": 320,
+        "scroll": 320
+      },
+      {
+        "mobile": "profiles",
+        "width": 320,
+        "scroll": 320
+      },
+      {
+        "mobile": "education",
+        "width": 320,
+        "scroll": 320
+      },
+      {
+        "mobile": "social",
+        "width": 320,
+        "scroll": 320
+      },
+      {
+        "mobile": "portfolio",
+        "width": 320,
+        "scroll": 320
+      }
+    ]
+  },
+  "print_and_labels": {
+    "checks": [
+      {
+        "mode": "flower portrait",
+        "pages": 2,
+        "rows": 10,
+        "overflow": 0
+      },
+      {
+        "mode": "flower landscape",
+        "pages": 1,
+        "rows": 10,
+        "overflow": 0
+      },
+      {
+        "mode": "Pre-Rolls",
+        "pages": 1,
+        "rows": 2,
+        "overflow": 0
+      },
+      {
+        "mode": "Concentrates",
+        "pages": 1,
+        "rows": 3,
+        "overflow": 0
+      },
+      {
+        "mode": "Vapes",
+        "pages": 1,
+        "rows": 2,
+        "overflow": 0
+      },
+      {
+        "mode": "Edibles",
+        "pages": 1,
+        "rows": 3,
+        "overflow": 0
+      },
+      {
+        "mode": "Staff Picks",
+        "pages": 1,
+        "rows": 2,
+        "overflow": 0
+      },
+      {
+        "mode": "Deals",
+        "pages": 1,
+        "rows": 1,
+        "overflow": 0
+      },
+      {
+        "mode": "aroma and terpene cards",
+        "pages": 5,
+        "rows": 48,
+        "overflow": 0
+      },
+      {
+        "mode": "label preview",
+        "iframe": "blob:http://127.0.0.1:5178/063c9d37-1768-4314-a5f6-6186daeaf062"
+      },
+      {
+        "mode": "stale label preview cleared",
+        "pass": true
+      }
+    ],
+    "errors": []
+  },
+  "catalog_edit": {
+    "edited": {
+      "price": 43,
+      "note": "The cleanest terpinolene nose on the shelf.",
+      "concentrateTier": "Live Resin"
+    },
+    "threeColumns": {
+      "rows": 10,
+      "overflow": 0
+    }
+  },
+  "final_pdfs": {
+    "cards": {
+      "pages": 5,
+      "cards": 48,
+      "tierHeaders": [
+        "Primary",
+        "Primary",
+        "Secondary (Impact)",
+        "Secondary (Impact)",
+        "Trace",
+        "Trace",
+        "Trace"
+      ]
+    },
+    "caseOverflow": []
+  },
+  "stress": {
+    "products": 900,
+    "portrait_pages": 90,
+    "landscape_pages": 65,
+    "unique_rows": 900,
+    "overflow": 0,
+    "pdf_text_count": 900,
+    "pdf_unique_count": 900
+  },
+  "automated_tests": 16
+}

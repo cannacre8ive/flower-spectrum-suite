@@ -13,5 +13,25 @@
     "file": "education-materials.jsx",
     "sha256": "7dbdb5f5781798903d8b8686816415f6f838cc934e639835b26497d3842c782e",
     "bytes": 70044
+  },
+  {
+    "file": "chemovar-classifier-v1.3.jsx",
+    "sha256": "4976ee6b96120e113e296d4393d3c887371f36216ee8b5142c4784ac3ef21436",
+    "bytes": 82228
+  },
+  {
+    "file": "print-menu-v2.jsx",
+    "sha256": "a92a81dc1a147e78f31eaf303774180f53080d58fcb1888a4f43f48a7d42d601",
+    "bytes": 126727
+  },
+  {
+    "file": "label-generator.html",
+    "sha256": "c1a436d5f98c2508077667d149a790ad799de20fe54cd910e96900bd2b367c68",
+    "bytes": 39443
+  },
+  {
+    "file": "wholesale-portal-reference.html",
+    "sha256": "c3051cba8c6b05ea0b303378464014f03915ee4ac7b4b1db5d14461ba41a87b8",
+    "bytes": 91134
   }
 ]

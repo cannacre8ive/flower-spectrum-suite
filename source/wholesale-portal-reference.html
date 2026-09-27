@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Flower Spectrum · Wholesale Portal — Ideal Cannabis · v2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   FLOWER SPECTRUM · WHOLESALE PORTAL · v2.0 · 07_08_2026
+   B2B wholesale buyer/seller portal on the canonical Flower Spectrum
+   product design system (Brand Guidelines v1.0 · Photo Gallery v1.0).
+   Engine: byte-identical math to Chemovar Classifier v1.3.
+   Classifications SIMULATED for demonstration except Kush Mints
+   (validated COA panel). Demo data throughout — MVP, not a live store.
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#0e0e0c; --surface:#181715; --surface-2:#1f1d1a; --border:#2a2824;
+  --fg:#e8e3d9; --fg-dim:#a8a092; --muted:#6e675b;
+  --accent:#6AAFA0; --amber:#C9A84C;
+  --gas:#C9A84C; --earth:#6B8E5A; --citrus:#D4A843; --fruit:#B75F4A;
+  --floral:#B98BBE; --dessert:#D6B58A; --spicy:#9E6B4A; --pine:#4F7A5B;
+  --herb:#7FA688; --tropic:#D28B49;
+  --paid:#6AAFA0; --due:#C9A84C; --overdue:#B75F4A;
+  --display:"Newsreader",Georgia,serif; --body:"DM Sans",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px);background-size:76px 76px;opacity:.5;}
+a{color:inherit;text-decoration:none;} ::selection{background:var(--accent);color:var(--bg);}
+button{font-family:inherit;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+header.top,main{max-width:1280px;margin:0 auto;position:relative;z-index:1;}
+header.top{padding:40px 26px 0;}
+.kick{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+.kick span{color:var(--muted);}
+h1.mark{font-family:var(--display);font-weight:600;font-size:clamp(38px,7vw,78px);line-height:.94;letter-spacing:-.035em;margin:20px 0 0;}
+h1.mark em{font-style:italic;font-weight:500;}
+.lede{font-family:var(--display);font-weight:400;font-size:clamp(17px,2.2vw,21px);line-height:1.55;color:var(--fg-dim);max-width:62ch;margin:22px 0 0;}
+.lede b{color:var(--fg);font-weight:500;}
+.hero-band{display:flex;height:52px;margin:28px 0 0;border:1px solid var(--border);}
+.hero-band .s{flex:1;position:relative;}
+.hero-band .s b{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.1em;color:rgba(14,14,12,.6);}
+
+/* perspective switch + demo strip */
+.persp{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:28px 0 0;}
+.seg-toggle{display:flex;border:1px solid var(--border);background:var(--surface);}
+.seg-toggle button{appearance:none;border:0;background:transparent;color:var(--fg-dim);padding:13px 26px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:color .2s,background .2s;border-right:1px solid var(--border);}
+.seg-toggle button:last-child{border-right:0;}
+.seg-toggle button.active{color:var(--bg);background:var(--accent);}
+.seg-toggle.mini button{padding:8px 14px;font-size:9.5px;}
+.seg-toggle.mini button.active{background:var(--surface-2);color:var(--accent);}
+.demostate{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.demostate .dl{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.demostate .note{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--fg-dim);}
+.demostate .note b{color:var(--accent);font-weight:700;}
+
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(14,14,12,.93);backdrop-filter:blur(12px);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;margin:26px 0 0;overflow-x:auto;}
+nav.tabs button{appearance:none;border:0;border-right:1px solid var(--border);background:transparent;color:var(--fg-dim);padding:15px 22px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:color .2s,background .2s;white-space:nowrap;}
+nav.tabs button:hover{color:var(--fg);} nav.tabs button.active{color:var(--accent);background:var(--surface);}
+nav.tabs .badge{display:inline-block;min-width:17px;text-align:center;margin-left:8px;background:var(--accent);color:var(--bg);border-radius:20px;font-size:9px;padding:1px 5px;}
+
+main{padding:34px 26px 90px;}
+.view{display:none;} .view.active{display:block;}
+.sectlead{font-family:var(--display);font-size:clamp(22px,3vw,30px);font-weight:600;letter-spacing:-.01em;margin:0 0 6px;}
+.sectsub{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin:0 0 24px;}
+
+/* benefits */
+.benefits{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border:1px solid var(--border);background:var(--surface);margin:0 0 30px;}
+.benefit{padding:18px 20px;border-right:1px solid var(--border);}
+.benefit:last-child{border-right:0;}
+.benefit .bt{font-family:var(--display);font-weight:600;font-size:17px;margin:0 0 5px;}
+.benefit .bd{font-size:13px;color:var(--fg-dim);line-height:1.55;}
+@media(max-width:820px){.benefit{border-right:0;border-bottom:1px solid var(--border);}.benefit:last-child{border-bottom:0;}}
+
+/* toolbar */
+.toolbar{border:1px solid var(--border);background:var(--surface);display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:0;margin:0 0 24px;}
+.tb{padding:13px 16px;border-right:1px solid var(--border);}
+.tb:last-child{border-right:0;display:flex;align-items:flex-end;}
+.tb label{display:block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.tb select,.tb input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--fg);font-family:var(--body);font-size:14px;padding:9px 11px;border-radius:2px;}
+.tb select:focus,.tb input:focus{outline:none;border-color:var(--accent);}
+@media(max-width:860px){.toolbar{grid-template-columns:1fr 1fr;}.tb{border-bottom:1px solid var(--border);}}
+
+.btn{appearance:none;border:1px solid var(--border);background:transparent;color:var(--fg);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:11px 16px;border-radius:2px;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
+.btn.primary{border-color:var(--accent);color:var(--accent);}
+.btn.primary:hover:not(:disabled){background:var(--accent);color:var(--bg);}
+.btn:hover:not(:disabled){border-color:var(--fg-dim);}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+.btn.sm{padding:7px 11px;font-size:9.5px;}
+.btn.danger{border-color:var(--fruit);color:var(--fruit);}
+.btn.danger:hover:not(:disabled){background:var(--fruit);color:var(--bg);}
+
+/* MENU — card grid */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:18px;}
+.grouphead{grid-column:1/-1;display:flex;align-items:center;gap:14px;margin:14px 0 0;}
+.grouphead:first-child{margin-top:0;}
+.grouphead .gh-chip{width:14px;height:14px;flex:none;}
+.grouphead .gh-t{font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em;white-space:nowrap;}
+.grouphead .gh-n{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;white-space:nowrap;}
+.grouphead .gh-rule{flex:1;height:1px;background:var(--border);}
+.mcard{border:1px solid var(--border);background:var(--surface);cursor:pointer;overflow:hidden;transition:border-color .2s;text-align:left;padding:0;color:var(--fg);display:flex;flex-direction:column;}
+.mcard:hover{border-color:var(--accent);}
+.mcard .ph{position:relative;aspect-ratio:4/3;overflow:hidden;background:#0b0b0a;}
+.mcard .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+.mcard:hover .ph img{transform:scale(1.03);}
+.mcard .simtag{position:absolute;top:12px;left:12px;font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.14em;color:var(--fg);background:rgba(14,14,12,.5);border:1px solid rgba(232,227,217,.16);padding:3px 7px;border-radius:20px;text-transform:uppercase;}
+.mcard .fpbadge{position:absolute;top:10px;right:10px;background:rgba(14,14,12,.55);backdrop-filter:blur(4px);border:1px solid rgba(232,227,217,.14);border-radius:50%;padding:4px;line-height:0;}
+.mcard .strip-slot{line-height:0;}
+.mcard .bd{padding:14px 16px 16px;display:flex;flex-direction:column;gap:7px;flex:1;}
+.mcard .nm{font-family:var(--display);font-weight:600;font-size:21px;line-height:1.05;}
+.mcard .bl{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+.mcard .meta{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+.mcard .price{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--border);padding-top:10px;margin-top:auto;}
+.mcard .price .p{font-family:var(--display);font-weight:600;font-size:23px;}
+.mcard .price .p span{font-size:13px;color:var(--fg-dim);font-weight:400;}
+.mcard .price .lock{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
+.mcard .price .thc{font-family:var(--mono);font-size:11px;color:var(--fg-dim);letter-spacing:.06em;}
+.lowstock{color:var(--fruit)!important;}
+
+/* MENU — table view */
+.mtablewrap{border:1px solid var(--border);overflow-x:auto;background:var(--surface);}
+table.mtable{width:100%;border-collapse:collapse;min-width:860px;}
+table.mtable th{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:left;padding:12px 14px;border-bottom:1px solid var(--border);background:var(--surface-2);white-space:nowrap;cursor:pointer;user-select:none;}
+table.mtable th:hover{color:var(--fg);}
+table.mtable th .arr{color:var(--accent);}
+table.mtable td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:14px;vertical-align:middle;}
+table.mtable tr.rowlink{cursor:pointer;transition:background .15s;}
+table.mtable tr.rowlink:hover{background:var(--surface-2);}
+table.mtable tr:last-child td{border-bottom:0;}
+.tthumb{width:46px;height:46px;object-fit:cover;display:block;border:1px solid var(--border);}
+.tthumb-ph{width:46px;height:46px;border:1px solid var(--border);}
+td .tnm{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.1;}
+td .tcross{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--muted);margin-top:2px;}
+td.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--fg-dim);white-space:nowrap;}
+td .minitrip{width:110px;}
+
+/* status pills */
+.pill{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--border);border-radius:20px;padding:3px 9px;color:var(--fg-dim);white-space:nowrap;}
+.pill.paid,.pill.delivered,.pill.approved{border-color:var(--paid);color:var(--paid);}
+.pill.due,.pill.confirmed,.pill.scheduled,.pill.pending{border-color:var(--due);color:var(--due);}
+.pill.overdue,.pill.declined{border-color:var(--overdue);color:var(--overdue);}
+.pill.coa{border-color:var(--accent);color:var(--accent);}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(10,10,9,.72);backdrop-filter:blur(6px);z-index:60;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 18px;}
+.overlay.open{display:flex;}
+.sheet{width:100%;max-width:980px;background:var(--bg);border:1px solid var(--border);position:relative;}
+.sheet .close{position:absolute;top:14px;right:14px;z-index:5;appearance:none;border:1px solid rgba(232,227,217,.25);background:rgba(14,14,12,.6);color:var(--fg);width:38px;height:38px;border-radius:50%;font-size:17px;cursor:pointer;line-height:1;}
+.sheet .close:hover{border-color:var(--accent);color:var(--accent);}
+.sheet-hero{position:relative;height:340px;overflow:hidden;background:#0b0b0a;}
+.sheet-hero img{width:100%;height:100%;object-fit:cover;display:block;}
+.sheet-hero .scrim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(14,14,12,.2) 40%,rgba(14,14,12,.96));}
+.sheet-hero .htxt{position:absolute;left:0;right:0;bottom:0;padding:0 34px 24px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;}
+.sheet-hero .hnm{font-family:var(--display);font-weight:600;font-size:clamp(34px,5vw,56px);letter-spacing:-.03em;line-height:.95;color:#fff;}
+.sheet-hero .hbl{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:8px;}
+.sheet-body{display:grid;grid-template-columns:1.15fr .85fr;gap:0;}
+@media(max-width:820px){.sheet-body{grid-template-columns:1fr;}}
+.sheet-info{padding:28px 34px 34px;border-right:1px solid var(--border);}
+@media(max-width:820px){.sheet-info{border-right:0;border-bottom:1px solid var(--border);}}
+.sheet-buy{padding:28px 30px 34px;background:var(--surface);}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;margin:18px 0 0;}
+.kv .k{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.kv .v{font-size:14.5px;color:var(--fg);}
+.kv .v.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;}
+.aroma-quote{font-family:var(--display);font-style:italic;font-size:19px;line-height:1.5;color:var(--fg-dim);margin:16px 0 0;}
+.fp-row{display:flex;gap:22px;align-items:center;margin:22px 0 0;flex-wrap:wrap;}
+.terp-list{flex:1;min-width:200px;}
+.terp-list .tl-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--fg-dim);padding:5px 0;border-bottom:1px dashed var(--border);}
+.terp-list .tl-row b{color:var(--fg);font-weight:500;}
+.buy-title{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 14px;}
+.tiers{margin:0 0 18px;}
+.tier{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--border);padding:9px 13px;margin-bottom:5px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--fg-dim);transition:border-color .2s,color .2s;}
+.tier.active{border-color:var(--accent);color:var(--accent);}
+.tier .tp{font-weight:700;}
+.frm label{display:block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 7px;}
+.frm input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--fg);font-family:var(--mono);font-size:14px;padding:10px 12px;border-radius:2px;color-scheme:dark;}
+.frm input:focus{outline:none;border-color:var(--accent);}
+.frm .two{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-bottom:14px;}
+.totline{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--border);padding:13px 2px;margin:4px 0 14px;}
+.totline .tl{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--fg-dim);}
+.totline .tv{font-family:var(--display);font-weight:600;font-size:26px;}
+.gate{border:1px dashed var(--border);padding:18px;margin-top:6px;}
+.gate p{margin:0 0 14px;font-size:13.5px;color:var(--fg-dim);line-height:1.55;}
+.confirmbox{border:1px solid var(--accent);padding:18px;}
+.confirmbox .cb-t{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+.confirmbox .cb-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--fg-dim);padding:4px 0;}
+.confirmbox .cb-row b{color:var(--fg);font-weight:500;}
+.locknote{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-top:10px;}
+
+/* ACCOUNT */
+.acct-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border:1px solid var(--border);background:var(--surface);margin:0 0 30px;}
+.acct-cell{padding:18px 20px;border-right:1px solid var(--border);}
+.acct-cell:last-child{border-right:0;}
+.acct-cell .ak{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.acct-cell .av{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.15;}
+.acct-cell .as{font-family:var(--mono);font-size:10px;color:var(--fg-dim);margin-top:4px;letter-spacing:.04em;}
+@media(max-width:820px){.acct-cell{border-right:0;border-bottom:1px solid var(--border);}.acct-cell:last-child{border-bottom:0;}}
+.dltext{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--border);padding:6px 10px;border-radius:2px;display:inline-block;transition:border-color .2s;}
+.dltext:hover{border-color:var(--accent);}
+
+/* SELLER — inventory */
+.loader{margin:0 0 24px;border:1px dashed var(--border);background:var(--surface);border-radius:4px;padding:20px 22px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;transition:border-color .2s,background .2s;}
+.loader.drag{border-color:var(--accent);background:var(--surface-2);}
+.loader .t{font-size:15px;color:var(--fg);}
+.loader .t b{color:var(--accent);font-weight:600;}
+.loader .sub{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--muted);margin-top:6px;}
+.loader .acts{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.counter{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--fg-dim);}
+.counter b{color:var(--accent);}
+.inv-thumb{width:56px;height:56px;position:relative;border:1px solid var(--border);cursor:pointer;overflow:hidden;flex:none;background:#0b0b0a;}
+.inv-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.inv-thumb .add{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;text-align:center;}
+.inv-thumb:hover{border-color:var(--accent);}
+input.stock{width:76px;background:var(--bg);border:1px solid var(--border);color:var(--fg);font-family:var(--mono);font-size:13px;padding:7px 9px;border-radius:2px;}
+input.stock:focus{outline:none;border-color:var(--accent);}
+
+/* stats strip */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0;border:1px solid var(--border);background:var(--surface);margin:0 0 30px;}
+.stat{padding:16px 20px;border-right:1px solid var(--border);}
+.stat:last-child{border-right:0;}
+.stat .sk{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.stat .sv{font-family:var(--display);font-weight:600;font-size:26px;}
+@media(max-width:820px){.stat{border-right:0;border-bottom:1px solid var(--border);}.stat:last-child{border-bottom:0;}}
+
+/* PROMO KIT (from gallery) */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:26px;align-items:start;}
+.asset{border:1px solid var(--border);background:var(--surface);display:flex;flex-direction:column;}
+.asset .bar{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid var(--border);gap:10px;}
+.asset .bar .nm{font-family:var(--display);font-size:17px;font-weight:600;color:var(--fg);line-height:1.1;}
+.asset .bar .fmt{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+.asset .bar .exp{appearance:none;border:1px solid var(--border);background:transparent;color:var(--accent);font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 11px;border-radius:2px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s;}
+.asset .bar .exp:hover{background:var(--accent);color:var(--bg);}
+.asset .bar .exp:disabled{opacity:.4;cursor:wait;}
+.viewport{position:relative;overflow:hidden;width:100%;background:#000;}
+.frame{position:absolute;top:0;left:0;transform-origin:top left;overflow:hidden;font-family:var(--body);color:var(--fg);background:var(--bg);}
+.kit-block{margin:0 0 40px;}
+.kit-head{display:flex;align-items:baseline;gap:16px;margin:0 0 16px;flex-wrap:wrap;}
+.kit-head .kh-nm{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:-.01em;}
+.kit-head .kh-sub{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;}
+
+/* social frame text devices (from gallery) */
+.f-kick{font-family:var(--mono);font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);}
+.f-sig{font-family:var(--mono);font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(232,227,217,.85);}
+.f-strain{font-family:var(--display);font-weight:600;letter-spacing:-.03em;line-height:.92;color:#fff;}
+.f-blend{font-family:var(--mono);font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+.f-aroma{font-family:var(--display);font-weight:400;line-height:1.45;}
+.f-comp{font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:rgba(232,227,217,.6);}
+.simchip{font-family:var(--mono);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(14,14,12,.5);border:1px solid rgba(232,227,217,.22);border-radius:20px;}
+.ph-layer{position:absolute;inset:0;overflow:hidden;background:#0b0b0a;}
+.ph-layer img{width:100%;height:100%;object-fit:cover;display:block;}
+.ph-empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
+.ph-empty .ring{width:64px;height:64px;border-radius:50%;border:2px dashed rgba(232,227,217,.35);}
+.ph-empty .lbl{font-family:var(--mono);font-size:15px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(232,227,217,.6);}
+.scrim{position:absolute;inset:0;}
+.fs-strip{display:flex;width:100%;overflow:hidden;}
+.fs-strip .seg{display:flex;align-items:flex-end;position:relative;}
+.fs-strip .seg b{font-family:var(--mono);font-weight:700;letter-spacing:.08em;color:rgba(14,14,12,.78);}
+
+/* misc */
+.empty{border:1px dashed var(--border);padding:38px 24px;text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);}
+.callout{border:1px solid var(--border);border-left:3px solid var(--amber);background:var(--surface);padding:18px 22px;margin:22px 0;}
+.callout.teal{border-left-color:var(--accent);}
+.callout .ct{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;}
+.callout.teal .ct{color:var(--accent);} .callout p{margin:0;font-size:14px;color:var(--fg-dim);}
+.foot{max-width:1280px;margin:0 auto;padding:0 26px 60px;position:relative;z-index:1;}
+.specline{display:flex;justify-content:space-between;gap:16px;padding-top:18px;border-top:2px solid var(--fg);font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;flex-wrap:wrap;}
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:var(--bg);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;padding:10px 18px;border-radius:3px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:80;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.hidden-file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}html{scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="kick">CannaCre8ive <span>/</span> Flower Spectrum <span>/</span> Wholesale Portal <span>·</span> Ideal Cannabis</div>
+  <h1 class="mark">Wholesale flower, <em>sold by its aroma.</em></h1>
+  <p class="lede">The <b>Ideal Cannabis</b> wholesale menu on the Flower Spectrum system. Every strain carries its <b>lineage, breeder, and fingerprint ID</b> — approved retail partners see tier pricing, order with a preferred delivery date, and leave with a <b>ready-to-post promo kit</b> built from the farm&rsquo;s own data.</p>
+  <div class="hero-band" id="heroBand" aria-hidden="true"></div>
+
+  <div class="persp">
+    <div class="seg-toggle" id="perspToggle" role="tablist" aria-label="Portal perspective">
+      <button data-p="buyer" class="active">Buyer view</button>
+      <button data-p="seller">Seller view</button>
+    </div>
+    <div class="demostate" id="demoState">
+      <span class="dl">Demo account</span>
+      <div class="seg-toggle mini" id="acctToggle">
+        <button data-a="guest">Guest · no access</button>
+        <button data-a="approved" class="active">Approved buyer</button>
+      </div>
+      <span class="note" id="demoNote"></span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs"></nav>
+
+<main>
+  <!-- BUYER -->
+  <section class="view" id="view-menu">
+    <div class="sectlead">The wholesale menu</div>
+    <div class="sectsub" id="menuSub">Select a strain for its full buyer profile · classifications simulated except Kush Mints</div>
+    <div class="benefits" id="buyerBenefits"></div>
+    <div class="toolbar">
+      <div class="tb"><label for="inSearch">Search</label><input id="inSearch" type="search" placeholder="Strain, cross, blend, aroma…" /></div>
+      <div class="tb"><label for="selSort">Sort by</label><select id="selSort">
+        <option value="name">Name · A–Z</option>
+        <option value="price-asc">$ / lb · low → high</option>
+        <option value="price-desc">$ / lb · high → low</option>
+        <option value="thc">THC · high → low</option>
+        <option value="avail">Availability · most first</option>
+        <option value="harvest">Harvest · newest first</option>
+      </select></div>
+      <div class="tb"><label for="selGroup">Group by</label><select id="selGroup">
+        <option value="none">No grouping</option>
+        <option value="profile">Aroma profile</option>
+        <option value="price">Price band</option>
+        <option value="data">Data status</option>
+      </select></div>
+      <div class="tb"><div class="seg-toggle mini" id="layoutToggle"><button data-l="cards" class="active">Cards</button><button data-l="table">Table</button></div></div>
+    </div>
+    <div id="menuOut"></div>
+  </section>
+
+  <section class="view" id="view-account">
+    <div class="sectlead">Your account</div>
+    <div class="sectsub">Willamette Valley Cannabis Co. · purchase history, invoices &amp; order status</div>
+    <div id="acctOut"></div>
+  </section>
+
+  <section class="view" id="view-kit">
+    <div class="sectlead">Promo kit</div>
+    <div class="sectsub">Unlocked by purchase · auto-populated from the farm&rsquo;s data &amp; photography · exports 2&times; PNG</div>
+    <div id="kitOut"></div>
+  </section>
+
+  <!-- SELLER -->
+  <section class="view" id="view-orders">
+    <div class="sectlead">Incoming orders</div>
+    <div class="sectsub">Every order arrives with a requested delivery date — advance status as you fulfil</div>
+    <div class="benefits" id="sellerBenefits"></div>
+    <div id="ordersOut"></div>
+  </section>
+
+  <section class="view" id="view-inventory">
+    <div class="sectlead">Inventory &amp; photography</div>
+    <div class="sectsub">Tap a thumbnail to set a photo · edit live stock · buyers see changes instantly</div>
+    <div class="loader" id="loader">
+      <div>
+        <div class="t">Drag your <b>web-finals</b> here — or choose files. They stay on your device (nothing uploads).</div>
+        <div class="sub">Auto-matches filenames like <span style="color:var(--fg-dim)">kush_mints_ideal_cannabis_full_128.jpeg</span> → the right strain.</div>
+      </div>
+      <div class="acts">
+        <span class="counter" id="counter"><b>0</b> photos loaded</span>
+        <button class="btn primary" id="pickBtn">Choose photos</button>
+        <button class="btn" id="clearBtn">Clear</button>
+      </div>
+    </div>
+    <div id="invOut"></div>
+  </section>
+
+  <section class="view" id="view-requests">
+    <div class="sectlead">Access requests</div>
+    <div class="sectsub">Wholesale pricing stays hidden until you approve the buyer</div>
+    <div id="reqOut"></div>
+  </section>
+</main>
+
+<div class="foot">
+  <div class="specline">
+    <span>Flower Spectrum · Wholesale Portal · v2.0 · 07_08_2026 · A CannaCre8ive system</span>
+    <span>Demo data · Simulated classifications — not effects or medical claims</span>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true"><div class="sheet" id="sheet"></div></div>
+<div id="toast"></div>
+<input type="file" id="fileInput" class="hidden-file" accept="image/*" multiple />
+<input type="file" id="oneInput" class="hidden-file" accept="image/*" />
+<script>
+/* ═══════════════ CANONICAL ENGINE (byte-identical math to Classifier v1.3) ═══════════════ */
+const VERSION="v2.0", BUILD="07_08_2026";
+const PROFILES=[
+  {key:"gas_fuel",label:"Gas / Fuel",color:"#C9A84C",short:"GAS"},
+  {key:"earthy_dank",label:"Earthy / Dank",color:"#6B8E5A",short:"EARTH"},
+  {key:"citrus_bright",label:"Citrus / Bright",color:"#D4A843",short:"CITRUS"},
+  {key:"fruity_sweet",label:"Fruity / Sweet",color:"#B75F4A",short:"FRUIT"},
+  {key:"floral_soft",label:"Floral / Soft",color:"#B98BBE",short:"FLORAL"},
+  {key:"dessert_creamy",label:"Dessert / Creamy",color:"#D6B58A",short:"DESSERT"},
+  {key:"spicy_warm",label:"Spicy / Warm",color:"#9E6B4A",short:"SPICY"},
+  {key:"piney_fresh",label:"Piney / Fresh",color:"#4F7A5B",short:"PINE"},
+  {key:"herbal_woody",label:"Herbal / Woody",color:"#7FA688",short:"HERB"},
+  {key:"tropical_tangy",label:"Tropical / Tangy",color:"#D28B49",short:"TROPIC"},
+];
+const PBK=Object.fromEntries(PROFILES.map(p=>[p.key,p]));
+const shortOf=k=>PBK[k]?.short||k;
+const TERPENES=[
+  {key:"myrcene",profile:"earthy_dank",also:["gas_fuel","herbal_woody"],tier:"primary"},
+  {key:"limonene",profile:"citrus_bright",also:["fruity_sweet","gas_fuel"],tier:"primary"},
+  {key:"caryophyllene",profile:"spicy_warm",also:["gas_fuel"],potency:1.15,tier:"primary"},
+  {key:"linalool",profile:"floral_soft",also:["dessert_creamy"],potency:1.2,tier:"primary"},
+  {key:"pinene_a",profile:"piney_fresh",also:["herbal_woody"],tier:"primary"},
+  {key:"pinene_b",profile:"piney_fresh",also:["herbal_woody"],tier:"primary"},
+  {key:"terpinolene",profile:"fruity_sweet",also:["tropical_tangy","piney_fresh"],tier:"primary"},
+  {key:"humulene",profile:"herbal_woody",also:["spicy_warm","earthy_dank","gas_fuel"],tier:"primary"},
+  {key:"ocimene",profile:"tropical_tangy",also:["fruity_sweet","floral_soft"],tier:"primary"},
+  {key:"bisabolol",profile:"floral_soft",also:["dessert_creamy"],potency:1.2,tier:"impact"},
+  {key:"valencene",profile:"citrus_bright",also:["tropical_tangy"],potency:1.2,tier:"impact"},
+  {key:"nerolidol",profile:"floral_soft",also:["herbal_woody"],potency:1.15,tier:"impact"},
+  {key:"terpineol",profile:"floral_soft",also:["piney_fresh"],tier:"impact"},
+  {key:"farnesene_b",profile:"fruity_sweet",also:["herbal_woody"],potency:0.3,tier:"impact"},
+  {key:"camphene",profile:"piney_fresh",also:["herbal_woody"],tier:"impact"},
+  {key:"fenchol",profile:"herbal_woody",also:["piney_fresh"],tier:"impact"},
+  {key:"pcymene",profile:"gas_fuel",also:["spicy_warm"],potency:0.85,tier:"impact"},
+  {key:"phytol",profile:"herbal_woody",tier:"trace"},
+];
+const TBK=Object.fromEntries(TERPENES.map(t=>[t.key,t]));
+const POT_DEF={primary:1.0,impact:1.1,trace:0.7};
+const potOf=t=>(t.potency!=null?t.potency:POT_DEF[t.tier]);
+function contribOf(t){const c={};c[t.profile]=0.7;(t.also||[]).forEach((p,i)=>{c[p]=i===0?0.2:0.1;});const s=Object.values(c).reduce((a,b)=>a+b,0);Object.keys(c).forEach(k=>c[k]=c[k]/s);return c;}
+function classify(values){
+  const scores={};PROFILES.forEach(p=>scores[p.key]=0);
+  TERPENES.forEach(t=>{const v=values[t.key]||0;if(v<=0)return;const w=v*potOf(t),c=contribOf(t);Object.entries(c).forEach(([pk,ww])=>{scores[pk]+=w*ww;});});
+  const car=(values.caryophyllene||0)*potOf(TBK.caryophyllene);
+  const lim=(values.limonene||0)*potOf(TBK.limonene);
+  const mus=(values.myrcene||0)*potOf(TBK.myrcene)+(values.humulene||0)*potOf(TBK.humulene);
+  if(car>0&&lim>0&&mus>0){const mn=Math.min(car,lim,mus),mx=Math.max(car,lim,mus);scores.gas_fuel+=1.5*mn*Math.pow(mn/mx,1.5);}
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);if(total===0)return null;
+  const ranked=PROFILES.map(p=>({...p,pct:Math.round((scores[p.key]/total)*100)})).sort((a,b)=>b.pct-a.pct);
+  const gap=ranked[0].pct-ranked[1].pct;
+  const confidence=gap>=22?"Defined":gap>=10?"Leaning":"Blend";
+  return {ranked,confidence,gap};
+}
+function bandSegments(c){if(!c)return[];const r=c.ranked.filter(x=>x.pct>0);if(!r.length)return[];const lead=r[0].pct;const segs=r.filter(x=>x.pct>=lead*0.6).slice(0,3);const total=segs.reduce((a,s)=>a+s.pct,0)||1;return segs.map(s=>({key:s.key,color:s.color,label:s.label,short:s.short,frac:s.pct/total,pct:s.pct}));}
+function caps(s){return s.charAt(0)+s.slice(1).toLowerCase();}
+function blendName(c){const segs=bandSegments(c);if(segs.length<=1)return caps(shortOf(segs[0]?.key||c.ranked[0].key));return segs.slice(0,2).map(s=>caps(shortOf(s.key))).join("-");}
+
+/* strip + fingerprint */
+function stripHTML(c,{h=40,labels="short"}={}){
+  const segs=bandSegments(c);
+  return `<div class="fs-strip" style="height:${h}px">`+segs.map(s=>{
+    const lbl=labels==="none"?"":labels==="full"?`<b style="font-size:${Math.max(9,h*0.28)}px;padding:0 ${h*0.32}px ${h*0.24}px">${s.label} · ${s.pct}%</b>`:`<b style="font-size:${Math.max(8,h*0.30)}px;padding:0 ${h*0.26}px ${h*0.2}px">${s.short} ${s.pct}%</b>`;
+    return `<div class="seg" style="flex:${s.frac};background:${s.color}">${lbl}</div>`;
+  }).join("")+`</div>`;
+}
+function wedge(cx,cy,ir,or_,sa,ea){const f=v=>v.toFixed(2);const x1=cx+ir*Math.cos(sa),y1=cy+ir*Math.sin(sa),x2=cx+or_*Math.cos(sa),y2=cy+or_*Math.sin(sa),x3=cx+or_*Math.cos(ea),y3=cy+or_*Math.sin(ea),x4=cx+ir*Math.cos(ea),y4=cy+ir*Math.sin(ea);return `M${f(x1)} ${f(y1)} L${f(x2)} ${f(y2)} A${f(or_)} ${f(or_)} 0 0 1 ${f(x3)} ${f(y3)} L${f(x4)} ${f(y4)} A${f(ir)} ${f(ir)} 0 0 0 ${f(x1)} ${f(y1)} Z`;}
+function fingerprintSVG(c,{size=200,highlight=null,guide="rgba(232,227,217,.28)",dot="rgba(232,227,217,.7)"}={}){
+  if(!c)return "";
+  const cx=size/2,cy=size/2,maxR=size*0.46,minR=size*0.13,n=PROFILES.length,slice=2*Math.PI/n,g=0.05;
+  const pctMap=Object.fromEntries(c.ranked.map(r=>[r.key,r.pct]));const maxV=Math.max(...Object.values(pctMap),1);
+  const rings=[0.5,1.0].map(f=>minR+f*(maxR-minR));
+  let s=`<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" style="display:block">`;
+  rings.forEach(r=>{s+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${guide}" stroke-width="${size*0.004}" stroke-dasharray="2 4" opacity="0.7"/>`;});
+  s+=`<circle cx="${cx}" cy="${cy}" r="${maxR}" fill="none" stroke="${guide}" stroke-width="${size*0.005}"/>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="${minR}" fill="none" stroke="${guide}" stroke-width="${size*0.004}"/>`;
+  PROFILES.forEach((p,i)=>{const v=pctMap[p.key]||0,has=v>0.5;const r=has?minR+(v/maxV)*(maxR-minR):minR+size*0.015;const sa=-Math.PI/2+i*slice+g/2,ea=-Math.PI/2+(i+1)*slice-g/2;const dim=highlight&&highlight!==p.key;s+=`<path d="${wedge(cx,cy,minR,r,sa,ea)}" fill="${p.color}" opacity="${has?(dim?0.28:0.95):0.16}"/>`;});
+  s+=`<circle cx="${cx}" cy="${cy}" r="${size*0.028}" fill="${highlight?PBK[highlight].color:dot}"/></svg>`;return s;
+}
+
+/* ═══════════════ STRAINS — SIMULATED panels + real Kush Mints, extended for wholesale ═══════════════
+   `match` routes dropped photos by filename. Wholesale fields: breeder, harvest (sortable ISO),
+   avail (lbs), tiers ($/lb price breaks). Lineage = cross. */
+const STRAINS=[
+  {id:"gmo", name:"GMO", cross:"Chem D × GSC", thc:"29.4", real:false, match:["gmo"],
+   breeder:"Mamiko Seeds cut", harvest:"2026-06-10", avail:12,
+   tiers:[{min:1,price:1400},{min:5,price:1250},{min:10,price:1100}],
+   aroma:"Roasted garlic and diesel funk over cracked pepper and a savory, oniony depth.",
+   values:{caryophyllene:0.95,limonene:0.52,myrcene:0.55,humulene:0.34,pcymene:0.12,linalool:0.08,fenchol:0.08}},
+  {id:"gorilla_glue", name:"Gorilla Glue #4", cross:"Chem Sis × Sour Dubb × Chocolate Diesel", thc:"26.8", real:false, match:["gorilla","glue"],
+   breeder:"GG Strains lineage", harvest:"2026-06-05", avail:8,
+   tiers:[{min:1,price:1300},{min:5,price:1175},{min:10,price:1050}],
+   aroma:"Cracked black pepper and clove over a loud, sticky diesel. Warm, assertive, unmistakable.",
+   values:{caryophyllene:0.82,limonene:0.36,myrcene:0.42,humulene:0.26,pcymene:0.1}},
+  {id:"grapefruit_slushie", name:"Grapefruit Slushie", cross:"Grapefruit × Slushie", thc:"24.1", real:false, match:["grapefruit"],
+   breeder:"Ideal Cannabis selection", harvest:"2026-06-18", avail:15,
+   tiers:[{min:1,price:1200},{min:5,price:1075},{min:10,price:950}],
+   aroma:"Pink grapefruit and lemon zest, bright and juicy, over a soft sweet base.",
+   values:{limonene:1.15,valencene:0.22,ocimene:0.16,myrcene:0.22,caryophyllene:0.2,terpinolene:0.08}},
+  {id:"strawberry_shortcake", name:"Strawberry Shortcake", cross:"Strawberry × White Cake", thc:"22.6", real:false, match:["strawberry"],
+   breeder:"Ideal Cannabis selection", harvest:"2026-06-20", avail:10,
+   tiers:[{min:1,price:1150},{min:5,price:1025},{min:10,price:900}],
+   aroma:"Ripe strawberry and stone fruit over vanilla cream — candy-sweet and soft.",
+   values:{terpinolene:0.34,ocimene:0.3,farnesene_b:0.2,myrcene:0.3,linalool:0.22,limonene:0.2,caryophyllene:0.15}},
+  {id:"blue_magoo", name:"Blue Magoo", cross:"DJ Short Blueberry × William's Wonder", thc:"20.3", real:false, match:["blue_magoo","magoo"],
+   breeder:"Oregon heirloom cut", harvest:"2026-05-30", avail:5,
+   tiers:[{min:1,price:1250},{min:5,price:1125},{min:10,price:1000}],
+   aroma:"Blueberry and lavender, a soft floral-berry perfume with a gentle earthy base.",
+   values:{linalool:0.52,bisabolol:0.2,myrcene:0.34,ocimene:0.2,limonene:0.2,caryophyllene:0.16}},
+  {id:"layer_cake", name:"Layer Cake", cross:"Wedding Cake × GMO", thc:"25.9", real:false, match:["layer_cake","layer"],
+   breeder:"House cut · Ideal", harvest:"2026-06-14", avail:9,
+   tiers:[{min:1,price:1300},{min:5,price:1175},{min:10,price:1050}],
+   aroma:"Vanilla cake and soft florals over a warm, faintly savory spice.",
+   values:{linalool:0.42,bisabolol:0.26,caryophyllene:0.4,myrcene:0.3,limonene:0.2,humulene:0.12}},
+  {id:"kush_mints", name:"Kush Mints", cross:"Bubba Kush × Animal Mints", thc:"34.6", real:true, match:["kush_mints","kush"],
+   breeder:"Seed Junky Genetics", harvest:"2026-06-22", avail:14,
+   tiers:[{min:1,price:1450},{min:5,price:1300},{min:10,price:1150}],
+   aroma:"Lemon oil and lavender up front, green resin and a cool mint-herb lift over a grounded kush finish.",
+   values:{limonene:0.91,linalool:0.50,myrcene:0.35,caryophyllene:0.28,farnesene_b:0.19,pinene_b:0.14,valencene:0.11,fenchol:0.10,terpineol:0.10,humulene:0.09,bisabolol:0.04,nerolidol:0.04,terpinolene:0.03,phytol:0.03,camphene:0.03}},
+  {id:"tiger_bomb", name:"Tiger Bomb", cross:"Ideal Cannabis selection", thc:"27.7", real:false, match:["tiger"],
+   breeder:"House cut · Ideal", harvest:"2026-06-08", avail:7,
+   tiers:[{min:1,price:1350},{min:5,price:1225},{min:10,price:1100}],
+   aroma:"Bright citrus over a gassy, peppered core — loud and high-definition.",
+   values:{limonene:0.7,caryophyllene:0.55,myrcene:0.5,humulene:0.3,valencene:0.12,pcymene:0.1}},
+  {id:"wedding_cake_gelato", name:"Wedding Cake Gelato", cross:"Wedding Cake × Gelato", thc:"26.2", real:false, match:["wedding"],
+   breeder:"House cut · Ideal", harvest:"2026-06-16", avail:11,
+   tiers:[{min:1,price:1300},{min:5,price:1175},{min:10,price:1050}],
+   aroma:"Sweet cream and vanilla with a soft lavender lift over a light peppery base.",
+   values:{linalool:0.44,bisabolol:0.24,caryophyllene:0.34,limonene:0.26,myrcene:0.26,ocimene:0.1}},
+  {id:"frosted_cherry_cookies", name:"Frosted Cherry Cookies", cross:"Cherry Pie × GSC", thc:"23.8", real:false, match:["frosted_cherry","cherry"],
+   breeder:"Ideal Cannabis selection", harvest:"2026-06-12", avail:13,
+   tiers:[{min:1,price:1200},{min:5,price:1075},{min:10,price:950}],
+   aroma:"Cherry and sweet dough over a soft spice — fruity, rich, and dessert-leaning.",
+   values:{caryophyllene:0.42,linalool:0.3,myrcene:0.34,limonene:0.3,ocimene:0.18,farnesene_b:0.16,terpinolene:0.1}},
+  {id:"outdoor_harvest", name:"Sungrown Harvest", cross:"Outdoor · sun-grown", thc:"18.9", real:false, match:["outdoor","harvest","sungrown"],
+   breeder:"Field blend · Ideal", harvest:"2026-05-20", avail:40,
+   tiers:[{min:1,price:900},{min:5,price:800},{min:10,price:700}],
+   aroma:"Damp earth, dry hop, and fresh-cut wood — grounded and old-school.",
+   values:{myrcene:0.6,humulene:0.28,caryophyllene:0.3,pinene_b:0.16,fenchol:0.12,limonene:0.14}},
+];
+STRAINS.forEach(s=>{ s.c=classify(s.values); s.blend=blendName(s.c); s.lead=bandSegments(s.c)[0]; });
+const SBK=Object.fromEntries(STRAINS.map(s=>[s.id,s]));
+</script>
+<script>
+/* ═══════════════ APP STATE ═══════════════ */
+const FARM="Ideal Cannabis", HANDLE="@idealcannabis";
+const BUYER={name:"Willamette Valley Cannabis Co.",dba:"Bando's",city:"Sellwood · Portland, OR",licence:"OLCC-050-10244B7",terms:"Net 30",member:"03/2026"};
+const state={
+  persp:"buyer",                 // buyer | seller
+  acct:"approved",               // guest | approved (demo)
+  tab:{buyer:"menu", seller:"orders"},
+  layout:"cards",                // cards | table
+  q:"", sort:"name", group:"none",
+  openStrain:null, confirm:null, accessRequested:false,
+};
+const photos={};                  // strainId -> objectURL
+let pendingOne=null;
+
+const today=()=>new Date().toISOString().slice(0,10);
+const addDays=(iso,n)=>{const d=new Date(iso+"T00:00:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10);};
+const fmtD=iso=>{if(!iso)return "—";const[y,m,d]=iso.split("-");return `${m}/${d}/${y}`;};
+const money=n=>"$"+n.toLocaleString("en-US");
+const esc=v=>String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const tierFor=(s,lbs)=>[...s.tiers].slice().reverse().find(t=>lbs>=t.min)||s.tiers[0];
+const ORDER_FLOW=["Pending","Confirmed","Scheduled","Delivered"];
+
+/* seed orders + invoices — believable history for the account page */
+let orderSeq=1007, invoiceSeq=1007;
+const orders=[
+  {id:"ORD-1003",strainId:"kush_mints",buyer:BUYER.name,lbs:5,pricePerLb:1300,total:6500,placed:"2026-06-28",delivery:"2026-07-10",status:"Confirmed"},
+  {id:"ORD-0998",strainId:"gmo",buyer:BUYER.name,lbs:3,pricePerLb:1400,total:4200,placed:"2026-06-12",delivery:"2026-06-19",status:"Delivered"},
+  {id:"ORD-0991",strainId:"outdoor_harvest",buyer:BUYER.name,lbs:10,pricePerLb:700,total:7000,placed:"2026-05-26",delivery:"2026-06-02",status:"Delivered"},
+];
+const invoices=[
+  {id:"INV-1003",orderId:"ORD-1003",amount:6500,issued:"2026-06-28",due:"2026-07-28",status:"Due"},
+  {id:"INV-0998",orderId:"ORD-0998",amount:4200,issued:"2026-06-12",due:"2026-07-12",status:"Paid",paid:"2026-06-30"},
+  {id:"INV-0991",orderId:"ORD-0991",amount:7000,issued:"2026-05-26",due:"2026-06-25",status:"Overdue"},
+];
+const requests=[
+  {id:"rq-1",shop:"Good Times Dispensary",city:"Sellwood · Portland",licence:"OLCC-050-10248C1",status:"pending"},
+  {id:"rq-2",shop:"Urban Farmacy",city:"NE Portland",licence:"OLCC-050-11873F4",status:"pending"},
+  {id:"rq-3",shop:"Portal 503",city:"SE Portland",licence:"OLCC-050-11412A9",status:"approved"},
+];
+
+/* purchased strain ids (drives promo-kit unlocks) */
+const purchasedIds=()=>[...new Set(orders.filter(o=>o.buyer===BUYER.name).map(o=>o.strainId))];
+
+/* ═══════════════ BENEFITS ═══════════════ */
+const BUYER_BENEFITS=[
+  {t:"Buy the chemistry, not the rumor",d:"Every strain carries its lineage, breeder, and fingerprint ID — you know what lands on your shelf before it ships."},
+  {t:"Transparent tier pricing",d:"Per-pound breaks at 5 and 10 lb, visible the moment you're approved. No phone tag, no “call for pricing.”"},
+  {t:"Promo kit with every purchase",d:"Strain highlights, story drops, and Fingerprint IDs — auto-populated from the farm's own photos and data."},
+];
+const SELLER_BENEFITS=[
+  {t:"Qualified buyers only",d:"Pricing stays hidden until you approve a licence. You decide who sees your numbers."},
+  {t:"Orders arrive schedulable",d:"Every order carries a requested delivery date — plan drops around harvest and cure, not phone calls."},
+  {t:"Your flower, marketed correctly",d:"Buyers leave with brand-consistent assets built from your photography and lab data — correct on every retail feed."},
+];
+const benefitsHTML=list=>list.map(b=>`<div class="benefit"><div class="bt">${esc(b.t)}</div><div class="bd">${esc(b.d)}</div></div>`).join("");
+
+/* ═══════════════ SHARED FRAGMENTS ═══════════════ */
+function photoLayer(id,{grad="to top, rgba(14,14,12,.15), rgba(14,14,12,.02)"}={}){
+  const s=SBK[id], url=photos[id];
+  if(url) return `<div class="ph-layer"><img src="${url}" alt=""/><div class="scrim" style="background:linear-gradient(${grad})"></div></div>`;
+  const col=s.lead.color;
+  return `<div class="ph-layer" style="background:radial-gradient(120% 90% at 30% 20%, ${col}33, transparent 60%),radial-gradient(120% 90% at 80% 90%, ${col}22, transparent 55%),#0b0b0a"><div class="scrim" style="background:linear-gradient(${grad})"></div><div class="ph-empty"><div class="ring"></div><div class="lbl">Awaiting photo</div></div></div>`;
+}
+function cardPhoto(s){
+  if(photos[s.id]) return `<img src="${photos[s.id]}" alt="${esc(s.name)}" loading="lazy"/>`;
+  return `<div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 30% 20%, ${s.lead.color}38, transparent 60%),radial-gradient(120% 90% at 80% 90%, ${s.lead.color}22, transparent 55%),#0b0b0a"></div><div class="ph-empty"><div class="ring" style="width:44px;height:44px"></div><div class="lbl" style="font-size:10px">Photo pending</div></div>`;
+}
+function simBadge(scale=1){return `<span class="simchip" style="font-size:${13*scale}px;padding:${5*scale}px ${11*scale}px">Simulated</span>`;}
+const dataPill=s=>s.real?`<span class="pill coa">COA verified</span>`:`<span class="pill">SIM</span>`;
+const approved=()=>state.acct==="approved";
+
+/* ═══════════════ NAV / SHELL ═══════════════ */
+const TAB_DEFS={
+  buyer:[{k:"menu",l:"Menu"},{k:"account",l:"Account"},{k:"kit",l:"Promo kit"}],
+  seller:[{k:"orders",l:"Orders"},{k:"inventory",l:"Inventory & photos"},{k:"requests",l:"Access requests"}],
+};
+function renderTabs(){
+  const openOrders=orders.filter(o=>o.status!=="Delivered").length;
+  const pendReq=requests.filter(r=>r.status==="pending").length;
+  document.getElementById("tabs").innerHTML=TAB_DEFS[state.persp].map(t=>{
+    let badge="";
+    if(state.persp==="seller"&&t.k==="orders"&&openOrders)badge=`<span class="badge">${openOrders}</span>`;
+    if(state.persp==="seller"&&t.k==="requests"&&pendReq)badge=`<span class="badge">${pendReq}</span>`;
+    return `<button data-t="${t.k}" class="${state.tab[state.persp]===t.k?"active":""}">${t.l}${badge}</button>`;
+  }).join("");
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>{state.tab[state.persp]=b.dataset.t;renderAll();}));
+}
+function showView(){
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  document.getElementById("view-"+state.tab[state.persp]).classList.add("active");
+}
+function renderDemoNote(){
+  const n=document.getElementById("demoNote");
+  const strip=document.getElementById("demoState");
+  strip.style.display=state.persp==="buyer"?"flex":"none";
+  n.innerHTML=state.acct==="guest"
+    ?"this is what an unapproved shop sees — pricing locked"
+    :`signed in as <b>${esc(BUYER.name)}</b> — wholesale pricing unlocked`;
+}
+
+/* ═══════════════ BUYER · MENU ═══════════════ */
+function visibleStrains(){
+  const q=state.q.trim().toLowerCase();
+  let list=STRAINS.filter(s=>!q||[s.name,s.cross,s.blend,s.aroma,s.breeder].join(" ").toLowerCase().includes(q));
+  const base=s=>s.tiers[0].price;
+  const sorters={
+    "name":(a,b)=>a.name.localeCompare(b.name),
+    "price-asc":(a,b)=>base(a)-base(b),
+    "price-desc":(a,b)=>base(b)-base(a),
+    "thc":(a,b)=>parseFloat(b.thc)-parseFloat(a.thc),
+    "avail":(a,b)=>b.avail-a.avail,
+    "harvest":(a,b)=>b.harvest.localeCompare(a.harvest),
+  };
+  return list.sort(sorters[state.sort]||sorters.name);
+}
+function groupsFor(list){
+  if(state.group==="none")return [{title:null,items:list}];
+  if(state.group==="profile"){
+    const order=PROFILES.map(p=>p.key);
+    const map=new Map();
+    list.forEach(s=>{const k=s.lead.key;if(!map.has(k))map.set(k,[]);map.get(k).push(s);});
+    return order.filter(k=>map.has(k)).map(k=>({title:PBK[k].label,chip:PBK[k].color,items:map.get(k)}));
+  }
+  if(state.group==="price"){
+    const bands=[["Top shelf · $1,300+",s=>s.tiers[0].price>=1300],["Mid shelf · $1,100–1,299",s=>s.tiers[0].price>=1100&&s.tiers[0].price<1300],["Value · under $1,100",s=>s.tiers[0].price<1100]];
+    return bands.map(([title,fn])=>({title,items:list.filter(fn)})).filter(g=>g.items.length);
+  }
+  if(state.group==="data"){
+    return [["COA verified",s=>s.real],["Simulated · pending COA",s=>!s.real]].map(([title,fn])=>({title,items:list.filter(fn)})).filter(g=>g.items.length);
+  }
+  return [{title:null,items:list}];
+}
+function menuCard(s){
+  const priceCell=approved()
+    ?`<div class="price"><div class="p">${money(s.tiers[0].price)}<span> /lb</span></div><div class="thc">${s.thc}% THC</div></div>`
+    :`<div class="price"><div class="lock">$ •,••• /lb · locked</div><div class="thc">${s.thc}% THC</div></div>`;
+  return `<button class="mcard" data-open="${s.id}" aria-label="Open ${esc(s.name)} detail">
+    <div class="ph">${cardPhoto(s)}
+      <span class="simtag">${s.real?"COA":"SIM"} · ${esc(s.blend)}</span>
+      <div class="fpbadge">${fingerprintSVG(s.c,{size:52,highlight:s.lead.key})}</div>
+    </div>
+    <div class="strip-slot">${stripHTML(s.c,{h:14,labels:"none"})}</div>
+    <div class="bd">
+      <div class="nm">${esc(s.name)}</div>
+      <div class="bl" style="color:${s.lead.color}">${esc(s.blend)} · ${esc(s.c.confidence)}</div>
+      <div class="meta"><span>${esc(s.cross)}</span></div>
+      <div class="meta"><span class="${s.avail<=6?"lowstock":""}">${s.avail} lb avail${s.avail<=6?" · low":""}</span><span>Harvest ${fmtD(s.harvest)}</span></div>
+      ${priceCell}
+    </div>
+  </button>`;
+}
+function menuTable(list,groups){
+  const th=(label,key)=>`<th data-sort="${key}">${label} ${state.sort===key||state.sort===key+"-desc"||state.sort===key+"-asc"?'<span class="arr">▾</span>':""}</th>`;
+  const row=s=>{
+    const price=approved()?`${money(s.tiers[0].price)} <span style="color:var(--muted)">/lb</span>`:`<span style="color:var(--muted)">•,••• · locked</span>`;
+    return `<tr class="rowlink" data-open="${s.id}" tabindex="0">
+      <td>${photos[s.id]?`<img class="tthumb" src="${photos[s.id]}" alt=""/>`:`<div class="tthumb-ph" style="background:radial-gradient(100% 100% at 30% 20%, ${s.lead.color}44, #0b0b0a)"></div>`}</td>
+      <td><div class="tnm">${esc(s.name)}</div><div class="tcross">${esc(s.cross)}</div></td>
+      <td><div class="minitrip">${stripHTML(s.c,{h:12,labels:"none"})}</div><div class="tcross" style="color:${s.lead.color}">${esc(s.blend)}</div></td>
+      <td class="mono">${s.thc}%</td>
+      <td class="mono ${s.avail<=6?"lowstock":""}">${s.avail} lb</td>
+      <td class="mono">${fmtD(s.harvest)}</td>
+      <td class="mono" style="color:var(--fg)">${price}</td>
+      <td>${dataPill(s)}</td>
+    </tr>`;
+  };
+  const body=groups.map(g=>{
+    const head=g.title?`<tr><td colspan="8" style="background:var(--surface-2);font-family:var(--display);font-weight:600;font-size:17px;padding:10px 14px">${esc(g.title)} <span style="font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-left:8px">${g.items.length} strain${g.items.length>1?"s":""}</span></td></tr>`:"";
+    return head+g.items.map(row).join("");
+  }).join("");
+  return `<div class="mtablewrap"><table class="mtable">
+    <thead><tr><th></th>${th("Strain","name")}<th>Spectrum</th>${th("THC","thc")}${th("Avail","avail")}${th("Harvest","harvest")}${th("$ / lb","price-desc")}<th>Data</th></tr></thead>
+    <tbody>${body}</tbody></table></div>`;
+}
+function renderMenu(){
+  const out=document.getElementById("menuOut");
+  document.getElementById("buyerBenefits").innerHTML=benefitsHTML(BUYER_BENEFITS);
+  const list=visibleStrains(), groups=groupsFor(list);
+  if(!list.length){out.innerHTML=`<div class="empty">No strains match “${esc(state.q)}” — clear the search to see the full shelf.</div>`;return;}
+  if(state.layout==="table"){ out.innerHTML=menuTable(list,groups); }
+  else{
+    out.innerHTML=`<div class="menu-grid">`+groups.map(g=>{
+      const head=g.title?`<div class="grouphead">${g.chip?`<span class="gh-chip" style="background:${g.chip}"></span>`:""}<span class="gh-t">${esc(g.title)}</span><span class="gh-n">${g.items.length} strain${g.items.length>1?"s":""}</span><span class="gh-rule"></span></div>`:"";
+      return head+g.items.map(menuCard).join("");
+    }).join("")+`</div>`;
+  }
+  out.querySelectorAll("[data-open]").forEach(el=>{
+    el.addEventListener("click",()=>openStrain(el.dataset.open));
+    el.addEventListener("keydown",e=>{if(e.key==="Enter")openStrain(el.dataset.open);});
+  });
+  out.querySelectorAll("th[data-sort]").forEach(t=>t.addEventListener("click",()=>{
+    const k=t.dataset.sort;
+    state.sort=(k==="price-desc"&&state.sort==="price-desc")?"price-asc":k;
+    document.getElementById("selSort").value=state.sort;renderMenu();
+  }));
+}
+
+/* ═══════════════ STRAIN DETAIL MODAL ═══════════════ */
+function openStrain(id){ state.openStrain=id; state.confirm=null; renderSheet(); document.getElementById("overlay").classList.add("open"); document.body.style.overflow="hidden"; }
+function closeSheet(){ state.openStrain=null; state.confirm=null; document.getElementById("overlay").classList.remove("open"); document.body.style.overflow=""; }
+function renderSheet(){
+  const s=SBK[state.openStrain]; if(!s)return;
+  const sheet=document.getElementById("sheet");
+  const terpRows=Object.entries(s.values).sort((a,b)=>b[1]-a[1]).slice(0,6)
+    .map(([k,v])=>{const t=TBK[k];const nm=k.replace("_b"," (β)").replace("_a"," (α)").replace("pcymene","p-Cymene");return `<div class="tl-row"><b>${caps(nm)}</b><span>${v.toFixed(2)}%</span></div>`;}).join("");
+  const buyCol = !approved() ? gateHTML() : (state.confirm ? confirmHTML(state.confirm) : orderFormHTML(s));
+  sheet.innerHTML=`
+    <button class="close" aria-label="Close">✕</button>
+    <div class="sheet-hero">${photoLayer(s.id,{grad:"to bottom, rgba(14,14,12,.15) 40%, rgba(14,14,12,.96)"})}
+      <div class="htxt">
+        <div><div class="hnm">${esc(s.name)}</div><div class="hbl" style="color:${s.lead.color}">${esc(s.blend)} · ${esc(s.c.confidence)} <span style="color:rgba(232,227,217,.55)">· ${s.thc}% THC</span></div></div>
+        <div style="line-height:0">${fingerprintSVG(s.c,{size:110,highlight:s.lead.key})}</div>
+      </div>
+    </div>
+    <div style="line-height:0">${stripHTML(s.c,{h:34,labels:"short"})}</div>
+    <div class="sheet-body">
+      <div class="sheet-info">
+        <div class="aroma-quote">&ldquo;${esc(s.aroma)}&rdquo;</div>
+        <div class="kv">
+          <div><div class="k">Lineage</div><div class="v">${esc(s.cross)}</div></div>
+          <div><div class="k">Breeder</div><div class="v">${esc(s.breeder)}</div></div>
+          <div><div class="k">Farm</div><div class="v">${esc(FARM)}</div></div>
+          <div><div class="k">Harvest</div><div class="v mono">${fmtD(s.harvest)}</div></div>
+          <div><div class="k">Availability</div><div class="v mono ${s.avail<=6?"lowstock":""}">${s.avail} lb on hand</div></div>
+          <div><div class="k">Data status</div><div class="v">${dataPill(s)}</div></div>
+        </div>
+        <div class="fp-row">
+          <div class="terp-list"><div class="k" style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Top terpenes ${s.real?"· COA":"· simulated"}</div>${terpRows}</div>
+        </div>
+        <div class="f-comp" style="font-size:9.5px;margin-top:20px">Aroma classification — not effects or medical claims</div>
+      </div>
+      <div class="sheet-buy">${buyCol}</div>
+    </div>`;
+  sheet.querySelector(".close").addEventListener("click",closeSheet);
+  wireBuyCol(s);
+}
+function gateHTML(){
+  return `<div class="buy-title">Wholesale pricing</div>
+    <div class="tiers">${[1,5,10].map(m=>`<div class="tier"><span>${m}+ lb</span><span class="tp">$ •,•••</span></div>`).join("")}</div>
+    <div class="gate">
+      <p>Tier pricing and ordering are visible to licensed, approved retail partners. Request access with your OLCC licence — approval typically lands same-day.</p>
+      ${state.accessRequested
+        ?`<div class="pill approved">✓ Access requested — the farm has been notified</div>`
+        :`<button class="btn primary" id="reqAccess">Request wholesale access</button>`}
+      <div class="locknote">No pricing is shown until the farm approves your licence</div>
+    </div>`;
+}
+function orderFormHTML(s){
+  const d=s._draft||(s._draft={lbs:1,date:""});
+  const lbs=Math.min(Math.max(1,Number(d.lbs)||1),s.avail);
+  const tier=tierFor(s,lbs);
+  return `<div class="buy-title">Wholesale order</div>
+    <div class="tiers">${s.tiers.map(t=>`<div class="tier ${tier.min===t.min?"active":""}"><span>${t.min}+ lb</span><span class="tp">${money(t.price)} /lb</span></div>`).join("")}</div>
+    <div class="frm">
+      <div class="two">
+        <div><label for="fLbs">Quantity · lb</label><input id="fLbs" type="number" min="1" max="${s.avail}" value="${lbs}"/></div>
+        <div><label for="fDate">Preferred delivery date</label><input id="fDate" type="date" min="${addDays(today(),2)}" value="${d.date}"/></div>
+      </div>
+      <div class="totline"><span class="tl">${lbs} lb × ${money(tier.price)}</span><span class="tv">${money(lbs*tier.price)}</span></div>
+      <button class="btn primary" id="placeOrder" style="width:100%" ${d.date?"":"disabled"}>${d.date?"Place wholesale order":"Pick a delivery date to order"}</button>
+      <div class="locknote">Terms ${esc(BUYER.terms)} · invoice issued on order</div>
+    </div>`;
+}
+function confirmHTML(o){
+  const inv=invoices.find(i=>i.orderId===o.id);
+  return `<div class="confirmbox">
+      <div class="cb-t">✓ Order placed</div>
+      ${[["Order",o.id],["Strain",SBK[o.strainId].name],["Quantity",`${o.lbs} lb @ ${money(o.pricePerLb)}/lb`],["Total",money(o.total)],["Requested delivery",fmtD(o.delivery)],["Invoice",inv?inv.id+" · due "+fmtD(inv.due):"—"],["Status",o.status]]
+        .map(([k,v])=>`<div class="cb-row"><span>${k}</span><b>${esc(v)}</b></div>`).join("")}
+    </div>
+    <p style="font-size:13.5px;color:var(--fg-dim);margin:16px 0 14px;line-height:1.55">Your <b style="color:var(--fg)">promo kit</b> for ${esc(SBK[o.strainId].name)} is unlocked, and the invoice is on your account page.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn primary" id="goKit">Open promo kit</button>
+      <button class="btn" id="goAcct">View account</button>
+    </div>`;
+}
+function wireBuyCol(s){
+  const sheet=document.getElementById("sheet");
+  const req=sheet.querySelector("#reqAccess");
+  if(req)req.addEventListener("click",()=>{state.accessRequested=true;renderSheet();toast("Access request sent to "+FARM);});
+  const fLbs=sheet.querySelector("#fLbs"), fDate=sheet.querySelector("#fDate");
+  if(fLbs)fLbs.addEventListener("input",()=>{s._draft.lbs=fLbs.value;renderSheet();sheet.querySelector("#fLbs").focus();});
+  if(fDate)fDate.addEventListener("change",()=>{s._draft.date=fDate.value;renderSheet();});
+  const po=sheet.querySelector("#placeOrder");
+  if(po)po.addEventListener("click",()=>placeOrder(s));
+  const gk=sheet.querySelector("#goKit");
+  if(gk)gk.addEventListener("click",()=>{closeSheet();state.tab.buyer="kit";renderAll();});
+  const ga=sheet.querySelector("#goAcct");
+  if(ga)ga.addEventListener("click",()=>{closeSheet();state.tab.buyer="account";renderAll();});
+}
+function placeOrder(s){
+  const d=s._draft; if(!d||!d.date)return;
+  const lbs=Math.min(Math.max(1,Number(d.lbs)||1),s.avail);
+  const tier=tierFor(s,lbs);
+  const o={id:"ORD-"+(orderSeq++),strainId:s.id,buyer:BUYER.name,lbs,pricePerLb:tier.price,total:lbs*tier.price,placed:today(),delivery:d.date,status:"Pending"};
+  orders.unshift(o);
+  invoices.unshift({id:"INV-"+(invoiceSeq++),orderId:o.id,amount:o.total,issued:today(),due:addDays(today(),30),status:"Due"});
+  s.avail-=lbs; s._draft={lbs:1,date:""};
+  state.confirm=o; renderSheet(); renderTabs(); toast("Order "+o.id+" placed — "+lbs+" lb "+s.name);
+}
+
+/* ═══════════════ BUYER · ACCOUNT ═══════════════ */
+function invoiceDoc(inv){
+  const o=orders.find(x=>x.id===inv.orderId)||{};
+  const s=o.strainId?SBK[o.strainId]:null;
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${inv.id} · ${FARM}</title>
+<style>body{font-family:Georgia,serif;background:#fff;color:#1c1c1a;max-width:640px;margin:40px auto;padding:0 24px}
+h1{font-size:22px;letter-spacing:.02em}.mono{font-family:ui-monospace,monospace;font-size:12px;color:#555}
+table{width:100%;border-collapse:collapse;margin:24px 0}td,th{padding:10px 8px;border-bottom:1px solid #ddd;text-align:left;font-size:14px}
+.tot{font-size:18px;font-weight:bold}.stamp{display:inline-block;border:2px solid #333;padding:4px 12px;font-family:ui-monospace,monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase}</style></head><body>
+<h1>${FARM} — Wholesale Invoice</h1>
+<p class="mono">${inv.id} · issued ${fmtD(inv.issued)} · due ${fmtD(inv.due)} · order ${inv.orderId}</p>
+<p class="stamp">${inv.status}${inv.paid?" · "+fmtD(inv.paid):""}</p>
+<p><b>Bill to:</b> ${BUYER.name} (${BUYER.dba})<br>${BUYER.city}<br>Licence ${BUYER.licence} · Terms ${BUYER.terms}</p>
+<table><tr><th>Item</th><th>Qty</th><th>Unit</th><th>Amount</th></tr>
+<tr><td>${s?s.name+" — wholesale flower ("+s.cross+")":"Wholesale flower"}</td><td>${o.lbs||"—"} lb</td><td>${o.pricePerLb?money(o.pricePerLb)+"/lb":"—"}</td><td>${money(inv.amount)}</td></tr>
+<tr><td colspan="3" class="tot">Total due</td><td class="tot">${money(inv.amount)}</td></tr></table>
+<p class="mono">Requested delivery ${fmtD(o.delivery)} · ${FARM} · Flower Spectrum Wholesale Portal ${VERSION} — demo document</p>
+</body></html>`;
+}
+function renderAccount(){
+  const out=document.getElementById("acctOut");
+  if(!approved()){
+    out.innerHTML=`<div class="empty">Account pages are available to approved wholesale partners.<br><br><button class="btn primary" id="acctReq">${state.accessRequested?"✓ Access requested":"Request wholesale access"}</button></div>`;
+    const b=out.querySelector("#acctReq");
+    if(b&&!state.accessRequested)b.addEventListener("click",()=>{state.accessRequested=true;renderAccount();toast("Access request sent");});
+    return;
+  }
+  const myOrders=orders.filter(o=>o.buyer===BUYER.name);
+  const openBal=invoices.filter(i=>i.status!=="Paid").reduce((a,i)=>a+i.amount,0);
+  const lifetime=invoices.reduce((a,i)=>a+i.amount,0);
+  out.innerHTML=`
+    <div class="acct-grid">
+      <div class="acct-cell"><div class="ak">Account</div><div class="av">${esc(BUYER.name)}</div><div class="as">${esc(BUYER.dba)} · ${esc(BUYER.city)}</div></div>
+      <div class="acct-cell"><div class="ak">Status</div><div class="av" style="color:var(--accent)">Approved</div><div class="as">${esc(BUYER.licence)} · member since ${esc(BUYER.member)}</div></div>
+      <div class="acct-cell"><div class="ak">Open balance</div><div class="av">${money(openBal)}</div><div class="as">terms ${esc(BUYER.terms)}</div></div>
+      <div class="acct-cell"><div class="ak">Lifetime volume</div><div class="av">${money(lifetime)}</div><div class="as">${myOrders.length} orders · ${myOrders.reduce((a,o)=>a+o.lbs,0)} lb</div></div>
+    </div>
+
+    <div class="sectlead" style="font-size:22px">Order history</div>
+    <div class="sectsub">Every order tracks to its requested delivery date</div>
+    <div class="mtablewrap" style="margin-bottom:34px"><table class="mtable"><thead><tr>
+      <th>Order</th><th>Strain</th><th>Qty</th><th>$ / lb</th><th>Total</th><th>Placed</th><th>Delivery</th><th>Status</th>
+    </tr></thead><tbody>
+      ${myOrders.map(o=>{const s=SBK[o.strainId];return `<tr>
+        <td class="mono">${o.id}</td>
+        <td><div class="tnm">${esc(s.name)}</div><div class="tcross" style="color:${s.lead.color}">${esc(s.blend)}</div></td>
+        <td class="mono">${o.lbs} lb</td><td class="mono">${money(o.pricePerLb)}</td>
+        <td class="mono" style="color:var(--fg)">${money(o.total)}</td>
+        <td class="mono">${fmtD(o.placed)}</td><td class="mono" style="color:var(--accent)">${fmtD(o.delivery)}</td>
+        <td><span class="pill ${o.status.toLowerCase()}">${o.status}</span></td></tr>`;}).join("")}
+    </tbody></table></div>
+
+    <div class="sectlead" style="font-size:22px">Invoices</div>
+    <div class="sectsub">Net 30 from issue · download for your records</div>
+    <div class="mtablewrap"><table class="mtable"><thead><tr>
+      <th>Invoice</th><th>Order</th><th>Amount</th><th>Issued</th><th>Due</th><th>Status</th><th></th>
+    </tr></thead><tbody>
+      ${invoices.map(i=>`<tr>
+        <td class="mono">${i.id}</td><td class="mono">${i.orderId}</td>
+        <td class="mono" style="color:var(--fg)">${money(i.amount)}</td>
+        <td class="mono">${fmtD(i.issued)}</td><td class="mono">${fmtD(i.due)}</td>
+        <td><span class="pill ${i.status.toLowerCase()}">${i.status}${i.paid?" · "+fmtD(i.paid):""}</span></td>
+        <td><a class="dltext" download="${i.id}.html" href="data:text/html;charset=utf-8,${encodeURIComponent(invoiceDoc(i))}">↓ Invoice</a></td></tr>`).join("")}
+    </tbody></tbody></table></div>
+    <div class="callout" style="margin-top:26px"><div class="ct">Demo note</div><p>Orders, invoices, and balances are in-memory demo data. Production wiring: Supabase (orders/invoices/accounts) with licence verification against OLCC records.</p></div>`;
+}
+
+/* ═══════════════ BUYER · PROMO KIT ═══════════════ */
+function T_highlight(s){
+  return `<div class="frame" data-w="1080" data-h="1080">
+    <div style="position:absolute;top:0;left:0;right:0;height:640px">${photoLayer(s.id,{grad:"to bottom, rgba(14,14,12,.15) 40%, rgba(14,14,12,.96)"})}</div>
+    <div style="position:absolute;top:0;left:0;right:0;padding:56px 60px;display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="f-kick" style="font-size:18px">Strain Highlight</div>
+      <div style="text-align:right"><div class="f-sig" style="font-size:15px">Flower Spectrum</div><div style="font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:rgba(232,227,217,.7);margin-top:6px;text-transform:uppercase">${esc(FARM)}</div></div>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:0;padding:0 60px 56px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+        <div>
+          <div class="f-strain" style="font-size:96px">${esc(s.name)}</div>
+          <div class="f-blend" style="color:${s.lead.color};font-size:24px;margin-top:14px">${esc(s.blend)} <span style="color:rgba(232,227,217,.5)">· ${esc(s.c.confidence)}</span></div>
+        </div>
+        <div style="text-align:center;flex-shrink:0">${fingerprintSVG(s.c,{size:180,highlight:s.lead.key})}<div style="margin-top:6px">${s.real?"":simBadge(1)}</div></div>
+      </div>
+      <div class="f-aroma" style="font-size:28px;color:rgba(232,227,217,.92);margin:26px 0;max-width:26ch">&ldquo;${esc(s.aroma)}&rdquo;</div>
+      ${stripHTML(s.c,{h:56,labels:"full"})}
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:22px">
+        <div style="font-family:var(--display);font-weight:600;font-size:34px;color:#fff">${s.thc}<span style="font-size:20px;color:rgba(232,227,217,.6)">% THC</span></div>
+        <div style="font-family:var(--mono);font-size:15px;letter-spacing:.16em;color:var(--accent)">${esc(HANDLE)}</div>
+      </div>
+      <div class="f-comp" style="font-size:11px;margin-top:16px">${esc(s.real?"Validated COA":"Simulated classification")} · Aroma classification — not effects or medical claims</div>
+    </div>
+  </div>`;
+}
+function T_lineage(s){
+  const parents=s.cross.split("×").map(p=>p.trim());
+  const pBox=(nm,x)=>`<div style="position:absolute;top:340px;left:${x}px;width:360px;height:110px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center"><span style="font-family:var(--display);font-weight:600;font-size:${nm.length>18?30:38}px;color:var(--fg);text-align:center;padding:0 14px">${esc(nm)}</span></div>`;
+  const two=parents.length>=2;
+  return `<div class="frame" data-w="1080" data-h="1080">
+    <div style="position:absolute;inset:0;background:var(--bg)"></div>
+    <div style="position:absolute;top:0;left:0;right:0;padding:56px 60px;display:flex;justify-content:space-between">
+      <div class="f-kick" style="font-size:18px">Lineage</div>${s.real?"":simBadge(1)}
+    </div>
+    ${two?pBox(parents[0],130)+pBox(parents[1],590):pBox(parents[0],360)}
+    ${two?`<svg style="position:absolute;top:450px;left:0" width="1080" height="160"><line x1="310" y1="0" x2="540" y2="150" stroke="var(--accent)" stroke-width="3"/><line x1="770" y1="0" x2="540" y2="150" stroke="var(--accent)" stroke-width="3"/></svg>`
+        :`<svg style="position:absolute;top:450px;left:0" width="1080" height="160"><line x1="540" y1="0" x2="540" y2="150" stroke="var(--accent)" stroke-width="3"/></svg>`}
+    <div style="position:absolute;top:600px;left:240px;width:600px;height:140px;border:3px solid var(--accent);display:flex;align-items:center;justify-content:center"><span class="f-strain" style="font-size:${s.name.length>16?44:56}px;color:var(--fg)">${esc(s.name)}</span></div>
+    <div style="position:absolute;left:60px;right:60px;top:790px">${stripHTML(s.c,{h:50,labels:"full"})}</div>
+    <div style="position:absolute;left:60px;right:60px;bottom:56px;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-family:var(--mono);font-size:15px;letter-spacing:.14em;color:var(--fg-dim);text-transform:uppercase">Breeder · ${esc(s.breeder)}</div>
+      <div style="font-family:var(--mono);font-size:15px;letter-spacing:.16em;color:var(--accent)">${esc(HANDLE)}</div>
+    </div>
+  </div>`;
+}
+function T_drop(s){
+  const photo=photos[s.id]?`<img src="${photos[s.id]}" alt=""/>`:`<div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 40% 25%, ${s.lead.color}30, transparent 60%),#0b0b0a"></div><div class="ph-empty"><div class="ring"></div><div class="lbl">Awaiting photo</div></div>`;
+  return `<div class="frame" data-w="1080" data-h="1920">
+    <div class="ph-layer" style="position:absolute;inset:0">${photo}<div class="scrim" style="background:linear-gradient(to bottom, rgba(14,14,12,.25) 0%, rgba(14,14,12,.05) 30%, rgba(14,14,12,.55) 62%, rgba(14,14,12,.97) 88%)"></div></div>
+    <div style="position:absolute;top:0;left:0;right:0;padding:84px 76px 0;display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="f-kick" style="font-size:20px">Just Dropped</div>
+      <div style="text-align:right">${s.real?"":simBadge(1.1)}<div class="f-sig" style="font-size:14px;margin-top:12px">${esc(FARM)}</div></div>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:0;padding:0 76px 88px">
+      <div class="f-strain" style="font-size:${s.name.length>16?84:118}px">${esc(s.name)}</div>
+      <div class="f-blend" style="color:${s.lead.color};font-size:28px;margin-top:20px">${esc(s.blend)}</div>
+      <div class="f-aroma" style="font-size:34px;color:rgba(232,227,217,.92);margin:28px 0 34px;max-width:22ch">&ldquo;${esc(s.aroma)}&rdquo;</div>
+      <div style="display:flex;justify-content:center;margin-bottom:34px">${fingerprintSVG(s.c,{size:300,highlight:s.lead.key})}</div>
+      ${stripHTML(s.c,{h:80,labels:"full"})}
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:28px">
+        <div style="font-family:var(--display);font-weight:600;font-size:42px;color:#fff">${s.thc}<span style="font-size:22px;color:rgba(232,227,217,.6)">% THC</span></div>
+        <div style="font-family:var(--mono);font-size:19px;letter-spacing:.18em;color:var(--accent)">${esc(HANDLE)}</div>
+      </div>
+      <div class="f-comp" style="font-size:13px;margin-top:20px;text-align:center">${esc(s.real?"Validated COA":"Simulated classification")} · not effects or medical claims</div>
+    </div>
+  </div>`;
+}
+function T_fingerprint(s){
+  return `<div class="frame" data-w="1080" data-h="1350">
+    <div class="ph-layer" style="position:absolute;inset:0">${photos[s.id]?`<img src="${photos[s.id]}" alt=""/>`:`<div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 30%, ${s.lead.color}30, transparent 60%),#0b0b0a"></div>`}<div class="scrim" style="background:radial-gradient(60% 50% at 50% 44%, rgba(14,14,12,.86), rgba(14,14,12,.5) 70%, rgba(14,14,12,.9))"></div></div>
+    <div style="position:absolute;inset:0;padding:70px;display:flex;flex-direction:column">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="f-kick" style="font-size:18px">Fingerprint ID</div>${s.real?"":simBadge(1)}</div>
+      <div class="f-aroma" style="font-family:var(--display);font-size:38px;color:#fff;margin-top:20px;max-width:20ch;text-align:center;align-self:center">Every flower has a signature.</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">${fingerprintSVG(s.c,{size:460,highlight:s.lead.key})}</div>
+      <div style="text-align:center">
+        <div class="f-strain" style="font-size:66px">${esc(s.name)}</div>
+        <div class="f-blend" style="color:${s.lead.color};font-size:22px;margin-top:10px">${esc(s.blend)} · ${esc(s.c.confidence)}</div>
+      </div>
+      <div style="margin-top:34px">${stripHTML(s.c,{h:54,labels:"full"})}</div>
+      <div class="f-comp" style="font-size:12px;margin-top:20px;text-align:center">The ten-sector map behind the strip · ${esc(s.real?"validated COA":"simulated")} · not effects or medical claims</div>
+    </div>
+  </div>`;
+}
+function kitAssets(s){
+  return [
+    {name:"Strain Highlight",fmt:"1:1 · Feed",file:`fs-highlight-${s.id}`,html:T_highlight(s)},
+    {name:"Lineage Card",fmt:"1:1 · Education",file:`fs-lineage-${s.id}`,html:T_lineage(s)},
+    {name:"New Drop",fmt:"9:16 · Story",file:`fs-drop-${s.id}`,html:T_drop(s)},
+    {name:"Fingerprint ID",fmt:"4:5 · Portrait",file:`fs-fingerprint-${s.id}`,html:T_fingerprint(s)},
+  ];
+}
+function renderKit(){
+  const out=document.getElementById("kitOut");
+  if(!approved()){out.innerHTML=`<div class="empty">The promo kit unlocks for approved buyers after purchase.</div>`;return;}
+  const ids=purchasedIds();
+  if(!ids.length){out.innerHTML=`<div class="empty">Nothing purchased yet — order a strain from the menu and its kit appears here.</div>`;return;}
+  out.innerHTML=ids.map(id=>{
+    const s=SBK[id];
+    return `<div class="kit-block">
+      <div class="kit-head"><span class="kh-nm">${esc(s.name)}</span><span class="kh-sub">Auto-populated from ${s.real?"COA":"profile"} data · ${photos[s.id]?"your photo loaded":"photo pending — placeholder shown"}</span></div>
+      <div class="gallery">${kitAssets(s).map(a=>`
+        <div class="asset">
+          <div class="bar"><div><div class="nm">${esc(a.name)}</div><div class="fmt">${esc(a.fmt)}</div></div><button class="exp" data-file="${a.file}">Export PNG</button></div>
+          <div class="viewport" data-w="${a.html.match(/data-w="(\d+)"/)[1]}" data-h="${a.html.match(/data-h="(\d+)"/)[1]}">${a.html}</div>
+        </div>`).join("")}</div>
+    </div>`;
+  }).join("")+`<div class="callout teal"><div class="ct">Publishing note</div><p>Assets marked SIM carry simulated classifications for layout demonstration. To publish real ones, run the strain&rsquo;s COA through the Chemovar Classifier — strip, fingerprint, blend, and confidence come straight from the engine.</p></div>`;
+  layoutFrames();
+  out.querySelectorAll(".exp").forEach(btn=>btn.addEventListener("click",()=>exportPNG(btn)));
+}
+
+/* ═══════════════ SELLER · ORDERS ═══════════════ */
+function renderOrders(){
+  document.getElementById("sellerBenefits").innerHTML=benefitsHTML(SELLER_BENEFITS);
+  const out=document.getElementById("ordersOut");
+  const open=orders.filter(o=>o.status!=="Delivered");
+  const committed=open.reduce((a,o)=>a+o.lbs,0), rev=open.reduce((a,o)=>a+o.total,0);
+  const stats=`<div class="stats">
+    <div class="stat"><div class="sk">Open orders</div><div class="sv">${open.length}</div></div>
+    <div class="stat"><div class="sk">Lbs committed</div><div class="sv">${committed} lb</div></div>
+    <div class="stat"><div class="sk">Committed revenue</div><div class="sv">${money(rev)}</div></div>
+    <div class="stat"><div class="sk">On the shelf</div><div class="sv">${STRAINS.reduce((a,s)=>a+s.avail,0)} lb</div></div>
+  </div>`;
+  const rows=orders.map(o=>{
+    const s=SBK[o.strainId];
+    const idx=ORDER_FLOW.indexOf(o.status);
+    const next=idx>=0&&idx<ORDER_FLOW.length-1?ORDER_FLOW[idx+1]:null;
+    return `<tr>
+      <td class="mono">${o.id}</td>
+      <td><div class="tnm">${esc(s.name)}</div><div class="tcross" style="color:${s.lead.color}">${esc(s.blend)}</div></td>
+      <td>${esc(o.buyer)}</td>
+      <td class="mono">${o.lbs} lb</td>
+      <td class="mono" style="color:var(--fg)">${money(o.total)}</td>
+      <td class="mono" style="color:var(--accent)">${fmtD(o.delivery)}</td>
+      <td><span class="pill ${o.status.toLowerCase()}">${o.status}</span></td>
+      <td>${next?`<button class="btn sm primary" data-adv="${o.id}">→ ${next}</button>`:`<span class="pill delivered">Complete</span>`}</td>
+    </tr>`;
+  }).join("");
+  out.innerHTML=stats+(orders.length
+    ?`<div class="mtablewrap"><table class="mtable"><thead><tr><th>Order</th><th>Strain</th><th>Buyer</th><th>Qty</th><th>Total</th><th>Requested delivery</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`
+    :`<div class="empty">No orders yet — they land here the moment an approved buyer places one.</div>`);
+  out.querySelectorAll("[data-adv]").forEach(b=>b.addEventListener("click",()=>{
+    const o=orders.find(x=>x.id===b.dataset.adv);
+    const idx=ORDER_FLOW.indexOf(o.status);
+    if(idx<ORDER_FLOW.length-1){o.status=ORDER_FLOW[idx+1];renderOrders();renderTabs();toast(o.id+" → "+o.status);}
+  }));
+}
+
+/* ═══════════════ SELLER · INVENTORY & PHOTOS ═══════════════ */
+function renderInventory(){
+  const out=document.getElementById("invOut");
+  out.innerHTML=`<div class="mtablewrap"><table class="mtable"><thead><tr>
+    <th>Photo</th><th>Strain</th><th>Spectrum</th><th>THC</th><th>Harvest</th><th>Base $ / lb</th><th>Live stock · lb</th><th>Data</th>
+  </tr></thead><tbody>
+    ${STRAINS.map(s=>`<tr>
+      <td><div class="inv-thumb" data-assign="${s.id}" role="button" tabindex="0" aria-label="Set photo for ${esc(s.name)}">${photos[s.id]?`<img src="${photos[s.id]}" alt=""/>`:`<div class="add">+ photo</div>`}</div></td>
+      <td><div class="tnm">${esc(s.name)}</div><div class="tcross">${esc(s.cross)} · ${esc(s.breeder)}</div></td>
+      <td><div class="minitrip">${stripHTML(s.c,{h:12,labels:"none"})}</div><div class="tcross" style="color:${s.lead.color}">${esc(s.blend)}</div></td>
+      <td class="mono">${s.thc}%</td>
+      <td class="mono">${fmtD(s.harvest)}</td>
+      <td class="mono">${money(s.tiers[0].price)}</td>
+      <td><input class="stock" type="number" min="0" value="${s.avail}" data-stock="${s.id}" aria-label="Stock for ${esc(s.name)}"/></td>
+      <td>${dataPill(s)}</td>
+    </tr>`).join("")}
+  </tbody></table></div>
+  <div class="callout"><div class="ct">Compliance</div><p>Aroma classification — not effects or medical claims. Aroma leads on every buyer-facing surface; THC is factual data. Keep effect language off anything public.</p></div>`;
+  out.querySelectorAll("[data-assign]").forEach(el=>{
+    const go=()=>{pendingOne=el.dataset.assign;document.getElementById("oneInput").click();};
+    el.addEventListener("click",go);
+    el.addEventListener("keydown",e=>{if(e.key==="Enter")go();});
+  });
+  out.querySelectorAll("[data-stock]").forEach(inp=>inp.addEventListener("change",()=>{
+    const s=SBK[inp.dataset.stock];const v=Math.max(0,Number(inp.value)||0);s.avail=v;toast(s.name+" stock → "+v+" lb");
+  }));
+  updateCounter();
+}
+
+/* ═══════════════ SELLER · REQUESTS ═══════════════ */
+function renderRequests(){
+  const out=document.getElementById("reqOut");
+  out.innerHTML=`<div class="mtablewrap"><table class="mtable"><thead><tr>
+    <th>Retailer</th><th>Location</th><th>Licence</th><th>Status</th><th></th></tr></thead><tbody>
+    ${requests.map(r=>`<tr>
+      <td><div class="tnm">${esc(r.shop)}</div></td>
+      <td class="mono">${esc(r.city)}</td>
+      <td class="mono">${esc(r.licence)}</td>
+      <td><span class="pill ${r.status}">${r.status==="pending"?"Pending review":r.status==="approved"?"Approved · pricing visible":"Declined"}</span></td>
+      <td>${r.status==="pending"?`<div style="display:flex;gap:8px"><button class="btn sm primary" data-ap="${r.id}">Approve</button><button class="btn sm danger" data-dc="${r.id}">Decline</button></div>`:""}</td>
+    </tr>`).join("")}
+  </tbody></table></div>
+  <div class="callout teal"><div class="ct">Why gate pricing</div><p>Wholesale numbers travel. Approval keeps your pricing in front of licensed buyers you chose — and gives every request a licence you can verify against OLCC records before a single dollar figure is shown.</p></div>`;
+  out.querySelectorAll("[data-ap]").forEach(b=>b.addEventListener("click",()=>{setReq(b.dataset.ap,"approved");}));
+  out.querySelectorAll("[data-dc]").forEach(b=>b.addEventListener("click",()=>{setReq(b.dataset.dc,"declined");}));
+}
+function setReq(id,status){const r=requests.find(x=>x.id===id);r.status=status;renderRequests();renderTabs();toast(r.shop+" — "+status);}
+
+/* ═══════════════ PNG EXPORT (from gallery) ═══════════════ */
+let fontsReady=false;
+async function exportPNG(btn){
+  const frame=btn.closest(".asset").querySelector(".frame");
+  const w=+frame.dataset.w,h=+frame.dataset.h;
+  if(!window.htmlToImage){toast("Export library didn't load — screenshot the preview instead.");return;}
+  const label=btn.textContent;btn.disabled=true;btn.textContent="Rendering…";
+  try{
+    if(!fontsReady&&document.fonts&&document.fonts.ready){await document.fonts.ready;fontsReady=true;}
+    const opts={pixelRatio:2,width:w,height:h,cacheBust:true,style:{transform:"none",transformOrigin:"top left",margin:"0"}};
+    await window.htmlToImage.toPng(frame,opts);
+    const url=await window.htmlToImage.toPng(frame,opts);
+    const a=document.createElement("a");a.href=url;a.download=btn.dataset.file+".png";document.body.appendChild(a);a.click();a.remove();
+    toast("Saved "+btn.dataset.file+".png");
+  }catch(e){console.error(e);toast("Export failed — try again in a moment.");}
+  finally{btn.disabled=false;btn.textContent=label;}
+}
+function layoutFrames(){
+  document.querySelectorAll(".viewport").forEach(vp=>{
+    const w=+vp.dataset.w,h=+vp.dataset.h,cw=vp.clientWidth,scale=cw/w;
+    vp.style.height=(h*scale)+"px";
+    const f=vp.querySelector(".frame");if(f){f.style.width=w+"px";f.style.height=h+"px";f.style.transform=`scale(${scale})`;}
+  });
+}
+window.addEventListener("resize",layoutFrames);
+let toastT;function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),1700);}
+
+/* ═══════════════ PHOTO LOADING ═══════════════ */
+function matchStrain(filename){const n=filename.toLowerCase();for(const s of STRAINS){if(s.match.some(k=>n.includes(k)))return s.id;}return null;}
+function setPhoto(id,file){if(photos[id])URL.revokeObjectURL(photos[id]);photos[id]=URL.createObjectURL(file);}
+function assignFiles(fileList){
+  const files=[...fileList].filter(f=>f.type.startsWith("image/"));
+  if(!files.length)return;
+  const leftovers=[];
+  files.forEach(f=>{const id=matchStrain(f.name);if(id&&!photos[id])setPhoto(id,f);else leftovers.push(f);});
+  let li=0;
+  for(const s of STRAINS){if(li>=leftovers.length)break;if(!photos[s.id]){setPhoto(s.id,leftovers[li++]);}}
+  renderCurrent();toast(files.length+" photo"+(files.length>1?"s":"")+" loaded");
+}
+function updateCounter(){const c=document.getElementById("counter");if(c)c.innerHTML="<b>"+Object.keys(photos).length+"</b> of "+STRAINS.length+" strains";}
+
+/* ═══════════════ RENDER ROUTER ═══════════════ */
+const RENDERERS={menu:renderMenu,account:renderAccount,kit:renderKit,orders:renderOrders,inventory:renderInventory,requests:renderRequests};
+function renderCurrent(){RENDERERS[state.tab[state.persp]]();if(state.openStrain)renderSheet();updateCounter();}
+function renderAll(){renderTabs();renderDemoNote();showView();renderCurrent();syncToggles();}
+function syncToggles(){
+  document.querySelectorAll("#perspToggle button").forEach(b=>b.classList.toggle("active",b.dataset.p===state.persp));
+  document.querySelectorAll("#acctToggle button").forEach(b=>b.classList.toggle("active",b.dataset.a===state.acct));
+  document.querySelectorAll("#layoutToggle button").forEach(b=>b.classList.toggle("active",b.dataset.l===state.layout));
+}
+
+/* ═══════════════ WIRING / INIT ═══════════════ */
+document.getElementById("heroBand").innerHTML=PROFILES.map(p=>`<div class="s" style="background:${p.color}"><b>${p.short}</b></div>`).join("");
+document.querySelectorAll("#perspToggle button").forEach(b=>b.addEventListener("click",()=>{state.persp=b.dataset.p;closeSheet();renderAll();}));
+document.querySelectorAll("#acctToggle button").forEach(b=>b.addEventListener("click",()=>{state.acct=b.dataset.a;closeSheet();renderAll();}));
+document.querySelectorAll("#layoutToggle button").forEach(b=>b.addEventListener("click",()=>{state.layout=b.dataset.l;renderMenu();syncToggles();}));
+document.getElementById("inSearch").addEventListener("input",e=>{state.q=e.target.value;renderMenu();});
+document.getElementById("selSort").addEventListener("change",e=>{state.sort=e.target.value;renderMenu();});
+document.getElementById("selGroup").addEventListener("change",e=>{state.group=e.target.value;renderMenu();});
+document.getElementById("overlay").addEventListener("click",e=>{if(e.target.id==="overlay")closeSheet();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&state.openStrain)closeSheet();});
+
+const loader=document.getElementById("loader");
+const fileInput=document.getElementById("fileInput");
+const oneInput=document.getElementById("oneInput");
+document.getElementById("pickBtn").addEventListener("click",()=>fileInput.click());
+document.getElementById("clearBtn").addEventListener("click",()=>{Object.values(photos).forEach(u=>URL.revokeObjectURL(u));Object.keys(photos).forEach(k=>delete photos[k]);renderCurrent();toast("Cleared");});
+fileInput.addEventListener("change",e=>{assignFiles(e.target.files);fileInput.value="";});
+oneInput.addEventListener("change",e=>{if(pendingOne&&e.target.files[0]){setPhoto(pendingOne,e.target.files[0]);renderCurrent();toast("Photo set");}pendingOne=null;oneInput.value="";});
+["dragenter","dragover"].forEach(ev=>document.addEventListener(ev,e=>{e.preventDefault();loader.classList.add("drag");}));
+["dragleave","drop"].forEach(ev=>document.addEventListener(ev,e=>{e.preventDefault();if(ev==="drop"||e.target===document.documentElement)loader.classList.remove("drag");}));
+document.addEventListener("drop",e=>{e.preventDefault();loader.classList.remove("drag");if(e.dataTransfer&&e.dataTransfer.files.length)assignFiles(e.dataTransfer.files);});
+
+renderAll();
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>{fontsReady=true;layoutFrames();});}
+</script>
+</body>
+</html>

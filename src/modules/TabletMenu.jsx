@@ -680,7 +680,7 @@ function DataEditor({ products, onClose, onReplaceAll, onUpsert, onDelete }) {
   const [importReport, setImportReport] = useState(null);
 
   const startNew = () => setEditing({ id: "new_" + Math.random().toString(36).slice(2, 7), category: "flower", name: "", grower: "", lineage: "—", tier: "" });
-  const saveDraft = () => { const checked=parseCsvToProducts(csvSerialize(CSV_MASTER,[productToRow(editing)])); if (checked.errors.length) {window.alert(checked.errors.join("\n"));return;} const original=products.find(p=>p.id===editing.id); const changed=original && ["primaryKey","primaryPct","secondaryKey","secondaryPct"].some(k=>editing[k]!==original[k]); onUpsert(changed?{...editing,band:undefined,sourceId:null}:editing); setEditing(null); };
+  const saveDraft = () => { const checked=parseCsvToProducts(csvSerialize(CSV_MASTER,[productToRow(editing)])); if (checked.errors.length) {window.alert(checked.errors.join("\n"));return;} const original=products.find(p=>p.id===editing.id); const changed=original && ["primaryKey","primaryPct","secondaryKey","secondaryPct"].some(k=>editing[k]!==original[k]); onUpsert(changed?{...editing,band:undefined,sourceId:null,archivedValues:editing.values,values:{}}:editing); setEditing(null); };
 
   const currentCsv = useMemo(() => csvSerialize(CSV_MASTER, products.map(productToRow)), [products]);
   const templates = useMemo(() => Object.keys(TEMPLATE_COLS).map((c) => ({ id: c, label: CAT[c].label, csv: templateCsv(c) })), []);

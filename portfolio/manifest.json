@@ -1,13 +1,58 @@
 [
   {
-    "file": "overview-desktop.png",
-    "bytes": 283041,
-    "sha256": "506720c0574b72c37e3fa19ba9c772160cf79ae3f058b91cb1678f5e7e10edd3"
+    "file": "aroma-shelf-cards.pdf",
+    "bytes": 155936,
+    "sha256": "532b52475226415de2e27ec99039fbc7c095ed5b2049f9431987e6162ec61199"
+  },
+  {
+    "file": "classifier-desktop.png",
+    "bytes": 129985,
+    "sha256": "8214920e9e7758603a6166f727285d8f8497766d5607fdedf640240acd6f5a3d"
+  },
+  {
+    "file": "classifier-mobile.png",
+    "bytes": 50577,
+    "sha256": "e4a0610da4cf3c002647f6353379c0399f9e695e106a9f9c754131185b360262"
+  },
+  {
+    "file": "classifier-workspace.png",
+    "bytes": 143710,
+    "sha256": "83b18cf0ec9c93eaba94d3c7b8c48697bf0ecbd04f376ee9339614b40483babf"
+  },
+  {
+    "file": "education-desktop.png",
+    "bytes": 133534,
+    "sha256": "a99882b4a1f443bf63f98738a058679a8ab01f8a4f26911611072d1146873669"
+  },
+  {
+    "file": "education-mobile.png",
+    "bytes": 47145,
+    "sha256": "ba7597ef711b9be5cb654d37ae71cd306b6b227b6158153b7f99208a6482f445"
+  },
+  {
+    "file": "education-primer.pdf",
+    "bytes": 30673,
+    "sha256": "4a239beee0cb5e24d3a045267fc972604f64c7bfaa1b5cad1864abc907e3a539"
   },
   {
     "file": "flower-spectrum-case-study.pdf",
-    "bytes": 548283,
-    "sha256": "c0ebc178867f23b03d964cf4f58d205ab90a798332f9072d761ac03b09d40bdb"
+    "bytes": 518892,
+    "sha256": "c97f27ed68061d776c69befd803c3293bfa687a3a8d7e39ec01f7e9251855dff"
+  },
+  {
+    "file": "fs-compare-jb-sdr.png",
+    "bytes": 158167,
+    "sha256": "b8d56f394a12dde34918bbc97d6a63dd18b9ee2c1b5a6a7345fc1ccbc39e6302"
+  },
+  {
+    "file": "fs-drop-jb.png",
+    "bytes": 173664,
+    "sha256": "a96bae2423c5f71cb0861ee8782ab1a3d0fe0617b70a906aa054f8d334d94300"
+  },
+  {
+    "file": "fs-fingerprint-jb.png",
+    "bytes": 128780,
+    "sha256": "f2eba956af947f6c8ebfa7e325326705be9749184be90576b1b18bbbb7d99187"
   },
   {
     "file": "fs-highlight-jb.png",
@@ -20,9 +65,29 @@
     "sha256": "34c4ed73949d7199e672c7c142414a257b2da2642547b3956a33e8126c65b886"
   },
   {
-    "file": "fs-drop-jb.png",
-    "bytes": 173664,
-    "sha256": "a96bae2423c5f71cb0861ee8782ab1a3d0fe0617b70a906aa054f8d334d94300"
+    "file": "fs-voice.png",
+    "bytes": 133646,
+    "sha256": "48f271c739fb7d42313c2c217cfb45f03b6acd7e57204dd5fd78e51c72559c7a"
+  },
+  {
+    "file": "label-sheet-sample.pdf",
+    "bytes": 118027,
+    "sha256": "33f51bc8030046fa8d61ee118cede0b278802bca33c06d84745b442da761e482"
+  },
+  {
+    "file": "labels-desktop.png",
+    "bytes": 155656,
+    "sha256": "bb020f2191287f0eaeed07d00bf01a6c28cc88766097be8a0758b3cf86ce3a1f"
+  },
+  {
+    "file": "labels-mobile.png",
+    "bytes": 52485,
+    "sha256": "3ce7bc2fcbfab8712e063f3956c6a576217c43b194a7bb4b18b9ae2c1796bd54"
+  },
+  {
+    "file": "menu-desktop.png",
+    "bytes": 189068,
+    "sha256": "9f4cf45d68ab3d56d46e88a18dd714db19c79af10ab9d969e5bb4b246f391741"
   },
   {
     "file": "menu-mobile.png",
@@ -30,68 +95,178 @@
     "sha256": "bc918478ff51700517bb702272cc4e4c7ba5807fcd5d5a804759ed6b1ef71568"
   },
   {
-    "file": "social-preview.png",
-    "bytes": 143534,
-    "sha256": "f5fbc037cbb88fbdebd15d177ffba5f1fca9a8cfd452376b8aa91f2660844183"
-  },
-  {
-    "file": "menu-desktop.png",
-    "bytes": 188242,
-    "sha256": "5f2f4375eb7264fc12f44d9b7f241314e2cbe0851f50b43b0bd5de2b41f80f55"
-  },
-  {
-    "file": "education-desktop.png",
-    "bytes": 132214,
-    "sha256": "3e850ca825714d4862546d8459f6f475c536490b9a570227c63a1703bc77fff4"
-  },
-  {
-    "file": "social-desktop.png",
-    "bytes": 130397,
-    "sha256": "7da6e0dc5a7ad90fc1d4d99020444ca45d2885de6cc1bc002c06632b91e35b7e"
-  },
-  {
-    "file": "fs-voice.png",
-    "bytes": 133646,
-    "sha256": "48f271c739fb7d42313c2c217cfb45f03b6acd7e57204dd5fd78e51c72559c7a"
-  },
-  {
-    "file": "portfolio-cover.png",
-    "bytes": 188881,
-    "sha256": "9893c4553e2b6b1119c47e5c7cc45751ed20186f042eec743a4d7cf036903868"
-  },
-  {
-    "file": "fs-fingerprint-jb.png",
-    "bytes": 128780,
-    "sha256": "f2eba956af947f6c8ebfa7e325326705be9749184be90576b1b18bbbb7d99187"
+    "file": "overview-desktop.png",
+    "bytes": 320982,
+    "sha256": "9f5434dfe5ba3930e6ad02bd6473af8bd8bb5683304245c8ec954f485451eb2e"
   },
   {
     "file": "overview-mobile.png",
-    "bytes": 232810,
-    "sha256": "28ab3ff1eac12b08ab8b23752b7fc1fd10406336515449f1368e555e2128782f"
+    "bytes": 81563,
+    "sha256": "a75c93a50aba73536b384959b0993aaec389ab0250578d2efa1138505229c738"
   },
   {
-    "file": "fs-compare-jb-sdr.png",
-    "bytes": 158167,
-    "sha256": "b8d56f394a12dde34918bbc97d6a63dd18b9ee2c1b5a6a7345fc1ccbc39e6302"
+    "file": "portfolio-cover.png",
+    "bytes": 189879,
+    "sha256": "5bed935653c0c40681c9bcc3bf93d6fc52176ff12ef05a54fcd76e0ddff1827b"
   },
   {
-    "file": "education-primer.pdf",
-    "bytes": 30673,
-    "sha256": "4a239beee0cb5e24d3a045267fc972604f64c7bfaa1b5cad1864abc907e3a539"
+    "file": "print-desktop.png",
+    "bytes": 135412,
+    "sha256": "59131f53954954199d1d1c042021fd032c9646a9cfee71142b768ea64dccfd03"
+  },
+  {
+    "file": "print-menu-landscape.pdf",
+    "bytes": 39822,
+    "sha256": "066207f6aebfe8337927fe332f31162d42321b918bb133d0b787568df17eb649"
+  },
+  {
+    "file": "print-menu-sample.pdf",
+    "bytes": 47409,
+    "sha256": "112db5f00f0aeef0872180b6046e52cc86b18b5141428340b0acf935a4e70b86"
+  },
+  {
+    "file": "print-mobile.png",
+    "bytes": 51325,
+    "sha256": "ba6077d2d17aa2f85c70c86fd3061a133a482b8c421385eca698c327712b7a31"
+  },
+  {
+    "file": "profiles/citrus_bright.png",
+    "bytes": 81507,
+    "sha256": "dcc4734d049f78d8ce510b72e7807d0ff0d0f459e734ad9cb59000f313836698"
+  },
+  {
+    "file": "profiles/citrus_bright.svg",
+    "bytes": 1037,
+    "sha256": "6bdfe94d087957be95b35966bdca1d0ff8a55f2a56595051c165b31301b802be"
+  },
+  {
+    "file": "profiles/dessert_creamy.png",
+    "bytes": 69917,
+    "sha256": "51b483f2b843d9ce2273251ca59866d42d8a70d3cf6acad06932dde4031af845"
+  },
+  {
+    "file": "profiles/dessert_creamy.svg",
+    "bytes": 596,
+    "sha256": "b0ab0f744a4bae0a26613f5a6a00f449827f9616779cda8ddfe05a7debd922a4"
+  },
+  {
+    "file": "profiles/earthy_dank.png",
+    "bytes": 67389,
+    "sha256": "6dc3a1cd504a0cf17b398226f86f9781936423747260a04b52852b47f613ed35"
+  },
+  {
+    "file": "profiles/earthy_dank.svg",
+    "bytes": 603,
+    "sha256": "349d6eb496ab9c6798788c232ad60c4169e04f323a6ae47011a9ae1ffd576ace"
+  },
+  {
+    "file": "profiles/floral_soft.png",
+    "bytes": 71182,
+    "sha256": "95ee62bec4bacfe71c1cbf7c6bc8d5659eb1ebb6cacaa56afc3e38305e28f5f9"
+  },
+  {
+    "file": "profiles/floral_soft.svg",
+    "bytes": 1051,
+    "sha256": "30e3814fe4610165fe003c2835f9f738866b898809a47a232bd4fbaf27bb4ef1"
+  },
+  {
+    "file": "profiles/fruity_sweet.png",
+    "bytes": 78172,
+    "sha256": "68aa14d3f9fce1a546e479c9005330b6b99cdb1a76027b911ab03e3edc39238b"
+  },
+  {
+    "file": "profiles/fruity_sweet.svg",
+    "bytes": 503,
+    "sha256": "389e30778c0ef87c26f0509e059683f111fb3d77d17cb3e237e54f23b26ed1a1"
+  },
+  {
+    "file": "profiles/gas_fuel.png",
+    "bytes": 62804,
+    "sha256": "395ab0e5b20f0b853572263ee5fde5c0a13c3812ca20ea3d52371e9d81e22323"
+  },
+  {
+    "file": "profiles/gas_fuel.svg",
+    "bytes": 647,
+    "sha256": "c87820609eed2adaab90cec5ec9ccc4f12c0715ae804b7447adbae5d9ea6ab85"
+  },
+  {
+    "file": "profiles/herbal_woody.png",
+    "bytes": 68007,
+    "sha256": "9c284f14147c78ad6066d6fe8366919d603e9903aac500046c3c153feedef0db"
+  },
+  {
+    "file": "profiles/herbal_woody.svg",
+    "bytes": 530,
+    "sha256": "0d78b21c9d7bce43bd0bb33a65742c660be048ed230279b052aef43fc447a1c9"
+  },
+  {
+    "file": "profiles/piney_fresh.png",
+    "bytes": 65868,
+    "sha256": "85ea558313da3281d2eb743d0dd6aebf6e60777436050ec58f6693d5d0d82595"
+  },
+  {
+    "file": "profiles/piney_fresh.svg",
+    "bytes": 394,
+    "sha256": "42bc7c1a2ac7d5133181776afefc8d2a0ebe4003bf1f69022e6677d29cfd5da4"
+  },
+  {
+    "file": "profiles/spicy_warm.png",
+    "bytes": 71662,
+    "sha256": "c338c40b92c131e570801fbbb29bb6ba828c478ea3c0547e01e7656d96fd2f87"
+  },
+  {
+    "file": "profiles/spicy_warm.svg",
+    "bytes": 583,
+    "sha256": "7152325f9842b206fafc29023b33d3b388a1fb2d41e56e3b37631ba8dbe3828a"
+  },
+  {
+    "file": "profiles/tropical_tangy.png",
+    "bytes": 65862,
+    "sha256": "dfa65043189d14119352e51c1b1eaa09cb2d08f0c7deceb5b3abf326cbe084eb"
+  },
+  {
+    "file": "profiles/tropical_tangy.svg",
+    "bytes": 594,
+    "sha256": "795490828f8c6e80ebdde85a5b22377d4583415bede12e4e3ddb2e2bb8c8fb3f"
+  },
+  {
+    "file": "profiles-desktop.png",
+    "bytes": 102456,
+    "sha256": "ba1add712df8891516533ece2fc04040236eaeb9319590c74c673c14468f64ec"
+  },
+  {
+    "file": "profiles-mobile.png",
+    "bytes": 42654,
+    "sha256": "c44166e4b4cd45a1060fdd6ab3fea7803cae8db6dbde9266048b4e772e11ca1a"
+  },
+  {
+    "file": "social-desktop.png",
+    "bytes": 148361,
+    "sha256": "ef921b4dcab53e1087b147ad651af39be017fcd09160467c4844aadda249042a"
+  },
+  {
+    "file": "social-mobile.png",
+    "bytes": 70953,
+    "sha256": "d3a851420b07616608640ecb61b7c7f1cc8257736a61a1e325df4069e6159fdc"
+  },
+  {
+    "file": "social-preview.png",
+    "bytes": 144509,
+    "sha256": "d6bacfd373d985c4b62a970cd36ed12ae91db4a82fcb58f811ab0a50dd8fa771"
   },
   {
     "file": "case-study.html",
-    "bytes": 684257,
-    "sha256": "5311417a07583eb56a7c3656ae461676bd6f6b39e9d8ca82eb2e22b615ede4db"
+    "bytes": 632966,
+    "sha256": "a4cc6f93e5a5b8105ace2d6bd4fbb61b93c87235132cb4a30ee59ecffc8047a4"
   },
   {
     "file": "SHARE-COPY.md",
-    "bytes": 1134,
-    "sha256": "e99e1cf545b8ecaf56a1aa67297ddc5bfc212c9a76ea4280688ac1225b36cde0"
+    "bytes": 1412,
+    "sha256": "acd8c553216a9ea1e1c4f456b01604ad5c4a6576fda596238081270f27e598ca"
   },
   {
     "file": "ASSET-GUIDE.md",
-    "bytes": 1314,
-    "sha256": "834ac245dbe08230c2ca9751793c010ad20d5b9ab83d0b2aabbe2167d36fb41f"
+    "bytes": 2305,
+    "sha256": "46218691314d2124998f2500ef6e1059cf8249d586de5be704cdf9a72cc4b119"
   }
 ]

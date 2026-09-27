@@ -1,0 +1,6 @@
+async(page)=>{
+ await page.setViewportSize({width:1440,height:1000});await page.goto('http://127.0.0.1:5178/#print');await page.locator('.print-pages').waitFor();const saved=await page.evaluate(()=>localStorage.getItem('fs-suite-catalog-v1'));const result={};
+ try{await page.getByRole('button',{name:'⚙ Data',exact:true}).click();const row=page.locator('tr').filter({has:page.locator('input[value="Positive Mental Attitude"]')});await row.locator('input[value="42"]').fill('43');result.edited=await page.evaluate(()=>{const a=JSON.parse(localStorage.getItem('fs-suite-catalog-v1'));return {price:a.find(p=>p.id==='pma').priceEighth,note:a.find(p=>p.id==='pma').pickNote,concentrateTier:a.find(p=>p.id==='sourd_lr').tier}});await page.getByRole('button',{name:'⚙ Data',exact:true}).click();await page.getByRole('button',{name:'▭ Landscape',exact:true}).click();await page.getByRole('combobox',{name:/Columns/}).selectOption('3');result.threeColumns=await page.locator('.print-pages').evaluate(h=>({rows:h.querySelectorAll('.fs-row').length,overflow:[...h.querySelectorAll('.print-column')].filter(c=>c.scrollWidth>c.clientWidth+1||[...c.children].some(x=>x.getBoundingClientRect().bottom>c.getBoundingClientRect().bottom+1)).length}));}
+ finally{await page.evaluate(s=>localStorage.setItem('fs-suite-catalog-v1',s),saved);await page.reload()}
+ return result;
+}

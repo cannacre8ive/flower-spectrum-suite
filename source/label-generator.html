@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flower Spectrum · Label PDF Generator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0e0e0c; --surface:#181715; --border:#2a2824; --fg:#e8e3d9; --fg-dim:#a8a092; --muted:#6e675b; --accent:#6AAFA0;
+    --display:'Newsreader',Georgia,serif; --body:'DM Sans',system-ui,sans-serif; --mono:'JetBrains Mono',monospace; }
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body)}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:14px clamp(16px,4vw,40px);border-bottom:1px solid var(--border)}
+  .logo{display:flex;gap:2px}.logo span{width:5px;height:16px;border-radius:1px}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px clamp(16px,4vw,40px) 80px;display:grid;grid-template-columns:380px 1fr;gap:28px}
+  @media(max-width:900px){.wrap{grid-template-columns:1fr}}
+  h1{font-family:var(--display);font-size:clamp(24px,4vw,34px);font-weight:600;margin:0 0 4px;line-height:1.1}
+  .kick{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  .sub{font-family:var(--body);font-size:14px;color:var(--fg-dim);line-height:1.5;margin:0 0 20px}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px}
+  .lbl{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:block}
+  select,input[type=number]{background:var(--bg);border:1px solid var(--border);color:var(--fg);font-family:var(--mono);font-size:12px;padding:9px 10px;border-radius:7px;width:100%}
+  .row{display:flex;gap:10px;align-items:center}.row>*{flex:1}
+  .seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+  .seg button{background:transparent;border:1px solid var(--border);color:var(--fg-dim);font-family:var(--mono);font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;padding:6px 10px;border-radius:6px;cursor:pointer}
+  .seg button:hover{border-color:var(--accent);color:var(--fg)}
+  #strainList{max-height:340px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;padding:6px;background:var(--bg)}
+  .grp{margin-bottom:6px}.grp-h{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--fg-dim);padding:7px 6px 4px}
+  .sw{width:10px;height:10px;border-radius:2px}
+  .st{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;cursor:pointer}
+  .st:hover{background:var(--surface)} .st input{flex:0 0 auto;width:auto}
+  .st-n{font-size:12.5px;color:var(--fg)}.st-g{font-size:11px;font-style:italic;color:var(--muted);flex:1}
+  .badge{font-family:var(--mono);font-size:7.5px;letter-spacing:.5px;padding:2px 5px;border-radius:3px;background:#2e3a33;color:#8FBFA9}
+  .badge.ill{background:#3a3328;color:#C9A84C}
+  .count{font-family:var(--mono);font-size:11px;color:var(--accent);margin:10px 0;letter-spacing:.5px}
+  .btn{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:12px 18px;border-radius:8px;cursor:pointer;border:none}
+  .btn-primary{background:var(--accent);color:#0e0e0c}.btn-primary:hover{filter:brightness(1.08)}
+  .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--fg-dim)}
+  .btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+  .chk{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--fg-dim);cursor:pointer;text-transform:uppercase;letter-spacing:.5px}.chk input{width:auto}
+  .previewWrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;height:760px;display:flex;align-items:center;justify-content:center}
+  .previewWrap .ph{text-align:center;color:var(--muted);font-family:var(--mono);font-size:12px;letter-spacing:1px;padding:40px}
+  .previewWrap.has .ph{display:none}
+  #preview{width:100%;height:100%;border:0;background:#333;display:none}.previewWrap.has #preview{display:block}
+  .foot{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:1px;text-align:center;padding:20px;border-top:1px solid var(--border)}
+  .note{font-family:var(--body);font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}
+</style>
+</head>
+<body>
+<nav>
+  <div style="display:flex;align-items:center;gap:11px">
+    <div class="logo">
+      <span style="background:#C9A84C"></span><span style="background:#6B8E5A"></span><span style="background:#D4A843"></span><span style="background:#B75F4A"></span><span style="background:#B98BBE"></span><span style="background:#9E6B4A"></span>
+    </div>
+    <span style="font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-dim)">Flower Spectrum</span>
+  </div>
+  <span style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:1px">Label PDF Generator · v1.0</span>
+</nav>
+<div class="wrap">
+  <div>
+    <div class="kick">Phase 1 · True-PDF Export</div>
+    <h1>Label Generator</h1>
+    <p class="sub">Print-accurate, die-cut–aligned PDFs drawn in exact inch coordinates. Pick a stock, choose strains, download a real PDF.</p>
+
+    <div class="panel">
+      <label class="lbl">Label Stock / Template</label>
+      <select id="template"></select>
+      <div class="note">Built on a template registry — new label sizes or marketing collateral can be added without rebuilding the tool.</div>
+    </div>
+
+    <div class="panel">
+      <label class="lbl">Strains</label>
+      <div class="seg">
+        <button id="selAll">All</button><button id="selNone">None</button><button id="selReal">Real COA only</button>
+      </div>
+      <div id="strainList"></div>
+    </div>
+
+    <div class="panel">
+      <div class="row">
+        <div><label class="lbl">Copies each</label><input type="number" id="copies" value="6" min="1" max="200"></div>
+        <div><label class="lbl">Order</label>
+          <select id="order"><option value="grouped">Group copies</option><option value="interleaved">Interleave</option></select>
+        </div>
+      </div>
+      <label class="chk" style="margin-top:12px"><input type="checkbox" id="cutGuides" checked> Show cut guides</label>
+      <div class="count" id="count"></div>
+      <div class="row">
+        <button class="btn btn-primary" id="generate">Generate Preview</button>
+        <a class="btn btn-ghost" id="download" download style="text-align:center;text-decoration:none;display:inline-block;pointer-events:none;opacity:.4">Download PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="previewWrap" id="previewWrap">
+      <div class="ph">Generate a preview to see your label sheet.<br><br>The PDF renders here, then download when it looks right.</div>
+      <iframe id="preview" title="PDF preview"></iframe>
+    </div>
+    <div class="note" style="text-align:center">Avery 6464 · 4″ × 3⅓″ · 6 labels per US Letter sheet · aroma classification, not effects or medical claims</div>
+  </div>
+</div>
+<div class="foot">CANNACRE8IVE · FLOWER SPECTRUM SYSTEM · LABEL PDF GENERATOR · V1.0 · 06_16_2026</div>
+
+<script>
+const PROFILES = [
+  { key:"gas_fuel",      label:"Gas / Fuel",      color:"#C9A84C", short:"GAS",
+    tagline:"Loud, pungent diesel and chemical funk",
+    sensory:"Pungent diesel, solvent, and aggressive skunk. The loudest jar on the shelf — it announces itself before you even open it.",
+    drivers:["β-Caryophyllene + D-Limonene + Myrcene (balanced)", "α-Humulene", "p-Cymene (minor)"],
+    foundWith:["spicy_warm","earthy_dank"],
+    note:"Gas is the only profile that emerges from a balance of multiple terpenes rather than a single driver — when caryophyllene, limonene, and myrcene/humulene all show up in similar amounts, you get diesel." },
+  { key:"earthy_dank",   label:"Earthy / Dank",   color:"#6B8E5A", short:"EARTH",
+    tagline:"Deep soil, musk, and weight",
+    sensory:"Wet forest floor, damp soil, fresh-cut mushroom. Grounded and heavy. Carries an old-school musk that reads as substantial.",
+    drivers:["Myrcene", "α-Humulene"],
+    foundWith:["gas_fuel","herbal_woody"] },
+  { key:"citrus_bright", label:"Citrus / Bright", color:"#D4A843", short:"CITRUS",
+    tagline:"Zesty lemon, orange, grapefruit",
+    sensory:"Fresh-cut citrus rind, lemon zest, ripe orange. Sharp and uplifting — the brightest, most awake corner of the spectrum.",
+    drivers:["D-Limonene", "Valencene"],
+    foundWith:["fruity_sweet","piney_fresh"] },
+  { key:"fruity_sweet",  label:"Fruity / Sweet",  color:"#B75F4A", short:"FRUIT",
+    tagline:"Juicy, candy, ripe stone fruit",
+    sensory:"Berry, stone fruit, candy. The sweetest, juiciest profile — often led by terpinolene's haze-like fruit-fresh character.",
+    drivers:["Terpinolene", "β-Farnesene", "β-Ocimene"],
+    foundWith:["floral_soft","tropical_tangy"] },
+  { key:"floral_soft",   label:"Floral / Soft",   color:"#B98BBE", short:"FLORAL",
+    tagline:"Lavender, rose, perfumed softness",
+    sensory:"Crushed lavender, rose petal, soft perfume. Delicate and aromatic — the calmest corner of the spectrum.",
+    drivers:["Linalool", "α-Bisabolol", "trans-Nerolidol", "α-Terpineol"],
+    foundWith:["dessert_creamy","fruity_sweet"] },
+  { key:"dessert_creamy",label:"Dessert / Creamy",color:"#D6B58A", short:"DESSERT",
+    tagline:"Vanilla, cake, rich and smooth",
+    sensory:"Vanilla, cake batter, sweet cream. Smooth and indulgent — sits on top of other profiles rather than driving them.",
+    drivers:["Linalool + α-Bisabolol", "over sweet/spicy base"],
+    foundWith:["floral_soft","spicy_warm"],
+    combination:true,
+    note:"Dessert / Creamy is a combination profile — it emerges from soft florals layered over sweetness and warmth. Strains in this category classify Primary Floral or Spicy on a COA, but the culture calls them dessert flowers." },
+  { key:"spicy_warm",    label:"Spicy / Warm",    color:"#9E6B4A", short:"SPICY",
+    tagline:"Black pepper, clove, warm spice",
+    sensory:"Cracked black pepper, clove, baking spice. Warm and assertive — the only terpene profile dominated by a single aromatic heavyweight.",
+    drivers:["β-Caryophyllene", "Caryophyllene Oxide", "α-Humulene"],
+    foundWith:["gas_fuel","herbal_woody"] },
+  { key:"piney_fresh",   label:"Piney / Fresh",   color:"#4F7A5B", short:"PINE",
+    tagline:"Pine, fir, crisp mountain air",
+    sensory:"Pine needle, Douglas fir, crisp mountain air. Sharp and resinous — clean and bracing, often invigorating.",
+    drivers:["α-Pinene", "β-Pinene", "Camphene", "Δ-3-Carene"],
+    foundWith:["herbal_woody","citrus_bright"] },
+  { key:"herbal_woody",  label:"Herbal / Woody",  color:"#7FA688", short:"HERB",
+    tagline:"Loose tea, sage, fresh-cut wood",
+    sensory:"Loose-leaf tea, sage, dry hop, fresh sawn wood. Dry and savory — refined and understated, more 'considered' than loud.",
+    drivers:["α-Humulene", "Guaiol", "Fenchol", "Eucalyptol"],
+    foundWith:["piney_fresh","spicy_warm"] },
+  { key:"tropical_tangy",label:"Tropical / Tangy",color:"#D28B49", short:"TROPIC",
+    tagline:"Mango, guava, sun-ripened fruit",
+    sensory:"Mango, guava, passionfruit. Exotic and tangy — vibrant fruit you'd find in a juice bar, not a pie.",
+    drivers:["β-Ocimene", "Terpinolene", "Valencene"],
+    foundWith:["fruity_sweet","citrus_bright"] },
+];
+const POT_DEF = { primary:1.0, impact:1.1, trace:0.7 };
+const TERPENES = [
+  // PRIMARY
+  { key:"myrcene",      label:"Myrcene",          tier:"primary", profile:"earthy_dank",   also:["gas_fuel","herbal_woody"] },
+  { key:"limonene",     label:"D-Limonene",       tier:"primary", profile:"citrus_bright", also:["fruity_sweet","gas_fuel"] },
+  { key:"caryophyllene",label:"β-Caryophyllene",  tier:"primary", profile:"spicy_warm",    also:["gas_fuel"], potency:1.15 },
+  { key:"linalool",     label:"Linalool",         tier:"primary", profile:"floral_soft",   also:["dessert_creamy"], potency:1.2 },
+  { key:"pinene_a",     label:"α-Pinene",         tier:"primary", profile:"piney_fresh",   also:["herbal_woody"] },
+  { key:"pinene_b",     label:"β-Pinene",         tier:"primary", profile:"piney_fresh",   also:["herbal_woody"] },
+  { key:"terpinolene",  label:"Terpinolene",      tier:"primary", profile:"fruity_sweet",  also:["tropical_tangy","piney_fresh"] },
+  { key:"humulene",     label:"α-Humulene",       tier:"primary", profile:"herbal_woody",  also:["spicy_warm","earthy_dank","gas_fuel"] },
+  { key:"ocimene",      label:"β-Ocimene",        tier:"primary", profile:"tropical_tangy",also:["fruity_sweet","floral_soft"] },
+  // IMPACT
+  { key:"bisabolol",    label:"α-Bisabolol",      tier:"impact",  profile:"floral_soft",   also:["dessert_creamy"], potency:1.2 },
+  { key:"valencene",    label:"Valencene",        tier:"impact",  profile:"citrus_bright", also:["tropical_tangy"], potency:1.2 },
+  { key:"nerolidol",    label:"trans-Nerolidol",  tier:"impact",  profile:"floral_soft",   also:["herbal_woody"], potency:1.15 },
+  { key:"guaiol",       label:"Guaiol",           tier:"impact",  profile:"herbal_woody",  also:["piney_fresh"] },
+  { key:"terpineol",    label:"α-Terpineol",      tier:"impact",  profile:"floral_soft",   also:["piney_fresh"] },
+  { key:"caryophyllene_oxide", label:"Caryophyllene Oxide", tier:"impact", profile:"spicy_warm", also:["herbal_woody"] },
+  { key:"farnesene_b",  label:"β-Farnesene",      tier:"impact",  profile:"fruity_sweet",  also:["herbal_woody"], potency:0.3 },
+  { key:"farnesene_a",  label:"α-Farnesene",      tier:"impact",  profile:"fruity_sweet",  also:["herbal_woody"], potency:0.3 },
+  { key:"camphene",     label:"Camphene",         tier:"impact",  profile:"piney_fresh",   also:["herbal_woody"] },
+  { key:"carene",       label:"Δ-3-Carene",       tier:"impact",  profile:"piney_fresh",   also:["citrus_bright"] },
+  { key:"pcymene",      label:"p-Cymene",         tier:"impact",  profile:"gas_fuel",      also:["spicy_warm"], potency:0.85 },
+  { key:"fenchol",      label:"Fenchol",          tier:"impact",  profile:"herbal_woody",  also:["piney_fresh"] },
+  { key:"eucalyptol",   label:"Eucalyptol",       tier:"impact",  profile:"herbal_woody",  also:["piney_fresh"] },
+  { key:"geraniol",     label:"Geraniol",         tier:"impact",  profile:"floral_soft",   also:["fruity_sweet"], potency:1.15 },
+  // TRACE
+  { key:"phytol",       label:"Phytol",           tier:"trace",   profile:"herbal_woody" },
+  { key:"phellandrene", label:"α-Phellandrene",   tier:"trace",   profile:"citrus_bright", also:["herbal_woody"] },
+  { key:"aterpinene",   label:"α-Terpinene",      tier:"trace",   profile:"piney_fresh",   also:["citrus_bright"] },
+  { key:"geranyl_acetate", label:"Geranyl Acetate", tier:"trace", profile:"floral_soft",   also:["fruity_sweet"] },
+];
+const SEED_STRAINS = [
+  // GAS/FUEL — gas references from your v3.2 menu
+  { name:"Sour Diesel", grower:"Archive PDX", lineage:"Chemdawg 91 × Super Skunk", aroma:"Sharp diesel and lemon peel with a skunky tail.", real:false, illustrative:true,
+    values:{ caryophyllene:0.60, limonene:0.52, myrcene:0.50, humulene:0.20, pinene_a:0.12, pcymene:0.05, terpinolene:0.06, linalool:0.05 },
+    thc:26.4, tier:"top",
+    price:{ g:14, eighth:42, quarter:75, half:140, oz:260 },
+    notes:"Pungent fuel-forward with a citrus exhale.",
+    staffPick:{ by:"Marcus", quote:"My benchmark for what diesel should taste like. Loud out of the jar, sharp on the inhale, citrus on the way out." } },
+  { name:"Motorbreath #15", grower:"Resin Ranchers", lineage:"Chemdawg × SFV OG Kush BX1", aroma:"Motor oil and dank fuel edged with sour citrus.", real:false, illustrative:true,
+    values:{ caryophyllene:0.70, limonene:0.55, myrcene:0.45, humulene:0.22, linalool:0.10, pcymene:0.04, nerolidol:0.08 },
+    thc:29.1, tier:"top",
+    price:{ g:15, eighth:48, quarter:85, half:160, oz:290 },
+    notes:"Motor oil nose, knockout potency.",
+    staffPick:{ by:"Marcus", quote:"When I want to be flattened. This is the loudest jar we carry — opens the room every time." } },
+
+  // EARTHY/DANK
+  { name:"Meat Stomper", grower:"Ideal Cannabis", lineage:"Proprietary · Ideal Cannabis (unpublished)", aroma:"Heavy dank musk with a savory, almost meaty funk.", real:true,
+    values:{ myrcene:0.97, linalool:0.31, caryophyllene:0.24, limonene:0.20, nerolidol:0.15, farnesene_a:0.10, humulene:0.09, ocimene:0.07, valencene:0.04, pinene_b:0.04, phytol:0.04, farnesene_b:0.03 },
+    thc:23.1, tier:"top",
+    price:{ g:13, eighth:40, quarter:72, half:135, oz:250 },
+    notes:"Dank-forward, heavy myrcene, with a savory edge.",
+    staffPick:{ by:"Dana", quote:"Real-deal dank. Smells like opening a jar at a friend's grow tent. Heavy on the body, perfect end-of-day." } },
+  { name:"Afghan Kush", grower:"East Fork Cultivars", lineage:"Hindu Kush landrace (Afghanistan)", aroma:"Earthy hash and musk, dense and sweet.", real:false, illustrative:true,
+    values:{ myrcene:0.65, humulene:0.18, caryophyllene:0.20, pinene_b:0.08, linalool:0.10 },
+    thc:19.6, tier:"mid",
+    price:{ g:10, eighth:30, quarter:55, half:100, oz:180 },
+    notes:"Old-school sedation, musky earth." },
+
+  // CITRUS/BRIGHT
+  { name:"Layer Cake", grower:"Ideal Cannabis", lineage:"Wedding Cake × GMO", aroma:"Lemon zest layered over rich vanilla cake.", real:true,
+    values:{ limonene:0.88, myrcene:0.48, caryophyllene:0.27, nerolidol:0.16, terpinolene:0.15, pinene_b:0.13, farnesene_a:0.12, humulene:0.10, fenchol:0.09, terpineol:0.09, pinene_a:0.08, valencene:0.04, phytol:0.03, bisabolol:0.03 },
+    thc:24.8, tier:"top",
+    price:{ g:14, eighth:42, quarter:75, half:140, oz:260 },
+    notes:"Bright limonene-led with rich cake undertones.",
+    staffPick:{ by:"Priya", quote:"Cleanest citrus jar in the case. Reads as lemon zest, but the cake side keeps showing up on the back end." } },
+
+  // FRUITY/SWEET
+  { name:"Positive Mental Attitude", grower:"Ideal Cannabis", lineage:"Proprietary · Ideal Cannabis (unpublished)", aroma:"Bright tropical haze and fresh fruit, never heavy.", real:true,
+    values:{ terpinolene:1.15, myrcene:0.40, limonene:0.34, farnesene_b:0.37, pinene_b:0.12, caryophyllene:0.10, nerolidol:0.08, pinene_a:0.07, phellandrene:0.06, farnesene_a:0.06, humulene:0.05, terpineol:0.05, aterpinene:0.04, carene:0.04, fenchol:0.03, bisabolol:0.03, valencene:0.03, phytol:0.04 },
+    thc:22.4, tier:"top",
+    price:{ g:14, eighth:42, quarter:75, half:140, oz:260 },
+    notes:"Terpinolene-led, haze-bright, daytime fruit.",
+    staffPick:{ by:"Priya", quote:"My favorite daytime jar. Bright fruit, never heavy, leaves you sharp. Customers who try it come back for it." } },
+  { name:"Cascade Orange", grower:"Ideal Cannabis", lineage:"Proprietary · Ideal Cannabis (unpublished)", aroma:"Sweet orange and haze with a piney edge.", real:true,
+    values:{ terpinolene:0.74, limonene:0.33, myrcene:0.29, caryophyllene:0.11, nerolidol:0.10, pinene_b:0.09, pinene_a:0.07, terpineol:0.07, ocimene:0.05, farnesene_b:0.05, farnesene_a:0.05, humulene:0.04, fenchol:0.04, phytol:0.04, aterpinene:0.03, phellandrene:0.03, bisabolol:0.03 },
+    thc:21.7, tier:"top",
+    price:{ g:13, eighth:40, quarter:72, half:135, oz:250 },
+    notes:"Terpinolene with a citrus lift." },
+  { name:"Mt. Hood Magic", grower:"Ideal Cannabis", lineage:"Proprietary · Ideal Cannabis (unpublished)", aroma:"Juicy tropical fruit with a tangy, candied lift.", real:true,
+    values:{ terpinolene:1.05, caryophyllene:0.43, myrcene:0.29, farnesene_b:0.25, limonene:0.22, ocimene:0.22, farnesene_a:0.21, humulene:0.17, pinene_b:0.11, bisabolol:0.07, pinene_a:0.06, valencene:0.05, phellandrene:0.05, aterpinene:0.04, terpineol:0.04, nerolidol:0.04, carene:0.04, phytol:0.03 },
+    thc:25.2, tier:"top",
+    price:{ g:15, eighth:46, quarter:82, half:150, oz:280 },
+    notes:"Fruity primary with a tropical-tangy lift.",
+    staffPick:{ by:"Dana", quote:"The richest terp profile we've ever seen on a flower. 3.37% total — you can smell it through the jar." } },
+
+  // FLORAL/SOFT
+  { name:"Lavender Haze", grower:"Deschutes Growery", lineage:"Lavender × Haze", aroma:"Crushed lavender and rose with a soft herbal finish.", real:false, illustrative:true,
+    values:{ linalool:0.55, bisabolol:0.28, nerolidol:0.22, caryophyllene:0.18, terpineol:0.12, myrcene:0.12, limonene:0.08, geraniol:0.06 },
+    thc:21.3, tier:"top",
+    price:{ g:13, eighth:40, quarter:72, half:135, oz:250 },
+    notes:"Lavender-forward with soft chamomile finish." },
+  { name:"Granddaddy Purple", grower:"East Fork Cultivars", lineage:"Purple Urkle × Big Bud", aroma:"Grape candy and floral musk.", real:false, illustrative:true,
+    values:{ linalool:0.40, myrcene:0.35, caryophyllene:0.25, pinene_b:0.10, terpineol:0.08, nerolidol:0.08 },
+    thc:20.8, tier:"mid",
+    price:{ g:11, eighth:34, quarter:60, half:110, oz:200 },
+    notes:"Classic purple with floral-grape softness." },
+
+  // DESSERT/CREAMY (combination — strains classify Spicy/Floral but read 'dessert')
+  { name:"Wedding Cake Gelato", grower:"Ideal Cannabis", lineage:"Wedding Cake × Gelato", aroma:"Peppery spice wrapped in sweet frosting and cream.", real:true,
+    values:{ caryophyllene:0.86, farnesene_b:0.58, limonene:0.42, farnesene_a:0.39, humulene:0.28, nerolidol:0.27, myrcene:0.20, valencene:0.08, pinene_b:0.08, terpinolene:0.08, fenchol:0.07, terpineol:0.07, pinene_a:0.06, ocimene:0.05, geranyl_acetate:0.04, phytol:0.04 },
+    thc:26.7, tier:"top",
+    price:{ g:15, eighth:46, quarter:82, half:150, oz:280 },
+    notes:"Spicy primary, sweet cream undertone.",
+    staffPick:{ by:"Priya", quote:"The dessert pick. Spicy on the label but reads like frosting on the palate — every customer who asks for 'cake' should be handed this." } },
+  { name:"Ice Cream Cake", grower:"Resin Ranchers", lineage:"Wedding Cake × Gelato #33", aroma:"Sweet cream and vanilla over a warm, doughy base.", real:false, illustrative:true,
+    values:{ caryophyllene:0.55, linalool:0.32, limonene:0.28, bisabolol:0.18, myrcene:0.20, nerolidol:0.12, humulene:0.10 },
+    thc:23.5, tier:"top",
+    price:{ g:14, eighth:42, quarter:75, half:140, oz:260 },
+    notes:"Sweet cream layered over warm spice." },
+
+  // SPICY/WARM
+  { name:"Gorilla Glue #4", grower:"Ideal Cannabis", lineage:"Chem's Sister × Sour Dubb × Chocolate Diesel", aroma:"Black pepper and pungent fuel with a chem-sour edge.", real:true,
+    values:{ caryophyllene:0.75, farnesene_b:0.93, farnesene_a:0.32, myrcene:0.43, limonene:0.48, nerolidol:0.30, humulene:0.21, linalool:0.12, bisabolol:0.11, valencene:0.10, pinene_b:0.07, pinene_a:0.04, fenchol:0.06, terpineol:0.06, geranyl_acetate:0.03, phytol:0.03 },
+    thc:25.4, tier:"top",
+    price:{ g:14, eighth:42, quarter:75, half:140, oz:260 },
+    notes:"Spicy lead, real gas on the back.",
+    staffPick:{ by:"Marcus", quote:"Reads spicy on the test, but it sits right on the gas line — open the jar and it's both. The thinking person's GG4." } },
+  { name:"Do Si Dos", grower:"Certified Cannabis", lineage:"GSC × Face Off OG", aroma:"Sharp pepper and pine softened by a floral, minty finish.", real:true,
+    values:{ caryophyllene:1.03, limonene:0.45, linalool:0.31, humulene:0.30, bisabolol:0.16, farnesene_b:0.09, myrcene:0.08, pinene_b:0.07, fenchol:0.05, terpineol:0.04, pinene_a:0.03 },
+    thc:24.1, tier:"top",
+    price:{ g:14, eighth:42, quarter:75, half:140, oz:260 },
+    notes:"Heavy caryophyllene with a floral finish." },
+
+  // PINEY/FRESH
+  { name:"Trainwreck", grower:"Gnome Grown", lineage:"Mexican × Thai × Afghani", aroma:"Sharp pine and lemon with a spicy haze snap.", real:false, illustrative:true,
+    values:{ pinene_a:0.50, terpinolene:0.30, caryophyllene:0.25, pinene_b:0.20, myrcene:0.18, limonene:0.12 },
+    thc:22.7, tier:"mid",
+    price:{ g:11, eighth:34, quarter:60, half:110, oz:200 },
+    notes:"Sharp pine with a haze edge." },
+  { name:"Mountain Crest", grower:"East Fork Cultivars", lineage:"Proprietary · East Fork selection (unpublished)", aroma:"Crisp pine forest and cool mountain air.", real:false, illustrative:true,
+    values:{ pinene_a:0.58, pinene_b:0.28, myrcene:0.18, caryophyllene:0.15, terpinolene:0.10, camphene:0.08 },
+    thc:19.4, tier:"mid",
+    price:{ g:10, eighth:30, quarter:55, half:100, oz:180 },
+    notes:"Forest-air pine, crisp and clean." },
+
+  // HERBAL/WOODY
+  { name:"Northern Lights", grower:"Deschutes Growery", lineage:"Afghani × Thai", aroma:"Dry hop, hay, and sweet earthy wood.", real:false, illustrative:true,
+    values:{ humulene:0.45, caryophyllene:0.35, myrcene:0.30, pinene_a:0.18, guaiol:0.12, fenchol:0.10, humulene_oxide:0 },
+    thc:20.5, tier:"mid",
+    price:{ g:11, eighth:34, quarter:60, half:110, oz:200 },
+    notes:"Dry hop, hay, refined woody finish." },
+  { name:"Headband", grower:"Prūf Cultivar", lineage:"OG Kush × Sour Diesel", aroma:"Herbal pine with a peppery, lemony bite.", real:false, illustrative:true,
+    values:{ humulene:0.40, caryophyllene:0.45, pinene_a:0.25, fenchol:0.15, myrcene:0.18, guaiol:0.10 },
+    thc:21.8, tier:"mid",
+    price:{ g:11, eighth:34, quarter:60, half:110, oz:200 },
+    notes:"Herbal-pine spine with peppery snap." },
+
+  // TROPICAL/TANGY
+  { name:"Pineapple Express", grower:"Archive PDX", lineage:"Trainwreck × Hawaiian", aroma:"Ripe pineapple and mango over a sweet, woody base.", real:false, illustrative:true,
+    values:{ ocimene:0.50, terpinolene:0.30, limonene:0.35, caryophyllene:0.20, valencene:0.15, myrcene:0.15, farnesene_b:0.10 },
+    thc:22.8, tier:"top",
+    price:{ g:13, eighth:40, quarter:72, half:135, oz:250 },
+    notes:"Mango-pineapple lift over sweet base." },
+  { name:"Maui Wowie", grower:"Resin Ranchers", lineage:"Hawaiian sativa landrace", aroma:"Tropical pineapple and citrus, light and sweet.", real:false, illustrative:true,
+    values:{ ocimene:0.42, terpinolene:0.28, limonene:0.30, valencene:0.18, caryophyllene:0.18, myrcene:0.12 },
+    thc:21.2, tier:"mid",
+    price:{ g:12, eighth:36, quarter:65, half:120, oz:220 },
+    notes:"Tropical fruit with a tangy zest finish." },
+];
+
+// Pre-classify every strain so the rest of the UI is data-driven
+/* ── Flower Spectrum engine + Avery PDF logic (shared node/browser) ── */
+const PBK = Object.fromEntries(PROFILES.map(p => [p.key, p]));
+const TBK = Object.fromEntries(TERPENES.map(t => [t.key, t]));
+const potOf = t => (t.potency != null ? t.potency : POT_DEF[t.tier]);
+function contribOf(t) {
+  const c = {}; c[t.profile] = 0.7;
+  (t.also || []).forEach((p, i) => { c[p] = i === 0 ? 0.2 : 0.1; });
+  const s = Object.values(c).reduce((a, b) => a + b, 0);
+  Object.keys(c).forEach(k => c[k] = c[k] / s);
+  return c;
+}
+function classify(values) {
+  const scores = {}; PROFILES.forEach(p => scores[p.key] = 0);
+  TERPENES.forEach(t => {
+    const v = values[t.key] || 0; if (v <= 0) return;
+    const w = v * potOf(t), c = contribOf(t);
+    Object.entries(c).forEach(([pk, ww]) => { scores[pk] += w * ww; });
+  });
+  // Emergent gas: balanced co-occurrence of carry+lim+(myr|hum)
+  const car = (values.caryophyllene||0)*potOf(TBK.caryophyllene);
+  const lim = (values.limonene||0)*potOf(TBK.limonene);
+  const mus = (values.myrcene||0)*potOf(TBK.myrcene) + (values.humulene||0)*potOf(TBK.humulene);
+  if (car>0 && lim>0 && mus>0) {
+    const mn = Math.min(car,lim,mus), mx = Math.max(car,lim,mus);
+    scores.gas_fuel += 1.5 * mn * Math.pow(mn/mx, 1.5);
+  }
+  const total = Object.values(scores).reduce((a,b)=>a+b,0);
+  if (total === 0) return null;
+  const ranked = PROFILES.map(p => ({ ...p, pct: Math.round((scores[p.key]/total)*100) }))
+    .sort((a,b) => b.pct - a.pct);
+  const gap = ranked[0].pct - ranked[1].pct;
+  const confidence = gap >= 22 ? "Defined" : gap >= 10 ? "Leaning" : "Blend";
+  const totalTerp = TERPENES.reduce((s,t)=>s+(values[t.key]||0),0);
+  return { ranked, confidence, gap, totalTerp };
+}
+function topTerpenes(values, n=3) {
+  return TERPENES.map(t => ({ t, v: values[t.key]||0 }))
+    .filter(x => x.v > 0).sort((a,b) => b.v - a.v).slice(0, n);
+}
+function bandSegments(classification) {
+  if (!classification) return [];
+  const r = classification.ranked.filter(x => x.pct > 0);
+  if (!r.length) return [];
+  const lead = r[0].pct;
+  let segs = r.filter(x => x.pct >= lead * 0.6).slice(0, 3);
+  const total = segs.reduce((a, s) => a + s.pct, 0) || 1;
+  return segs.map(s => ({ key: s.key, color: s.color, label: s.label, frac: s.pct / total, pct: s.pct }));
+}
+function blendName(classification) {
+  if (!classification) return "—";
+  const segs = bandSegments(classification);
+  if (segs.length <= 1) return PBK[segs[0]?.key || classification.ranked[0].key].label.split(" / ")[0];
+  return segs.slice(0, 2).map(s => PBK[s.key].label.split(" / ")[0]).join("-");
+}
+function aromaticLead(values) {
+  const ranked = TERPENES.map(t => ({ t, w: (values[t.key]||0)*potOf(t) }))
+    .filter(x => x.w > 0).sort((a,b) => b.w - a.w);
+  return ranked[0]?.t.label || "—";
+}
+
+// ── AVERY TEMPLATE REGISTRY (extensible: add new label stocks / collateral here) ──
+const TEMPLATES = {
+  avery6464: {
+    id:"avery6464", name:"Avery 6464 · 4\" × 3⅓\" · 6-up", page:"letter",
+    pw:8.5, ph:11, lw:4.0, lh:3.333, cols:2, rows:3,
+    xs:[0.156, 4.343], ys:[0.500, 3.833, 7.167],
+  },
+};
+
+function hexToRgb(h){ const n=parseInt(h.slice(1),16); return [(n>>16)&255,(n>>8)&255,n&255]; }
+function terpLabel(key){ return (TBK[key] && TBK[key].label) || key; }
+// consumer-label convention: drop α/β/Δ/D-/trans- prefixes (jsPDF core fonts lack Greek glyphs)
+function cleanTerp(label){
+  return label.replace(/^(α|β|γ|δ|Δ|trans|cis|D|L)\s*-\s*/i,'').replace(/^\d+\s*-\s*/,'').trim();
+}
+function topTerpsLabeled(values, n){
+  return Object.entries(values).map(([k,v])=>({k,v})).filter(o=>o.v>0)
+    .sort((a,b)=>b.v-a.v).slice(0,n).map(o=>cleanTerp(terpLabel(o.k)));
+}
+
+// 10-sector fingerprint, drawn as fanned filled wedges
+function drawFingerprint(doc, cx, cy, R, classification){
+  const pct = Object.fromEntries(classification.ranked.map(r=>[r.key,r.pct]));
+  const maxV = Math.max(...Object.values(pct),1);
+  const n = PROFILES.length, slice=2*Math.PI/n, ri=R*0.18;
+  doc.setFillColor(232,224,206); doc.circle(cx,cy,R,'F');
+  PROFILES.forEach((p,i)=>{
+    const v=pct[p.key]||0; const rr = v>0.5 ? ri+(v/maxV)*(R-ri) : ri+R*0.015;
+    const a0=-Math.PI/2+i*slice+0.035, a1=-Math.PI/2+(i+1)*slice-0.035;
+    const [r,g,b]=hexToRgb(p.color); doc.setFillColor(r,g,b);
+    const steps=4;
+    for(let s=0;s<steps;s++){
+      const b0=a0+(a1-a0)*s/steps, b1=a0+(a1-a0)*(s+1)/steps;
+      doc.triangle(cx+ri*Math.cos(b0), cy+ri*Math.sin(b0),
+                   cx+rr*Math.cos(b0), cy+rr*Math.sin(b0),
+                   cx+rr*Math.cos(b1), cy+rr*Math.sin(b1), 'F');
+      doc.triangle(cx+ri*Math.cos(b0), cy+ri*Math.sin(b0),
+                   cx+rr*Math.cos(b1), cy+rr*Math.sin(b1),
+                   cx+ri*Math.cos(b1), cy+ri*Math.sin(b1), 'F');
+    }
+  });
+  doc.setFillColor(138,129,112); doc.circle(cx,cy,R*0.05,'F');
+}
+
+// fit a name to one line (shrink), else wrap to 2 lines; returns {size, lines, yAfter}
+function fitName(doc, name, maxW, baseSize, minSize){
+  doc.setFont('times','bold');
+  let size=baseSize;
+  while(size>minSize){ doc.setFontSize(size); if(doc.getTextWidth(name)<=maxW) break; size-=0.5; }
+  doc.setFontSize(size);
+  if(doc.getTextWidth(name)<=maxW) return { size, lines:[name] };
+  const lines = doc.splitTextToSize(name, maxW).slice(0,2);
+  return { size:minSize, lines };
+}
+
+function drawLabel(doc, s, lx, ly, T, opts){
+  opts = opts || {};
+  const c=s.classification, lw=T.lw, lh=T.lh;
+  const segs=bandSegments(c);
+  doc.setFillColor(244,239,228); doc.rect(lx,ly,lw,lh,'F');
+  // proportional color band (left)
+  const bandW=0.26; let yy=ly;
+  segs.forEach(seg=>{ const [r,g,b]=hexToRgb(seg.color); doc.setFillColor(r,g,b); const h=lh*seg.frac; doc.rect(lx,yy,bandW,h,'F'); yy+=h; });
+  const x=lx+bandW+0.2, rgt=lx+lw-0.2, fpR=0.46, nameMaxW=lw-bandW-0.2-(fpR*2)-0.25;
+  // profile + blend + confidence
+  doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(110,99,88);
+  const blend=blendName(c)+(c.confidence!=='Defined'?'   ·   '+c.confidence:'');
+  doc.text(blend.toUpperCase(), x, ly+0.28);
+  // strain name (auto-fit)
+  const fit=fitName(doc, s.name, nameMaxW, 20, 12);
+  doc.setTextColor(21,19,15);
+  let nameY=ly+0.55;
+  fit.lines.forEach((ln,i)=>{ doc.text(ln, x, nameY+i*(fit.size/72*1.02)); });
+  const afterName = nameY + (fit.lines.length-1)*(fit.size/72*1.02) + 0.2;
+  // grower
+  doc.setFont('times','italic'); doc.setFontSize(10); doc.setTextColor(94,87,77);
+  doc.text(s.grower, x, afterName);
+  // lineage
+  doc.setFont('helvetica','normal'); doc.setFontSize(6.5); doc.setTextColor(138,129,112);
+  doc.text((s.lineage||'').toUpperCase(), x, afterName+0.15, {maxWidth:lw-bandW-0.45});
+  // fingerprint top-right
+  drawFingerprint(doc, rgt-fpR, ly+0.5+fpR*0.4, fpR, c);
+  // breakdown bars (top 4)
+  let by=Math.max(afterName+0.42, ly+1.35); const barX=x, barW=1.5;
+  c.ranked.slice(0,4).forEach(r=>{
+    const [cr,cg,cb]=hexToRgb(r.color);
+    doc.setFillColor(225,217,200); doc.rect(barX, by-0.065, barW, 0.065,'F');
+    doc.setFillColor(cr,cg,cb); doc.rect(barX, by-0.065, barW*(r.pct/(c.ranked[0].pct||1)), 0.065,'F');
+    doc.setFont('helvetica','normal'); doc.setFontSize(6.8); doc.setTextColor(58,53,48);
+    doc.text(r.label, barX+barW+0.08, by-0.008);
+    doc.setTextColor(120,114,100); doc.text(r.pct+'%', rgt, by-0.008, {align:'right'});
+    by+=0.155;
+  });
+  // aroma sentence
+  doc.setFont('times','italic'); doc.setFontSize(9.5); doc.setTextColor(58,53,48);
+  const aromaLines=doc.splitTextToSize(s.aroma, lw-bandW-0.45);
+  doc.text(aromaLines, x, by+0.12);
+  // footer
+  const fy=ly+lh;
+  doc.setDrawColor(214,205,187); doc.setLineWidth(0.008); doc.line(x, fy-0.62, rgt, fy-0.62);
+  doc.setFont('helvetica','normal'); doc.setFontSize(6.2); doc.setTextColor(110,99,88);
+  doc.text('TOP TERPS · '+topTerpsLabeled(s.values,4).join(' · '), x, fy-0.46, {maxWidth:lw-bandW-0.45});
+  doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.setTextColor(21,19,15);
+  doc.text('THC '+s.thc+'%', x, fy-0.24);
+  doc.text('TERPS '+c.totalTerp.toFixed(2)+'%', x+0.92, fy-0.24);
+  doc.setFont('times','bolditalic'); doc.setFontSize(15); doc.setTextColor(21,19,15);
+  doc.text('$'+s.price.eighth, rgt, fy-0.21, {align:'right'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(5.6); doc.setTextColor(140,129,112);
+  doc.text('AROMA CLASSIFICATION · NOT EFFECTS OR MEDICAL CLAIMS', x, fy-0.1);
+  // cut guide
+  if(opts.cutGuides){ doc.setDrawColor(190,190,190); doc.setLineWidth(0.003); doc.rect(lx,ly,lw,lh); }
+}
+
+// build the full document from a fill-list of strains
+function buildDoc(jsPDFctor, list, templateId, opts){
+  const T = TEMPLATES[templateId];
+  const doc = new jsPDFctor({ unit:'in', format:T.page });
+  const perPage = T.cols*T.rows;
+  list.forEach((s, i)=>{
+    const pageIdx = Math.floor(i/perPage);
+    if(i>0 && i%perPage===0) doc.addPage();
+    const cell = i%perPage;
+    const rr = Math.floor(cell/T.cols), cc = cell%T.cols;
+    drawLabel(doc, s, T.xs[cc], T.ys[rr], T, opts);
+  });
+  return doc;
+}
+/* ── BROWSER UI ── */
+const VERSION = "v1.0";
+const BUILD = "06_16_2026";
+const { jsPDF } = window.jspdf;
+
+const STRAINS = SEED_STRAINS.map(s => ({ ...s, classification: classify(s.values) }));
+let lastDoc = null;
+const $ = id => document.getElementById(id);
+
+function initTemplates(){
+  const sel = $('template');
+  Object.values(TEMPLATES).forEach(t => {
+    const o = document.createElement('option'); o.value = t.id; o.textContent = t.name; sel.appendChild(o);
+  });
+}
+function initStrains(){
+  const host = $('strainList');
+  PROFILES.forEach(p => {
+    const inProfile = STRAINS.filter(s => s.classification.ranked[0].key === p.key);
+    if (!inProfile.length) return;
+    const grp = document.createElement('div'); grp.className = 'grp';
+    grp.innerHTML = `<div class="grp-h"><span class="sw" style="background:${p.color}"></span>${p.label}</div>`;
+    inProfile.forEach(s => {
+      const row = document.createElement('label'); row.className = 'st';
+      row.innerHTML = `<input type="checkbox" value="${s.name}" ${s.real?'checked':''}>
+        <span class="st-n">${s.name}</span>
+        <span class="st-g">${s.grower}</span>
+        ${s.real?'<span class="badge">COA</span>':'<span class="badge ill">ILLUSTR</span>'}`;
+      grp.appendChild(row);
+    });
+    host.appendChild(grp);
+  });
+}
+function selected(){ return [...document.querySelectorAll('#strainList input:checked')].map(i => i.value); }
+function setAll(v){ document.querySelectorAll('#strainList input').forEach(i => i.checked = v); updateCount(); }
+function updateCount(){
+  const n = selected().length, copies = parseInt($('copies').value)||1;
+  const total = n*copies, T = TEMPLATES[$('template').value], per = T.cols*T.rows;
+  const pages = Math.ceil(total/per) || 0;
+  $('count').textContent = `${n} strain${n!==1?'s':''} × ${copies} = ${total} label${total!==1?'s':''} · ${pages} page${pages!==1?'s':''} (${per}-up)`;
+  // selection changed → invalidate stale download
+  const dl = $('download'); dl.style.pointerEvents='none'; dl.style.opacity='.4'; dl.removeAttribute('href');
+}
+function generate(){
+  const names = selected();
+  if (!names.length){ alert('Select at least one strain.'); return; }
+  const copies = Math.max(1, parseInt($('copies').value)||1);
+  const cut = $('cutGuides').checked;
+  const tId = $('template').value;
+  const order = $('order').value;
+  const chosen = names.map(n => STRAINS.find(s => s.name === n));
+  let list = [];
+  if (order === 'grouped'){ chosen.forEach(s => { for(let i=0;i<copies;i++) list.push(s); }); }
+  else { for(let i=0;i<copies;i++) chosen.forEach(s => list.push(s)); }
+  lastDoc = buildDoc(jsPDF, list, tId, { cutGuides: cut });
+  // preview via blob URL (display only)
+  try { $('preview').src = lastDoc.output('bloburl'); $('previewWrap').classList.add('has'); } catch(e){}
+  // download via real anchor + data-URI (sandbox-safe; programmatic save() is blocked)
+  const dl = $('download');
+  dl.href = lastDoc.output('datauristring');
+  dl.setAttribute('download', `${BUILD}-flower-spectrum-labels-${tId}-${VERSION}.pdf`);
+  dl.style.pointerEvents='auto'; dl.style.opacity='1';
+}
+window.addEventListener('DOMContentLoaded', () => {
+  initTemplates(); initStrains(); updateCount();
+  $('copies').addEventListener('input', updateCount);
+  $('template').addEventListener('change', updateCount);
+  $('strainList').addEventListener('change', updateCount);
+  $('selAll').addEventListener('click', () => setAll(true));
+  $('selNone').addEventListener('click', () => setAll(false));
+  $('selReal').addEventListener('click', () => { document.querySelectorAll('#strainList input').forEach(i=>{ const s=STRAINS.find(x=>x.name===i.value); i.checked=!!s.real; }); updateCount(); });
+  $('generate').addEventListener('click', generate);
+});
+</script></body></html>

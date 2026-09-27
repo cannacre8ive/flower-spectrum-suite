@@ -1,17 +1,19 @@
 # Flower Spectrum Suite — share copy
 
 ## Short description
-A connected retail menu, education library, and cultivator creative studio, built around one aroma language.
+From terpene panel to retail experience: one aroma system across classification, digital and print menus, labels, education, and creative assets.
 
 ## Portfolio introduction
-Flower Spectrum Suite turns three separate prototypes into a connected product and brand system. Ten aroma profiles carry consistent names, colors, and visual fingerprints from retail discovery to education and social creative. The working demonstration includes category browsing, a local catalog editor, nine educational pieces, six exportable social formats, and a shared data library.
+Flower Spectrum Suite brings six supplied prototypes into a connected product and brand system. A shared 38-terpene classifier maps panels to ten aroma profiles. That same identity carries into digital browsing, paginated print menus, six-up PDF labels, teaching materials, and social creative. The project includes ten downloadable profile cards and editable SVG icons, a persistent local product catalog, source-preserving documentation, and tested export workflows.
 
 ## Social caption
 One spectrum. Every touchpoint.
 
-Flower Spectrum Suite explores how an aroma-led design system can connect the retail floor, staff education, and cultivator storytelling. Browse the interactive menu, follow an aroma preference, and build creative from the same visual language.
+Classify a terpene panel. Save a product. Build a digital menu, print a shelf menu, or generate an aroma label — using the same profile names, colors, and data.
+
+Flower Spectrum Suite is a working exploration of product design, information design, and creative systems. The latest release adds the full classifier, print pagination, PDF labels, and a visual library for every aroma profile.
 
 Explore: https://flower-spectrum-suite.vercel.app
 Source: https://github.com/cannacre8ive/flower-spectrum-suite
 
-Portfolio demonstration. Sample commercial data; historical panels supplied with the project. No measured business outcomes are claimed.
+Portfolio demonstration. Commercial data is illustrative; historical panels came from supplied prototypes. No measured business outcomes are claimed.

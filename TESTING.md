@@ -21,3 +21,13 @@ Verify the final stable domain and asset URLs without authentication, inspect me
 ## Limitations
 
 Chromium-based verification only. No exhaustive assistive-technology certification, physical tablet testing, live POS access, independent scientific validation, or retail approval. Full education set uses source pagination rules; longer references may span pages. PNG text remains rasterized; source HTML/JSX is editable. No claim of Safari/Firefox or printer-driver coverage.
+
+## Version 2 validation
+
+Sixteen automated checks now include source parity against every row of the supplied 38-terpene model, modifier handling, invalid numeric panels, product adapter fidelity, raw-panel CSV backup, PDF ordering, partially used sheets, Letter geometry, and every catalog category in a real jsPDF document.
+
+Browser workflows are recorded in `scripts/verify-connected.cjs`, `verify-production.cjs`, `check-print-edit.cjs`, and `stress-print.cjs`. They exercise classifier save → digital browse → print → labels; comparison and detailed mode; all print categories, staff picks and deals; 48 reference cards; stale label preview invalidation; price edits; all nine routes at 320px; and 900-product portrait/landscape pagination. Scripts use the Playwright CLI against local port 5178 and restore temporary catalog data. They are integration verification helpers, not automatically run by `npm test`.
+
+The 900-product fixture produced 90 portrait pages and 65 landscape pages, with exactly 900 unique rows and zero measured vertical overflow. PDF text extraction independently found all 900 products exactly once in the portrait export. Sample PDFs are under `output/pdf/` and included in the portfolio kit; stress fixtures remain ignored under `output/playwright/`.
+
+Physical printer calibration has not been tested. Print at Actual size / 100%, verify alignment on plain paper, and adjust printer-specific settings before using stock. Browser PDF exports and label geometry were verified.

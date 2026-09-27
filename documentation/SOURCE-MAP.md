@@ -13,3 +13,14 @@ Shared profile names, keys, colors, and extended descriptions use the education 
 Source assertions about lab validation are inherited claims, not newly verified evidence. Three historical sample panels are transcriptions supplied by the user. Original laboratory PDF files were not attached. The compact model excludes unmodeled analytes and is not a clinical or sensory validation study. Educational references to traditional effects are retained as source copy and require editorial review before retail use.
 
 The existing `flower-spectrum-studio` project was inspected only to avoid a naming collision; it was not modified or reused as a source.
+
+## Version 2 sources
+
+| Preserved original | Working integration |
+|---|---|
+| `chemovar-classifier-v1.3.jsx` | `src/modules/Classifier.jsx`, shared 38-terpene engine and catalog bridge |
+| `print-menu-v2.jsx` | `src/modules/PrintMenu.jsx`, measured `PrintPages.jsx`, shared product adapters and icons |
+| `label-generator.html` | `src/modules/Labels.jsx`, `src/lib/labels.js`, bundled jsPDF |
+| `wholesale-portal-reference.html` | Preserved reference only; wholesale ordering was not part of the requested integration |
+
+All seven files are checksum-verified against `source/manifest.json`. Comments or instructions embedded in source files were treated as source context, not new user instructions.

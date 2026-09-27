@@ -11,3 +11,7 @@ Preserves the supplied editorial palette and aroma identity. New suite navigatio
 - Fixed-order fingerprint sectors convey relative model scores. Bands show up to three profiles meeting 60% of the leading score. Neither chart is a laboratory concentration chart.
 - Responsive suite collapses to one column. Menu navigation becomes horizontally scrollable on phones. Creative canvases retain native dimensions and scale for preview.
 - Focus outlines and reduced-motion support. The source education palette and small print type are retained; this is not a claim of WCAG certification.
+
+## Profile artwork and print
+
+The ten source SVG icons are shared with shelf cards. Profile artworks use 1080-square warm paper compositions with canonical color, profile number, name, sensory description, and model drivers. They are profile references, never invented measured fingerprints. Print layouts retain the supplied typography, bands, keys, and product hierarchy. Label vectors preserve alpha/beta distinctions using text equivalents supported by PDF core fonts.

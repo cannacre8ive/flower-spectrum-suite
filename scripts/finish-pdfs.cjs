@@ -1,0 +1,5 @@
+async(page)=>{
+ await page.goto('http://127.0.0.1:5178/#print');await page.getByRole('button',{name:'✦ Aroma Cards',exact:true}).click();await page.evaluate(()=>document.fonts.ready);await page.waitForTimeout(200);await page.pdf({path:'output/pdf/aroma-shelf-cards.pdf',printBackground:true,preferCSSPageSize:true});const cards=await page.locator('.print-pages').evaluate(h=>({pages:h.querySelectorAll('.fs-printed-page').length,cards:h.querySelectorAll('.fs-card').length,tierHeaders:[...h.querySelectorAll('[data-repeated-group]')].map(e=>e.textContent)}));
+ await page.goto('http://127.0.0.1:5178/portfolio/case-study.html');await page.evaluate(()=>document.fonts.ready);await page.pdf({path:'output/pdf/flower-spectrum-case-study.pdf',printBackground:true,preferCSSPageSize:true});
+ const overflow=await page.locator('section').evaluateAll(a=>a.map(e=>({bottom:Math.max(...[...e.children].map(x=>x.getBoundingClientRect().bottom)),pageBottom:e.getBoundingClientRect().bottom})).filter(x=>x.bottom>x.pageBottom));await page.screenshot({path:'output/playwright/case-study-updated.png',fullPage:true});return {cards,caseOverflow:overflow};
+}

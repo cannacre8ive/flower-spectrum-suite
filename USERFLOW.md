@@ -9,3 +9,13 @@
 7. Portfolio → read case study → download PDF, screenshots, social examples, or complete ZIP.
 
 Empty states: categories without matching items show the source empty state. Bad CSV returns row errors. Storage failure shows an export reminder. A render failure shows a reload action. Unknown suite routes return overview. No login or checkout flow is implied. Source kiosk inactivity returns to its attract screen after 60 seconds; operator editing pauses that timer.
+
+## Classify to publish
+
+1. Open Classifier. Use a supplied preset or load a catalog product and enter its panel.
+2. Inspect the spectrum/detailed fingerprint and optionally pin up to four panels for comparison.
+3. Save or update the catalog product. Set price and product details in either menu's editor.
+4. Open Digital menu and browse the product's profile, or open Print menu and choose its category.
+5. For print, choose Menu, Staff Picks, Deals, or Aroma Cards. Set format and header, review every page, then print/save PDF at 100%.
+6. For labels, choose products and copies. Set the first label slot for a partially used sheet. Generate, review, download, and print at Actual size.
+7. Profile assets offers all ten PNG cards/SVG icons individually and as a ZIP. Export the full catalog CSV to back up edits.

@@ -23,3 +23,11 @@ The catalog uses `localStorage` key `fs-suite-catalog-v1`. Branding uses `fs-sui
 The compact classifier is extracted from the supplied social kit. The education library contains a broader terpene reference; the app does not pretend that the compact classifier models all education entries. Unsupported source analytes stay visible in raw sample tables. Model score percentages describe relative aroma weights, not measured terpene percentages or predicted effects.
 
 No backend or application API endpoints. Fonts and export dependencies are bundled locally. Export uses html-to-image at native template dimensions. Print uses browser CSS.
+
+## Version 2 production tools
+
+The full 38-row model lives in `src/data/engine-terpenes.js`; `src/lib/classifier.js` applies the supplied classifier's raw-score sort, modifiers, Gas/Fuel balance term, and confidence thresholds. Historic sample percentages remain unchanged; equal rounded percentages now sort by unrounded score. `product-model.js` adapts the canonical catalog for print and labels, preserving unknown panel keys. The classifier displays unmodeled entries and modeled versus entered totals. No PDF laboratory ingestion is claimed.
+
+`CatalogProvider` is shared by classifier, digital menu, print menu, and labels. Operator-entered profiles remain separate from model-derived panels. `PrintPages.jsx` measures cloned source designs at final physical dimensions, places whole rows/cards into columns, and repeats group headers and page furniture. Page counts reflect content and selected format; a too-tall item produces an explicit warning. `labels.js` draws vectors into inch-based jsPDF pages with six slots and an optional first-sheet offset. Blob URLs are revoked and stale previews cleared whenever inputs change.
+
+CSV backup includes raw `Values`, `Tags`, `PrintPrice`, `GrowMethod`, IDs, and provenance. Label stock uses the coordinates in the supplied source. Physical printer registration requires an actual test sheet.

@@ -20,3 +20,18 @@ HTTP verification includes the main HTML, social HTML, favicon, robots, sitemap 
 ## Remaining scope
 
 No retail sign-off, independent review of supplied scientific/educational copy, original-lab-document verification, live data integration, cloud sync, or production authentication. No performance outcomes are fabricated. See TESTING.md and ROADMAP.md.
+
+## Version 2.0.0 — 2026-09-26
+
+- 16 automated checks and production build passed; production dependency audit reports zero vulnerabilities.
+- Classifier save/update, detailed mode and two-panel comparison checked in the browser. Saved product found in digital browsing, print preview, and label selection/export.
+- Print: all five categories, staff picks, deals, portrait/landscape, three columns, and shared price edit verified. Staff note and unrelated concentrate tier survive edits.
+- 900-product fixture: 90 portrait / 65 landscape pages, 900 unique rows, no measured overflow. Exported portrait PDF independently contains all 900 product names exactly once.
+- Labels: actual PDF download, Letter dimensions, six labels, two-page offset/interleaved export, invalidation after edits, all product categories exercised.
+- 48 shelf cards (ten profiles + 38 terpenes), five-page PDF with repeated terpene-tier headers.
+- All nine routes checked at 320px, no page-width overflow or runtime errors in the recorded connected workflow.
+- 20 profile assets (ten PNGs at 1080 × 1080, ten SVGs) and 54-file portfolio pack checked; updated four-page case study rendered and inspected.
+- Seven supplied originals remain hash-identical. The wholesale HTML is preserved as reference only.
+- Physical label-stock registration and a physical printer were not tested; PDF geometry and browser print output were verified.
+
+Detailed local evidence: `verification-v2.json`. Public release verification is recorded separately after deployment.

@@ -15,3 +15,7 @@ All three source files are preserved with hashes. Ten canonical profile identiti
 
 ## Boundaries
 This is a portfolio demonstration. No live inventory, checkout, medical recommendations, production access control, cloud sync, arbitrary lab/POS mapping, or independent COA verification. No business performance uplift is claimed.
+
+## Version 2 delivered
+
+The classifier, print menu and PDF labels are integrated with the digital catalog. All ten profiles have downloadable PNG cards and SVG icons. Print categories, staff picks, deals, profile cards, terpene cards, grouping, sorting, visibility, page orientation, and column controls preserve the source workflow. Labels support selection, grouped/interleaved copies, optional cut guides, and a partially used sheet. Wholesale commerce remains reference-only; no inventory availability is asserted by these sample tools.

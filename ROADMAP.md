@@ -1,10 +1,17 @@
 # Roadmap and guardrails
 
 ## Phase 1 — Portfolio foundations
-- [🟢 Complete] Preserve three supplied originals and integrate shared profile identities.
+- [🟢 Complete] Preserve seven supplied originals and integrate shared profile identities.
 - [🟢 Complete] Unify navigation and source-backed sample handoffs.
 - [🟢 Complete] Local catalog persistence and CSV round trips.
 - [🟢 Complete] Portfolio presentation, screenshots, social exports and downloadable case study.
+
+## Version 2 — Connected production tools
+- [🟢 Complete] Full 38-terpene classifier and shared catalog handoff.
+- [🟢 Complete] Digital and measured print menu options.
+- [🟢 Complete] Avery 6464 PDF label generator.
+- [🟢 Complete] All ten profile PNG cards and SVG icons.
+- [🟢 Complete] 900-product pagination and real PDF verification.
 
 ## Phase 2 — Retail readiness
 - [🔴 Not Started] Independent content/scientific review and jurisdiction-specific retail sign-off.

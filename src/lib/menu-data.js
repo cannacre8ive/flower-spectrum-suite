@@ -96,7 +96,7 @@ function csvParse(text) {
   return rows.filter((r) => !(r.length === 1 && r[0].trim() === ""));
 }
 
-const CSV_MASTER = ["ID", "Illustrative", "Flavor", "SourceID", "Band",
+const CSV_MASTER = ["ManualTotalTerp", "ArchivedValues", "Values", "Tags", "PrintPrice", "GrowMethod", "ClassificationSource", "ID", "Illustrative", "Flavor", "SourceID", "Band",
   "Category","Name","Grower","Lineage","Featured","Hero","StaffPick","PickedBy","PickNote","Tier","Notes",
   "THC%","PrimaryProfile","Primary%","SecondaryProfile","Secondary%","Blend","Confidence",
   "Price1/8","Price1g","PriceEach","PricePack",
@@ -114,7 +114,7 @@ const CAT_CSV = { flower:"flower", prerolls:"preroll", vapes:"vape", concentrate
 
 function productToRow(p) {
   return {
-    ID:p.id, Illustrative:p.illustrative?"yes":"", Flavor:p.flavor||"", SourceID:p.sourceId||"", Band:JSON.stringify(p.band||[]),
+    ManualTotalTerp:p.manualTotalTerp||0,ArchivedValues:JSON.stringify(p.archivedValues||{}),Values:JSON.stringify(p.values||{}),Tags:JSON.stringify(p.tags||[]),PrintPrice:JSON.stringify(p.printPrice||{}),GrowMethod:p.growMethod||"",ClassificationSource:p.classificationSource||"",ID:p.id, Illustrative:p.illustrative?"yes":"", Flavor:p.flavor||"", SourceID:p.sourceId||"", Band:JSON.stringify(p.band||[]),
     Category: p.category, Name: p.name, Grower: p.grower, Lineage: p.lineage, Tier: p.tier,
     Featured: p.featured ? "yes" : "", Hero: p.hero ? "yes" : "", StaffPick: p.staffPick ? "yes" : "", PickedBy: p.pickedBy, PickNote: p.pickNote,
     Notes: p.notes, "THC%": p.thc,
@@ -136,7 +136,7 @@ function rowToProduct(obj, i) {
     _rowError: category ? null : "Unknown category: '" + (obj.Category || "") + "'",
     id: obj.ID || "imp_" + i + "_" + Math.random().toString(36).slice(2, 7),
     illustrative: truthy(obj.Illustrative), flavor: obj.Flavor || "", sourceId: obj.SourceID || null,
-    band: parseBand(obj.Band),
+    band: parseBand(obj.Band),manualTotalTerp:num(obj.ManualTotalTerp)||0,archivedValues:JSON.parse(obj.ArchivedValues||"{}"),values:JSON.parse(obj.Values||"{}"),tags:JSON.parse(obj.Tags||"[]"),printPrice:JSON.parse(obj.PrintPrice||"{}"),growMethod:obj.GrowMethod||"",classificationSource:obj.ClassificationSource||"",
     category, name: obj.Name || "(unnamed)", grower: obj.Grower || "", lineage: obj.Lineage || "—", tier: obj.Tier || "",
     featured: truthy(obj.Featured), hero: truthy(obj.Hero), staffPick: truthy(obj.StaffPick), pickedBy: obj.PickedBy || "", pickNote: obj.PickNote || "", notes: obj.Notes || "",
     thc: num(obj["THC%"]),
@@ -161,14 +161,18 @@ function parseCsvToProducts(text) {
   for (let r = 1; r < rows.length; r++) {
     const obj = {}; headers.forEach((h, c) => { obj[h] = (rows[r][c] || "").trim(); });
     if (Object.values(obj).every((v) => v === "")) continue;
-    if (/^sample\b/i.test(obj.Name || "")) continue; // skip sample rows silently
-    const p = rowToProduct(obj, r);
+    let p;
+    try {
+      for(const key of ['Values','ArchivedValues','PrintPrice','Tags']) {const v=JSON.parse(obj[key]||(key==='Tags'?'[]':'{}'));if(key==='Tags'? !Array.isArray(v)||v.some(x=>typeof x!=='string') : !v||Array.isArray(v)||typeof v!=='object'||Object.values(v).some(x=>x!==null&&(typeof x!=='number'||!Number.isFinite(x)||x<0||key==='Values'&&x>100)))throw new Error('Invalid '+key+' JSON');}
+      p = rowToProduct(obj,r);
+    } catch(e) {errors.push('Row '+(r+1)+': '+e.message);continue;}
     if (rows[r].length !== headers.length) p._rowError = "Column count does not match headers.";
     if ((obj.PrimaryProfile && !p.primaryKey) || (obj.SecondaryProfile && !p.secondaryKey)) p._rowError = "Unknown aroma profile.";
     const numeric=["THC%","Primary%","Secondary%","Price1/8","Price1g","PriceEach","PricePack","DosePerPiece","Pieces","Count","SalePct","SaleEndsMin"];
     for(const key of numeric) if(obj[key] && !/^[$]?\d+(?:\.\d+)?%?$/.test(obj[key])) p._rowError="Invalid number in "+key;
     if (!obj.Name?.trim()) p._rowError = "Product name is required.";
     for (const [key,val] of Object.entries(p)) if (typeof val === "number" && val < 0) p._rowError = "Negative value in " + key;
+    if (Object.values(p.values).reduce((a,b)=>a+(b||0),0)>100) p._rowError = "Total terpene concentration cannot exceed 100%.";
     if (p.salePct > 100 || p.thc > 100 || p.primaryPct > 100 || p.secondaryPct > 100) p._rowError = "Percentages cannot exceed 100.";
     if (out.some(x=>x.id===p.id)) p._rowError = "Duplicate product ID.";
     if (p._rowError) errors.push("Row " + r + ": " + p._rowError);
