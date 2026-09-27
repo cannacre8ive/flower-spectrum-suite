@@ -7,7 +7,10 @@ import "@fontsource/jetbrains-mono/400.css";
 import * as htmlToImage from "html-to-image";
 import { PROFILES, PROFILE_MAP as PBK } from "../data/profiles.js";
 import { classify, bandSegments, blendName } from "../lib/classifier.js";
-import { STRAINS, SBK } from "../data/strains.js";
+import {socialStrains} from '../lib/social-catalog.js';
+import {jsPDF} from 'jspdf';
+let catalog=[];try{const stored=JSON.parse(localStorage.getItem('fs-suite-catalog-v1')||'[]');if(Array.isArray(stored))catalog=stored}catch{}
+const STRAINS=socialStrains(catalog),SBK=Object.fromEntries(STRAINS.map(s=>[s.id,s]));
 const PROFILE_CONTENT=PBK;
 const shortOf=k=>PBK[k]?.short||k;
 window.htmlToImage=htmlToImage;
@@ -65,9 +68,10 @@ function fingerprintSVG(c,{size=200,highlight=null,guide="#2a2824"}={}){
 /* ═══════════════ SHARED BITS ═══════════════ */
 let settings={}; try { settings=JSON.parse(localStorage.getItem("fs-suite-brand")||"{}"); } catch {}
 let FARM=settings.farm||"Ideal Cannabis", HANDLE=settings.handle||"@idealcannabis";
-const esc=v=>String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-function compliance(){ return `Historical portfolio sample · Aroma model, not effects or medical claims`; }
+const esc=v=>String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+function compliance(){ return `${SBK[selStrain.value]?.user?"User-supplied panel":"Historical portfolio sample"} · Aroma model, not effect predictions`; }
 function leadColor(s){ return bandSegments(s.c)[0].color; }
+function brief(value,max=160){const s=String(value||'');return s.length>max?s.slice(0,max).replace(/\s+\S*$/,'')+'…':s}
 function topPanel(s,n){ return s.panel.slice(0,n); }
 
 /* ═══════════════ SOCIAL TEMPLATES (1080-canvas interiors) ═══════════════ */
@@ -83,28 +87,28 @@ function T_highlight(s){
           <div style="font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--muted);margin-top:6px;text-transform:uppercase">${esc(FARM)}</div>
         </div>
       </div>
-      <div style="margin-top:44px">
-        <div class="f-strain" style="font-size:112px">${esc(s.name)}</div>
+      <div style="margin-top:32px">
+        <div class="f-strain" style="font-size:${s.name.length>24?68:96}px">${esc(s.name)}</div>
         <div class="f-blend" style="color:${col};font-size:26px;margin-top:16px">${esc(s.blend)} · ${esc(s.c.confidence)}</div>
       </div>
-      <div style="display:flex;align-items:center;gap:40px;margin-top:40px">
+      <div style="display:flex;align-items:center;gap:40px;margin-top:26px">
         <div style="flex:1">${stripHTML(s.c,{h:70,labels:"full"})}</div>
-        <div style="flex-shrink:0">${fingerprintSVG(s.c,{size:220,highlight:segs[0].key})}</div>
+        <div style="flex-shrink:0">${fingerprintSVG(s.c,{size:180,highlight:segs[0].key})}</div>
       </div>
-      <div class="f-aroma" style="font-size:31px;margin-top:34px;max-width:26ch">&ldquo;${esc(s.aroma)}&rdquo;</div>
+      <div style="display:flex;align-items:center;gap:30px;margin-top:16px"><div class="f-aroma" style="font-size:27px;max-width:26ch;flex:1">&ldquo;${esc(brief(s.aroma,175))}&rdquo;</div>${s.photo?`<img src="${esc(s.photo)}" alt="Flower photograph" style="width:220px;height:170px;object-fit:cover;border:1px solid ${col}"/>`:""}</div>
       <div style="margin-top:auto">
         <div class="f-rule"></div>
         <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:24px">
           <div>
             <div style="font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Leading measured analytes</div>
-            <div class="f-chips">${topPanel(s,3).map(t=>`<span class="f-chip" style="font-size:16px;padding:8px 14px">${esc(t[0])} ${t[1].toFixed(2)}%</span>`).join("")}</div>
+            <div class="f-chips">${topPanel(s,3).map(t=>`<span class="f-chip" style="font-size:13px;padding:7px 10px">${esc(t[0])} ${t[1].toFixed(2)}%</span>`).join("")}</div>
           </div>
           <div style="text-align:right">
             <div style="font-family:var(--display);font-weight:600;font-size:40px;color:var(--fg)">${s.thc}<span style="font-size:22px;color:var(--fg-dim)">% THC</span></div>
             <div style="font-family:var(--mono);font-size:14px;letter-spacing:.16em;color:var(--accent);margin-top:6px">${esc(HANDLE)}</div>
           </div>
         </div>
-        <div class="f-compliance" style="font-size:12px;margin-top:22px">${compliance()} · Supplied historical panel</div>
+        <div class="f-compliance" style="font-size:12px;margin-top:16px">${compliance()}</div>
       </div>
     </div>
   </div>`;
@@ -118,10 +122,10 @@ function T_drop(s){
       <div class="f-kick" style="justify-content:space-between"><span>Just Dropped</span><span class="dim">${esc(s.harvest)}</span></div>
       <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
         <div class="f-sig" style="color:var(--muted)">${esc(FARM)}</div>
-        <div class="f-strain" style="font-size:130px;margin-top:20px">${esc(s.name)}</div>
+        <div class="f-strain" style="font-size:${s.name.length>24?86:130}px;margin-top:20px">${esc(s.name)}</div>
         <div class="f-blend" style="color:${col};font-size:30px;margin-top:22px">${esc(s.blend)}</div>
         <div class="f-aroma" style="font-size:38px;margin-top:40px;max-width:18ch">&ldquo;${esc(s.aroma)}&rdquo;</div>
-        <div style="display:flex;justify-content:center;margin:56px 0">${fingerprintSVG(s.c,{size:360,highlight:segs[0].key})}</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:30px;margin:40px 0">${fingerprintSVG(s.c,{size:360,highlight:segs[0].key})}${s.photo?`<img src="${esc(s.photo)}" alt="Flower photograph" style="width:350px;height:350px;object-fit:cover"/>`:""}</div>
       </div>
       <div>
         ${stripHTML(s.c,{h:96,labels:"full"})}
@@ -199,7 +203,7 @@ function T_compare(a,b){
       <div class="f-strain" style="font-size:52px;margin-top:20px">${esc(s.name)}</div>
       <div class="f-blend" style="color:${leadColor(s)};font-size:19px;margin-top:10px">${esc(s.blend)}</div>
       <div style="width:100%;margin-top:22px">${stripHTML(s.c,{h:46,labels:"short"})}</div>
-      <div class="f-aroma" style="font-size:21px;margin-top:20px;max-width:22ch">${esc(s.aroma)}</div>
+      <div class="f-aroma" style="font-size:21px;margin-top:20px;max-width:22ch">${esc(brief(s.aroma,110))}</div>
     </div>`;
   return `<div class="frame dark" data-w="1080" data-h="1080">
     <div class="grid-bg"></div>
@@ -234,7 +238,7 @@ function T_voice(){
         <div class="f-aroma" style="font-family:var(--display);font-weight:500;font-size:76px;line-height:1.14;color:var(--fg);max-width:15ch">Two flowers at the same THC can be completely <span style="font-style:italic;color:var(--accent)">different</span>.</div>
       </div>
       <div class="f-aroma" style="font-size:30px;color:var(--fg-dim);max-width:30ch">The number on the jar was never the answer. Aroma is measurable, honest, and already understood by every nose that opens a jar.</div>
-      <div style="margin-top:44px">${stripHTML(classify(SBK.jb.values),{h:28,labels:"none"})}</div>
+      <div style="margin-top:44px">${stripHTML(SBK[selStrain.value].c,{h:28,labels:"none"})}</div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:26px">
         <div class="f-sig">Flower Spectrum · ${esc(FARM)}</div>
         <div style="font-family:var(--mono);font-size:16px;letter-spacing:.16em;color:var(--accent)">${esc(HANDLE)}</div>
@@ -335,9 +339,10 @@ function cardHTML(s){
           <div class="metric"><b>CBD</b><strong>${s.cbd}%</strong></div>
         </div></div>
         <div class="module"><p class="h">Spectrum score</p><div class="bars">${scoreBars(s.c)}</div></div>
-        <div class="module"><p class="h">Engine note</p><p class="note">Classified from the historical panel transcribed in the supplied project. Original lab PDFs were not supplied. Aroma is weighted over mass; Gas is emergent (a balance of caryophyllene, limonene, and myrcene/humulene), never a single terpene.</p></div>
+        <div class="module"><p class="h">Engine note</p><p class="note">${s.user?esc(s.sourceNote):"Classified from the historical panel transcribed in the supplied project. Original lab PDFs were not supplied."} Aroma is weighted over mass; Gas is emergent (a balance of caryophyllene, limonene, and myrcene/humulene), never a single terpene.</p></div>
       </aside>
       <section>
+        ${s.photo?`<div class="module"><img src="${esc(s.photo)}" alt="Flower photograph" style="width:100%;height:240px;object-fit:cover"/></div>`:""}
         <div class="module"><p class="h">Aroma read</p><p class="bigline">${esc(s.aroma)}</p></div>
         <div class="module copy">${s.copy.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
         <div class="module"><p class="h">Sensory architecture</p><div class="sensory">
@@ -348,13 +353,16 @@ function cardHTML(s){
           <table><thead><tr><th>Terpene</th><th>%</th><th>mg/g</th></tr></thead><tbody>
           ${s.panel.map(t=>`<tr><td class="n">${esc(t[0])}</td><td class="m">${t[1].toFixed(2)}%</td><td class="m">${(t[1]*10).toFixed(1)}</td></tr>`).join("")}
           </tbody></table>
-          <p class="note" style="margin-top:14px;font-size:11px">Analytes not modeled by the compact engine (e.g. Anisole) are shown as measured but do not shift the aroma classification.</p>
+          <p class="note" style="margin-top:14px;font-size:11px">All included source rows are preserved. Unmodeled compounds are shown here but do not shift the 38-compound aroma model. Relative scores are not lab concentrations.</p>
         </div>
       </section>
     </div>
   </article>`;
 }
-function renderCards(){ document.getElementById("cards").innerHTML=STRAINS.map(cardHTML).join(""); }
+function renderCards(){
+ const s=SBK[selStrain.value];document.getElementById("cards").innerHTML=`<div class="card-downloads"><span>Selected flower: ${esc(s.name)}</span><button id="card-png">Download chemovar PNG ↓</button><button id="card-pdf">Download sales card PDF ↓</button></div>`+cardHTML(s);
+ ['png','pdf'].forEach(type=>document.getElementById('card-'+type).onclick=async event=>{const button=event.target;button.disabled=true;try{await document.fonts.ready;const card=document.querySelector('#cards .sheet').cloneNode(true);card.id='export-card';Object.assign(card.style,{width:'1120px',position:'fixed',left:'-20000px',top:'0',margin:'0'});card.querySelector('.mast').style.gridTemplateColumns='1.25fr .75fr';card.querySelector('.content').style.gridTemplateColumns='.82fr 1.18fr';card.querySelector('h2').style.fontSize='64px';document.body.appendChild(card);const height=Math.ceil(card.getBoundingClientRect().height);const opts={pixelRatio:1,width:1120,height,backgroundColor:'#181715',style:{position:'static',left:'auto',top:'auto'}};await htmlToImage.toPng(card,opts);const url=await htmlToImage.toPng(card,opts);const a=document.createElement('a');if(type==='pdf'){const doc=new jsPDF({unit:'px',format:[card.clientWidth,height],hotfixes:['px_scaling']});doc.addImage(url,'PNG',0,0,card.clientWidth,height,undefined,'FAST');doc.save('fs-chemovar-'+s.id+'.pdf')}else{a.href=url;a.download='fs-chemovar-'+s.id+'.png';a.click()}toast('Chemovar card exported.')}catch(e){console.error(e);toast('Export failed. Please try again.')}finally{document.getElementById('export-card')?.remove();button.disabled=false}});
+}
 
 /* ═══════════════ INIT ═══════════════ */
 const selStrain=document.getElementById("selStrain");
@@ -363,15 +371,18 @@ const selCompare=document.getElementById("selCompare");
 const inFarm=document.getElementById("inFarm");
 const inHandle=document.getElementById("inHandle");
 
-selStrain.innerHTML=STRAINS.map(s=>`<option value="${s.id}">${esc(s.name)} — ${esc(s.blend)}</option>`).join("");
+selStrain.innerHTML=STRAINS.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} — ${esc(s.blend)}</option>`).join("");
 selProfile.innerHTML=PROFILES.map(p=>`<option value="${p.key}">${esc(p.label)}</option>`).join("");
-selCompare.innerHTML=STRAINS.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join("");
+selCompare.innerHTML=STRAINS.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join("");
 selStrain.value=SBK[new URLSearchParams(location.search).get("strain")] ? new URLSearchParams(location.search).get("strain") : "jb"; selProfile.value="earthy_dank"; selCompare.value="sdr";
 
-[selStrain,selProfile,selCompare].forEach(el=>el.addEventListener("change",renderGallery));
+[selProfile,selCompare].forEach(el=>el.addEventListener("change",renderGallery));
+selStrain.addEventListener("change",()=>{if(SBK[selStrain.value].farm){FARM=SBK[selStrain.value].farm;inFarm.value=FARM}if(SBK[selStrain.value].user&&!settings.handle){HANDLE="@yourfarm";inHandle.value=HANDLE}renderGallery();renderCards()});
 inFarm.addEventListener("input",()=>{ FARM=inFarm.value||"Ideal Cannabis"; renderGallery(); renderCards(); });
 inHandle.addEventListener("input",()=>{ HANDLE=inHandle.value||"@yourfarm"; renderGallery(); });
 
+if(SBK[selStrain.value].farm)FARM=SBK[selStrain.value].farm;
+if(SBK[selStrain.value].user&&!settings.handle)HANDLE="@yourfarm";
 inFarm.value=FARM; inHandle.value=HANDLE;
 [inFarm,inHandle].forEach(el=>el.addEventListener("input",()=>{try { localStorage.setItem("fs-suite-brand",JSON.stringify({farm:FARM,handle:HANDLE})); } catch {} }));
 /* hero band = the full ten-hue palette */

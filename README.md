@@ -4,15 +4,18 @@
 
 **[🚀 Live Demo](https://flower-spectrum-suite.vercel.app)** · **[Portfolio & downloads](https://flower-spectrum-suite.vercel.app/#portfolio)** · **[Case study PDF](public/assets/flower-spectrum-case-study.pdf)**
 
-A language for what you smell. A connected classifier, digital and print menu studio, PDF label maker, education library, and cultivator creative studio by CannaCre8ive. Six supplied tool prototypes, one shared aroma system.
+A language for what you smell. A connected classifier, digital and print menu studio, PDF label maker, education library, and cultivator creative studio by CannaCre8ive. A fingerprint ID and proportional band carry a reviewed flower batch through every tool.
 
 ## Explore
 
+- **Upload & create:** read PDF, CSV, PNG, JPG, or WebP terpene reports on the device; review source rows and units; reconcile the total; add a flower photograph; generate social and chemovar assets.
+- **Workflows:** practical farm, buyer, and retail-staff journeys. Buyer search supports aroma score ranking, measured terpene minimums, reviewed-upload filtering, CSV shortlist export, and shortlist-to-print handoff.
+
 - **Classifier:** the full 38-terpene model, flower/live-resin presets, detailed and spectrum fingerprints, four-panel comparison, CSV export, and save/update to the shared catalog.
-- **Print menu:** five categories, staff picks, deals, sorting, editable headers, portrait/landscape pagination, and ten profile plus 38 terpene shelf cards.
-- **Labels:** Avery 6464 PDFs; product selection, copy order, start position, preview, and download.
-- **Profile assets:** ten 1080 × 1080 PNG cards and ten editable SVG icons.
-- **Digital menu:** five product categories, aroma filters, sorting, product details, contextual learning, staff picks, demo sales, and local catalog editing.
+- **Print menu:** flower only, staff picks, deals, sorting, editable headers, portrait/landscape pagination, and ten profile plus 38 terpene shelf cards.
+- **Labels:** Avery 6464 PDFs; product selection, copy order, start position, automatic clean canvas preview of the actual PDF, and download.
+- **Profile assets:** ten 1080 × 1080 PNG cards and ten editable SVG fingerprint diagrams.
+- **Digital menu:** flower only, aroma filters, sorting, product details, contextual learning, staff picks, demo sales, and local catalog editing.
 - **Education:** nine supplied teaching pieces, individual/full print views, and an interactive preference quiz that links into retail browsing.
 - **Social studio:** six customizable PNG formats, three historical sample panels, detailed chemovar cards, and shared profile colors.
 - **Portfolio:** a case study, real screenshots, print primer, social examples, and a complete downloadable asset kit.
@@ -38,7 +41,7 @@ Open the local address shown by Vite. `npm run check` runs source-preservation, 
 | `public/assets/` | Downloadable PDF, PNG, and ZIP portfolio deliverables |
 | `documentation/assets/` | Real app screenshots |
 
-The React shell lazy-loads all six tool views. The social canvas has its own HTML entry to preserve its styling while importing shared data modules. Browser catalog changes stay on this device; no server stores or publishes them. Export CSV for backup.
+The React shell lazy-loads all six tool views. The social canvas has its own HTML entry to preserve its styling while importing shared data modules. Browser catalog changes stay on this device; no server stores or publishes them. Export a reviewed record as JSON to preserve its source rows and photograph. Menu CSV preserves catalog fields and panels but not the uploaded photo or review audit.
 
 ## Preview
 
@@ -56,7 +59,7 @@ The application does not upload imported catalogs. It has no authentication, che
 
 ## Print and label workflow
 
-Classify a product and save it to the catalog. Open **Digital menu** to browse it, **Print menu** to format the category, or **Labels** to select products and generate a PDF. Print menus at US Letter, 100% scale, with browser headers/footers disabled and background graphics enabled. Print label PDFs at **Actual size / 100%**. Test on plain paper first; physical printer alignment has not been verified. Export the full catalog CSV from either menu for backup.
+Classify a product and save it to the catalog. Open **Digital menu** to browse it, **Print menu** to format flower, or **Labels** to select products and generate a PDF. Print menus at US Letter, 100% scale, with browser headers/footers disabled and background graphics enabled. Print label PDFs at **Actual size / 100%**. Test on plain paper first; physical printer alignment has not been verified. Export menu CSV for pricing and panel backup; use reviewed-record JSON for the upload audit and photo.
 
 ![Classifier](documentation/assets/classifier-desktop.png)
 
@@ -65,6 +68,14 @@ Classify a product and save it to the catalog. Open **Digital menu** to browse i
 ![Profile library](documentation/assets/profiles-desktop.png)
 
 ## Recent updates
+
+**3.0.0:** fingerprint-led reference assets; on-device PDF/CSV/image report import and review; optional flower photos; uploaded-flower social and chemovar exports; flower-only menus and labels; live clean label previews; farm/buyer/staff workflows and buyer shortlist search.
+
+![Farm workflow](documentation/assets/workflows-desktop.png)
+
+![Buyer finder](documentation/assets/workflows-buyer.png)
+
+![Clean label preview](documentation/assets/labels-desktop.png)
 
 **2.0.0:** shared 38-terpene classifier; measured print pagination; connected PDF labels; ten-profile asset library; full panel preservation in catalog CSV; 900-product browser/PDF stress verification.
 

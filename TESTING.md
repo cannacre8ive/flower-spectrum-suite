@@ -31,3 +31,11 @@ Browser workflows are recorded in `scripts/verify-connected.cjs`, `verify-produc
 The 900-product fixture produced 90 portrait pages and 65 landscape pages, with exactly 900 unique rows and zero measured vertical overflow. PDF text extraction independently found all 900 products exactly once in the portrait export. Sample PDFs are under `output/pdf/` and included in the portfolio kit; stress fixtures remain ignored under `output/playwright/`.
 
 Physical printer calibration has not been tested. Print at Actual size / 100%, verify alignment on plain paper, and adjust printer-specific settings before using stock. Browser PDF exports and label geometry were verified.
+
+## Version 3 validation
+
+`tests/import.test.js` covers explicit result-column selection over detection limits, missing values, nondetects, unit conversion, unknown compounds, isomer aggregation with source-row preservation, malformed CSV, multi-line Mass/units headers, reconciliation, and social-catalog handoff.
+
+Browser checks: `scripts/check-import-v3.cjs` (CSV/text PDF → review → photo → social PNG/chemovar PDF → clean labels), `scripts/check-ocr-v3.cjs` (synthetic image and scanned PDF OCR), and `scripts/check-workflows-v3.cjs` (buyer filters, shortlist CSV, scoped print menu, flower-only navigation, paged labels, and desktop/320px screenshots). These run through the Playwright CLI against local port 5178. Do not run them in a user’s everyday browser profile; they create test catalog records.
+
+Local pre-existing Johnny Glaze and Mt. Hood Magic regression PDFs were also checked without copying those reports into this repository. These checks do not imply support for every laboratory layout: the review table, page selection, original-file link, and editable values remain essential. OCR is English-language; faint, rotated, or unusual scans may need correction. Actual physical label alignment remains printer-dependent and unverified.

@@ -10,6 +10,8 @@ export function productClassification(p) {
  return {ranked,confidence:p.confidence||'Manual',totalTerp:p.manualTotalTerp||0,totalRaw:0,source:'manual',modifiers:[]};
 }
 export function withClassification(p) {
+ if(p.provenance?.reviewedAt){const reviewed={};for(const r of p.provenance.sourceRows||[]){if(r.included&&r.key)reviewed[r.key]=(reviewed[r.key]||0)+Number(r.value)}const values=productValues(p);if([...new Set([...Object.keys(reviewed),...Object.keys(values)])].some(k=>Math.abs((reviewed[k]||0)-(Number(values[k])||0))>1e-8))p={...p,provenance:{...p.provenance,previousReviewAt:p.provenance.reviewedAt,reviewedAt:null},classificationSource:'Panel edited after report review'};}
+
  const c=classify(productValues(p)); if(!c)return p;
  const band=bandSegments(c);
  return {...p,values:productValues(p),primaryKey:band[0].key,primaryPct:band[0].pct,secondaryKey:band[1]?.key||null,secondaryPct:band[1]?.pct??null,band:band.map(x=>({key:x.key,pct:x.pct})),blend:blendName(c),confidence:c.confidence};

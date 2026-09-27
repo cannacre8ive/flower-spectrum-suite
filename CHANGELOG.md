@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.0 — 2026-09-26
+
+- Replaced generic profile icons with the ten-sector fingerprint and spectrum band across the active asset library and downloadable reference cards.
+- Added local PDF text extraction, scanned-PDF/image OCR, and table-aware CSV import with editable source rows, explicit units, total reconciliation, 95% modeled-coverage gate, and human confirmation.
+- Connected reviewed panels and optional flower photographs to six social formats and chemovar PNG/PDF exports.
+- Limited digital menus, print menus, and label selection to flower while retaining older non-flower records in storage.
+- Replaced the PDF iframe with an automatically refreshed, paged canvas rendering of the actual label PDF.
+- Added farm, buyer, and staff walkthroughs; buyer aroma/terpene search, shortlist CSV, and shortlist-to-print handoff.
+- Bundled OCR runtime and English data locally; uploaded reports and photographs are not sent to an extraction service.
+
+
 ## 2.0.0 — 2026-09-26
 
 - Integrated the full supplied 38-terpene classifier, spectrum/detailed fingerprints, comparison, and shared catalog save/update.

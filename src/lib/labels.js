@@ -109,11 +109,11 @@ function drawLabel(doc, s, lx, ly, T, opts){
   doc.text(doc.splitTextToSize('TOP TERPS · '+(topTerpsLabeled(s.values||{},4).join(' · ')||'No panel supplied'), lw-bandW-0.45).slice(0,2), x, fy-0.46);
   doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.setTextColor(21,19,15);
   doc.text(s.category==='edible' ? 'THC '+(s.thc??'—')+'mg / piece' : 'THC '+(s.thc??'—')+'%', x, fy-0.24);
-  if(c?.source==='engine')doc.text('TERPS '+c.totalTerp.toFixed(2)+'%', x+1.08, fy-0.24);
+  if(c?.source==='engine')doc.text('TERPS '+(s.provenance?.reviewedAt?s.provenance.reportedTotal:c.totalTerp).toFixed(2)+'%', x+1.08, fy-0.24);
   doc.setFont('times','bolditalic'); doc.setFontSize(15); doc.setTextColor(21,19,15);
   doc.text(s.labelPrice, rgt, fy-0.21, {align:'right'});
   doc.setFont('helvetica','normal'); doc.setFontSize(5.6); doc.setTextColor(140,129,112);
-  doc.text('AROMA MODEL · '+(s.sourceId?'HISTORICAL SAMPLE':s.illustrative?'ILLUSTRATIVE SAMPLE':'USER-ENTERED DATA'), x, fy-0.1);
+  doc.text('AROMA MODEL · '+(s.provenance?.reviewedAt?'REVIEWED USER REPORT':s.sourceId?'HISTORICAL SAMPLE':s.illustrative?'ILLUSTRATIVE SAMPLE':'USER-ENTERED DATA'), x, fy-0.1);
   // cut guide
   if(opts.cutGuides){ doc.setDrawColor(190,190,190); doc.setLineWidth(0.003); doc.rect(lx,ly,lw,lh); }
 }

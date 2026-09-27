@@ -8,3 +8,7 @@ dist/
 output/playwright/
 tmp/
 .vercel
+
+# Local-only diagnosis against pre-existing COA fixtures
+scripts/inspect-pdf-v3.cjs
+scripts/check-real-pdf-v3.cjs

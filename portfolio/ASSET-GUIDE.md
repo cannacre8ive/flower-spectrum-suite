@@ -13,9 +13,9 @@ The full application and original JSX/HTML remain editable. Social templates can
 
 Use the stable demo URL in posts. Do not describe illustrative prices as current prices or portfolio samples as live stock. Original lab PDFs and retail approval are not part of this project.
 
-## Version 2 additions
+## Current assets
 
-- `flower-spectrum-profile-assets.zip`: all ten 1080 × 1080 PNG profile cards plus ten editable SVG icons. Files use canonical profile keys, such as `gas_fuel.png` and `gas_fuel.svg`.
+- `flower-spectrum-profile-assets.zip`: all ten 1080 × 1080 PNG profile cards plus ten editable SVG fingerprint diagrams. Files use canonical profile keys, such as `gas_fuel.png` and `gas_fuel.svg`.
 - `profiles/`: individual cards and SVG vectors. Their content describes aroma, not a measured product fingerprint.
 - `print-menu-sample.pdf`: portrait US Letter menu, with real pagination from the shared sample catalog.
 - `print-menu-landscape.pdf`: landscape version from the same catalog.
@@ -24,3 +24,7 @@ Use the stable demo URL in posts. Do not describe illustrative prices as current
 - `classifier-desktop.png`, `print-desktop.png`, `labels-desktop.png`, `profiles-desktop.png`: actual updated application views.
 
 The wholesale portal attachment is preserved under `source/` as reference. It is not an active order-taking service.
+
+Version 3 replaces the generic profile icon artwork with canonical fingerprint-sector references and a ten-color band. These teaching cards are not measured product fingerprints. The app generates measured-panel assets from reviewed uploads.
+
+Farm, buyer, and staff workflows are illustrated in the Workflows view; buyer and upload screenshots are included in the shareable kit.

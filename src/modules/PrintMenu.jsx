@@ -40,7 +40,7 @@ const CATS = {
   vape:        { label:"Vapes",        key:"tags",     potency:{ label:"THC", unit:"%" }, priceMain:["full","1g"],    priceSub:["half","½g"],   group:"tag"   },
   edible:      { label:"Edibles",      key:"tags",     potency:{ label:"THC", unit:"mg"}, priceMain:["pack","/pk"],   priceSub:["unit","ea"],   group:"tag"   },
 };
-const CAT_ORDER = ["flower","preroll","concentrate","vape","edible"];
+const CAT_ORDER = ["flower"];
 const catOf = row => CATS[row.category] || CATS.flower;
 const priceVal = (row, slot) => { const c = catOf(row); const f = (slot==="main"?c.priceMain:c.priceSub)[0]; return row.price?.[f] ?? "—"; };
 const priceUnit = (row, slot) => { const c = catOf(row); return (slot==="main"?c.priceMain:c.priceSub)[1]; };
@@ -103,7 +103,7 @@ function hasTerpSignal(values) {
   return TERPENES.some(t => (values[t.key]||0) > 0);
 }
 function classifyRow(row) {
-  if (row.classification) return row.classification;
+  if (row.classification) return row.provenance?.reviewedAt?{...row.classification,modeledTotalTerp:row.classification.totalTerp,totalTerp:row.provenance.reportedTotal}:row.classification;
   if (hasTerpSignal(row.values)) {
     const c = classify(row.values);
     if (c) return c;
@@ -181,7 +181,8 @@ const M = "var(--mono)", B = "var(--body)", D = "var(--display)";
 
 /* Per-profile line icons — adapted from the uploaded flower-spectrum.jsx and
    remapped onto the canonical 10 keys (Savory/Funk dropped, locked-removed). */
-import ProfileIcon from '../components/ProfileIcon.jsx';
+import ReferenceFingerprint from '../components/Fingerprint.jsx';
+import {referenceRanked} from '../lib/profile-reference.js';
 
 function Tag({ children, color, dark=false }) {
   return <span style={{ display:"inline-block", padding:"2px 7px", borderRadius:3, background:color, color: dark ? "#fff" : "#15130f", fontFamily:M, fontSize:8, fontWeight:700, letterSpacing:0.5, textTransform:"uppercase" }}>{children}</span>;
@@ -656,7 +657,7 @@ function AromaCards({ list, config, menuText, orientation, cardSet, cardCols }) 
                 <div key={p.key} className="fs-card" style={{ breakInside:"avoid", border:"1px solid #ddd2bf", borderTop:`4px solid ${p.color}`, borderRadius:7, padding:"13px 14px 12px", marginBottom:"0.3in", background:"#fbf7ef" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:6 }}>
                     <div style={{ width:38, height:38, flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", background:`${p.color}1a`, borderRadius:9 }}>
-                      <ProfileIcon pk={p.key} color={p.color} size={30} />
+                      <ReferenceFingerprint ranked={referenceRanked(p.key)} size={48} />
                     </div>
                     <div style={{ minWidth:0 }}>
                       <div style={{ fontFamily:D, fontSize:17, fontWeight:700, color:"#15130f", lineHeight:1.05 }}>{p.label}</div>
@@ -998,7 +999,9 @@ function defaultText(category, kind) {
 }
 
 export default function App() {
-  const [rows, setRows] = usePrintCatalog();
+  const [allRows, setRows] = usePrintCatalog();
+  const requestedIds=new URLSearchParams(location.hash.split('?')[1]).get('ids');
+  const rows=useMemo(()=>requestedIds?allRows.filter(p=>requestedIds.split(',').includes(p.id)):allRows,[allRows,requestedIds]);
   const [category, setCategory] = useState("flower");   // CAT_ORDER key or "cards"
   const [kind, setKind] = useState("menu");             // menu | picks | deals
   const [config, setConfig] = useState(DEFAULT_CONFIG);
@@ -1112,7 +1115,7 @@ export default function App() {
 
       {/* CATEGORY TABS */}
       <div className="fs-no-print" style={{ display:"flex", gap:4, padding:"14px clamp(14px,3vw,28px) 0", borderBottom:"1px solid var(--border)", flexWrap:"wrap" }}>
-        {PRODUCT_TABS.map(([k,label]) => (
+        {requestedIds&&<a href="#print" style={{color:"#6aafa0",padding:10}}>Shortlist menu · show all flower ↗</a>}{PRODUCT_TABS.map(([k,label]) => (
           <button key={k} onClick={()=>{ setCategory(k); setSortKey("default"); setGroupBy(CATS[k].key==="tags"?"tag":"profile"); }} style={catTab(category===k)}>{label}</button>
         ))}
         <button onClick={()=>setCategory("cards")} style={{ ...catTab(isCards), marginLeft:8, borderColor: isCards?"var(--accent)":"#3a4f49", color: isCards?"var(--fg)":"#6AAFA0" }}>✦ Aroma Cards</button>

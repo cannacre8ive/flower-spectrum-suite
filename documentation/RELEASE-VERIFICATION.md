@@ -37,3 +37,19 @@ No retail sign-off, independent review of supplied scientific/educational copy, 
 Detailed local evidence: `verification-v2.json`. Public release verification is recorded separately after deployment.
 
 Public verification passed: 58 endpoints returned HTTP 200 and every downloadable asset matched the local file byte-for-byte. On the stable live URL, classifier save, digital browsing, print output, label preview, and all nine 320px routes passed without runtime errors. See `live-browser-v2.json` and `live-http-verification.json`.
+
+## 3.0.0 — fingerprint-led workflows
+
+Local verification completed on 2026-09-26:
+
+- CSV and text PDF each extracted all five synthetic test rows and reconciled 1.60%; save remained disabled until explicit human review.
+- English image OCR and scanned-PDF OCR each extracted the same five results and 1.60% total using local worker/data assets.
+- Existing Johnny Glaze and Mt. Hood Magic PDF fixtures each preserved 52 source rows (including nondetects), selected the terpene page, and reconciled 4.06% and 3.41% respectively with no review-gate issues. These PDFs were read from the other local classifier repository and were not added to the public release.
+- Reviewed CSV plus an uploaded image reached the correct selected social record, exported a 1080-square highlight and a chemovar PDF, and rendered the matching label. Uploaded image appeared in both highlight and story formats. Source-row values and the reported total appeared on the chemovar card.
+- Buyer search for citrus plus at least 0.30% limonene returned applicable historical panels. One shortlisted flower reached the print menu as exactly one printed row; shortlist CSV downloaded.
+- Digital menu exposed no non-flower category navigation. Ten older non-flower records remained stored.
+- Forty-eight reference cards paginated into four Letter pages with zero measured column overflow. Label preview rendered actual PDF artwork without an iframe, and moving to page 2 after a partial-sheet offset worked.
+- Overview, upload, workflows, profiles, labels, print, digital menu, social studio, and classifier rendered at 320px with no document-width overflow or browser page errors in the final workflow pass.
+- Ten native 1080 × 1080 reference cards and matching SVG fingerprints regenerated. Four-page case study rebuilt with current screenshots and zero measured page overflow; PDF output inspected.
+
+Known limits: arbitrary lab layouts may require edits; OCR is English-language and requires review. Browser storage is local; no supplier marketplace, ordering, cloud sync, or POS connection exists. JSON review records preserve photos and provenance, while menu CSV does not. Physical printer registration and every browser/assistive technology combination were not tested.

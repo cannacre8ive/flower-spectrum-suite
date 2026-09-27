@@ -1,0 +1,3 @@
+import {jsPDF} from 'jspdf';
+import {writeFile} from 'node:fs/promises';
+const doc=new jsPDF();doc.setFontSize(19);doc.text('SYNTHETIC TEST REPORT',20,24);doc.setFontSize(12);doc.text('Product: Orchard Haze QA',20,40);doc.text('Farm: Demo Farm',20,50);const lines=[['Analyte','Result (%)','Result (mg/g)'],['Beta-Myrcene','0.65','6.5'],['D-Limonene','0.42','4.2'],['Beta-Caryophyllene','0.31','3.1'],['Alpha-Humulene','0.14','1.4'],['Linalool','0.08','0.8'],['Total Terpenes','1.60','16.0']];lines.forEach((row,i)=>row.forEach((text,j)=>doc.text(text,[20,95,140][j],72+i*12)));doc.text('Illustrative fixture. Not an actual laboratory report.',20,185);await writeFile('output/playwright/fixtures/terpenes-text.pdf',Buffer.from(doc.output('arraybuffer')));

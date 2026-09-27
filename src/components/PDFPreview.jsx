@@ -1,0 +1,8 @@
+import {useEffect,useRef,useState} from 'react';
+import {openPDF} from '../lib/pdf.js';
+export default function PDFPreview({blob}){
+ const canvas=useRef(null),documentRef=useRef(null);const [page,setPage]=useState(1),[count,setCount]=useState(0),[error,setError]=useState(''),[ready,setReady]=useState(0);
+ useEffect(()=>{let cancelled=false,doc;setReady(0);setError('');setCount(0);setPage(1);(async()=>{try{doc=await openPDF(await blob.arrayBuffer());if(cancelled){doc.loadingTask.destroy();return}documentRef.current=doc;setCount(doc.numPages);setReady(n=>n+1)}catch(e){if(!cancelled)setError(e.message)}})();return()=>{cancelled=true;documentRef.current=null;doc?.loadingTask.destroy()}},[blob]);
+ useEffect(()=>{if(!ready||!documentRef.current)return;let cancel=false,task;(async()=>{try{const p=await documentRef.current.getPage(page);if(cancel)return;const vp=p.getViewport({scale:1.7});const c=canvas.current;c.width=vp.width;c.height=vp.height;task=p.render({canvasContext:c.getContext('2d'),viewport:vp});await task.promise}catch(e){if(!cancel)setError(e.message)}})();return()=>{cancel=true;task?.cancel()}},[page,ready]);
+ return <div className="clean-pdf"><div className="preview-toolbar"><span>PRINT SHEET · Actual PDF artwork</span><div><button disabled={page<=1} onClick={()=>setPage(p=>p-1)} aria-label="Previous label page">←</button><span>Page {page} / {count||'…'}</span><button disabled={!count||page>=count} onClick={()=>setPage(p=>p+1)} aria-label="Next label page">→</button></div></div>{error?<p role="alert">{error}</p>:<canvas ref={canvas} aria-label={`Label sheet preview, page ${page} of ${count}`}/>}<p className="fine-note">The downloaded PDF uses the same artwork and positions. Print at actual size.</p></div>
+}

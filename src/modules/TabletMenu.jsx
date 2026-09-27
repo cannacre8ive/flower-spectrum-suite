@@ -1,7 +1,7 @@
 import { CAT, SORT_LABEL, TIER_RANK, activeSales, salePrice, usd, num, truthy, fmtCountdown, getBand, priceInfo, sortValue, sortProducts, csvCell, csvSerialize, csvParse, CSV_MASTER, TEMPLATE_COLS, CAT_CSV, productToRow, rowToProduct, parseBand, parseCsvToProducts, dataUri, templateCsv } from "../lib/menu-data.js";
 import { PROFILES as PROFILE_LIST, PROFILE_ORDER } from "../data/profiles.js";
 import { DEFAULT_PRODUCTS } from "../data/products.js";
-import { useCatalog } from "../lib/catalog.jsx";
+import { useFlowerCatalog } from "../lib/catalog.jsx";
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 /* =========================================================================
@@ -77,17 +77,13 @@ const CONCEPTS = {
   band: { title: "Reading the aroma band", kicker: "THE SYSTEM",
     body: "Every classified product shows a color band built from its lab terpene panel. The leading color is its primary aroma family; a second color appears only when the secondary profile is strong enough to genuinely share the nose. DEFINED means one family clearly dominates. LEANING means a clear leader with company. BLEND means two families in real balance." },
   coa: { title: "Where classifications come from", kicker: "THE SYSTEM",
-    body: "Every classification traces to a Certificate of Analysis — the lab report each product batch receives. We read the terpene panel, not the THC number, because terpenes are what you actually smell. Same plant, same data, different question." },
+    body: "Reviewed flower reports, historical panels, and illustrative catalog examples are identified separately. The fingerprint models aroma from terpene results; it does not predict effects." },
 };
 
 
 const NAV = [
   { id: "home", label: "Home", kind: "real" },
   { id: "flower", label: "Flower", kind: "cat" },
-  { id: "prerolls", label: "Pre-Rolls", kind: "cat" },
-  { id: "vapes", label: "Vapes", kind: "cat" },
-  { id: "concentrates", label: "Concentrates", kind: "cat" },
-  { id: "edibles", label: "Edibles", kind: "cat" },
   { id: "staff", label: "Staff Picks", kind: "special" },
   { id: "flash", label: "Flash Sale", kind: "special" },
   { id: "learn", label: "Learn", kind: "special" },
@@ -404,7 +400,7 @@ function ProductDetail({ p, onClose, onInfo }) {
             {p.staffPick && <Chip color={T.accent} solid>★ Staff Pick</Chip>}
             {p.illustrative && <Chip color={T.amber}>Illustrative</Chip>}
             {p.tier && <Chip>{p.tier}</Chip>}
-            {p.sourceId && <a href={`#social?strain=${p.sourceId}`} style={{color:T.accent,fontSize:12}}>Create assets from this sample ↗</a>}
+            {(p.sourceId||Object.keys(p.values||{}).length>0) && <a href={`#social?strain=${p.classificationSource?p.id:p.sourceId||p.id}`} style={{color:T.accent,fontSize:12}}>Create assets for this flower ↗</a>}
 
           </div>
           <div style={{ fontFamily: "'Newsreader', serif", fontSize: 34, fontWeight: 600, lineHeight: 1.05 }}>{p.name}</div>
@@ -591,7 +587,7 @@ function Learn({ onOpen }) {
 }
 
 /* ------------------------------ data editor ------------------------------ */
-const CATS_FOR_NEW = ["flower","preroll","vape","concentrate","edible"];
+const CATS_FOR_NEW = ["flower"];
 function Field({ label, value, onChange, type = "text", options }) {
   return (
     <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
@@ -683,7 +679,7 @@ function DataEditor({ products, onClose, onReplaceAll, onUpsert, onDelete }) {
   const saveDraft = () => { const checked=parseCsvToProducts(csvSerialize(CSV_MASTER,[productToRow(editing)])); if (checked.errors.length) {window.alert(checked.errors.join("\n"));return;} const original=products.find(p=>p.id===editing.id); const changed=original && ["primaryKey","primaryPct","secondaryKey","secondaryPct"].some(k=>editing[k]!==original[k]); onUpsert(changed?{...editing,band:undefined,sourceId:null,archivedValues:editing.values,values:{}}:editing); setEditing(null); };
 
   const currentCsv = useMemo(() => csvSerialize(CSV_MASTER, products.map(productToRow)), [products]);
-  const templates = useMemo(() => Object.keys(TEMPLATE_COLS).map((c) => ({ id: c, label: CAT[c].label, csv: templateCsv(c) })), []);
+  const templates = useMemo(() => ["flower"].map((c) => ({ id: c, label: CAT[c].label, csv: templateCsv(c) })), []);
 
   const runImport = (mode) => {
     const res = parseCsvToProducts(importText);
@@ -908,7 +904,7 @@ export default function TabletMenu({ profile = null }) {
   const [editorOpen, setEditorOpen] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
   const [elapsedSec, setElapsedSec] = useState(0);
-  const [products, setProducts] = useCatalog();
+  const [products, setProducts] = useFlowerCatalog();
   const [sort, setSort] = useState({ key: "tier", dir: "desc" });
 
   const reduced = typeof window !== "undefined" && window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false;

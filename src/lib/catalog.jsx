@@ -11,3 +11,9 @@ export function CatalogProvider({children}) {
   return <Context.Provider value={[current,setProducts]}>{storageError&&<div role="status" className="storage-warning">Browser storage is unavailable. Export your CSV before closing this tab.</div>}{children}</Context.Provider>;
 }
 export function useCatalog(){return useContext(Context)}
+
+export function useFlowerCatalog(){
+ const [all,setAll]=useCatalog();const flower=useMemo(()=>all.filter(p=>p.category==='flower'),[all]);
+ const setFlower=update=>setAll(prev=>{const next=typeof update==='function'?update(prev.filter(p=>p.category==='flower')):update;return [...prev.filter(p=>p.category!=='flower'),...next.filter(p=>p.category==='flower')]});
+ return [flower,setFlower];
+}

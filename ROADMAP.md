@@ -25,3 +25,7 @@
 - [🔴 Not Started] Multi-store catalog and brand distribution.
 
 No integrations, commercial outcomes, or approvals are implied by this roadmap.
+
+## Completed in v3
+
+Local lab-report import (PDF/CSV/image), editable review and reconciliation, uploaded flower photographs, custom social and chemovar exports, flower-only menus, clean label previews, and illustrated farm/buyer/staff workflows are implemented. Buyer search operates on the local catalog; supplier discovery, availability, ordering, cloud sharing, and multi-device synchronization remain future work. Additional lab-layout fixtures and broader OCR language/orientation support would extend importer coverage.
